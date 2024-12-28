@@ -7,7 +7,7 @@ terraform {
   required_providers {
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = ">= 1.35.2"
+      version = ">= 1.49.1"
     }
     http = {
       source = "hashicorp/http"
@@ -17,9 +17,9 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "~> 4.0"
     }
-    flux = {
-      source  = "fluxcd/flux"
-      version = ">= 1.1.0"
+    github = {
+      source  = "integrations/github"
+      version = ">= 6.4.0"
     }
   }
 }
