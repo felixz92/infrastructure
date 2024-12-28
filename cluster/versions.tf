@@ -21,9 +21,5 @@ terraform {
       source  = "fluxcd/flux"
       version = ">= 1.1.0"
     }
-    tfe = {
-      source = "hashicorp/tfe"
-      version = "~> 0.49.2"
-    }
   }
 }
