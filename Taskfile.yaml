@@ -1,0 +1,39 @@
+version: '3'
+
+vars:
+  PASSWORD_STORE_HCLOUD_PATH: Personal/development-hetzner/token-staging
+  PASSWORD_STORE_LETS_ENCRYPT_EMAIL_PATH: kubernetes-staging/kubernetes-lets-encrypt-email/password
+  CLUSTER_NAME:
+    sh: if [ -n "$ENVIRONMENT" ]; then echo "$ENVIRONMENT" ; else exit 1 ; fi
+
+tasks:
+  apply-infra:
+    env:
+      TF_VAR_environment:
+        sh: printf {{.CLUSTER_NAME}}
+      TF_VAR_lets_encrypt_email:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_LETS_ENCRYPT_EMAIL_PATH}}
+      TF_VAR_hcloud_token:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_HCLOUD_PATH}}
+    cmds:
+      - cd cluster && terraform apply
+  destroy-infra:
+    env:
+      TF_VAR_environment:
+        sh: printf {{.CLUSTER_NAME}}
+      TF_VAR_lets_encrypt_email:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_LETS_ENCRYPT_EMAIL_PATH}}
+      TF_VAR_hcloud_token:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_HCLOUD_PATH}}
+    cmds:
+      - cd cluster && terraform destroy
+  kubeconfig:
+    env:
+      TF_VAR_environment:
+        sh: printf {{.CLUSTER_NAME}}
+      TF_VAR_lets_encrypt_email:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_LETS_ENCRYPT_EMAIL_PATH}}
+      TF_VAR_hcloud_token:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_HCLOUD_PATH}}
+    cmds:
+      - cd cluster && terraform output --raw kubeconfig > ~/.kube./config-{{.CLUSTER_NAME}}
