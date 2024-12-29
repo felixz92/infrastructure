@@ -1,6 +1,8 @@
 https://raw.githubusercontent.com/vmware-tanzu/helm-charts/velero-5.0.2/charts/velero/crds/backuprepositories.yaml
 https://raw.githubusercontent.com/vmware-tanzu/helm-charts/velero-5.0.2/charts/velero/crds/backups.yaml
 https://raw.githubusercontent.com/vmware-tanzu/helm-charts/velero-5.0.2/charts/velero/crds/backupstoragelocations.yaml
+https://raw.githubusercontent.com/vmware-tanzu/helm-charts/velero-5.0.2/charts/velero/crds/datadownloads.yaml
+https://raw.githubusercontent.com/vmware-tanzu/helm-charts/velero-5.0.2/charts/velero/crds/datauploads.yaml
 https://raw.githubusercontent.com/vmware-tanzu/helm-charts/velero-5.0.2/charts/velero/crds/deletebackuprequests.yaml
 https://raw.githubusercontent.com/vmware-tanzu/helm-charts/velero-5.0.2/charts/velero/crds/downloadrequests.yaml
 https://raw.githubusercontent.com/vmware-tanzu/helm-charts/velero-5.0.2/charts/velero/crds/podvolumebackups.yaml
