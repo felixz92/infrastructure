@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- authentik.yaml
+- external-secrets.yaml
+- grafana.yaml
+- grocy.yaml
+- kyverno.yaml
+- monitoring.yaml
+- ocis.yaml
+- robusta.yaml
+- trivy-system.yaml
+- velero.yaml
+- weaveworks.yaml

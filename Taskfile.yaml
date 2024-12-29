@@ -3,6 +3,8 @@ version: '3'
 vars:
   PASSWORD_STORE_HCLOUD_PATH: Personal/development-hetzner/token-staging
   PASSWORD_STORE_LETS_ENCRYPT_EMAIL_PATH: kubernetes-staging/kubernetes-lets-encrypt-email/password
+  PASSWORD_STORE_GITHUB_PAT_PATH: Personal/development-github.com/macos-pat
+  PASSWORD_STORE_GITHUB_OWNER_PATH: Personal/development-github.com/username
   CLUSTER_NAME:
     sh: if [ -n "$ENVIRONMENT" ]; then echo "$ENVIRONMENT" ; else exit 1 ; fi
 
@@ -21,6 +23,10 @@ tasks:
         sh: op read --no-newline op://{{.PASSWORD_STORE_LETS_ENCRYPT_EMAIL_PATH}}
       TF_VAR_hcloud_token:
         sh: op read --no-newline op://{{.PASSWORD_STORE_HCLOUD_PATH}}
+      TF_VAR_github_owner:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_GITHUB_OWNER_PATH}}
+      TF_VAR_github_token:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_GITHUB_PAT_PATH}}
     cmds:
       - cd cluster && terraform apply
   destroy-infra:
@@ -31,6 +37,10 @@ tasks:
         sh: op read --no-newline op://{{.PASSWORD_STORE_LETS_ENCRYPT_EMAIL_PATH}}
       TF_VAR_hcloud_token:
         sh: op read --no-newline op://{{.PASSWORD_STORE_HCLOUD_PATH}}
+      TF_VAR_github_owner:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_GITHUB_OWNER_PATH}}
+      TF_VAR_github_token:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_GITHUB_PAT_PATH}}
     cmds:
       - cd cluster && terraform destroy
   kubeconfig:
