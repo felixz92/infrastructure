@@ -232,13 +232,18 @@ module "kube-hetzner" {
    lb_hostname = var.base_domain
 
   # Extra commands to be executed after the `kubectl apply -k` (useful for post-install actions, e.g. wait for CRD, apply additional manifests, etc.).
-  # extra_kustomize_deployment_commands=""
+  extra_kustomize_deployment_commands = <<-EOT
+    kubectl apply -k https://github.com/FelixZ92/infrastructure.git/flux/staging/flux-system
+  EOT
 
   # Extra values that will be passed to the `extra-manifests/kustomization.yaml.tpl` if its present.
   extra_kustomize_parameters = {
     environment : var.environment
     base_domain: var.base_domain
     lets_encrypt_email: var.lets_encrypt_email
+    flux_public_key: base64encode(tls_private_key.main.public_key_openssh)
+    flux_private_key: base64encode(tls_private_key.main.private_key_pem)
+    flux_ssh_known_hosts: base64encode(file(".ssh/known_hosts"))
   }
 
   create_kubeconfig = false
