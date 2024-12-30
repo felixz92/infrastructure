@@ -1,0 +1,238 @@
+# -- VictoriaMetrics Operator dependency chart configuration. More values can be found [here](https://docs.victoriametrics.com/helm/victoriametrics-operator#parameters). Also checkout [here](https://docs.victoriametrics.com/operator/vars) possible ENV variables to configure operator behaviour
+victoria-metrics-operator:
+  enabled: true
+  crds:
+    enabled: false
+    plain: false
+  replicaCount: 1
+
+  logLevel: "info"
+
+  operator:
+    disable_prometheus_converter: false
+    enable_converter_ownership: true
+
+  resources:
+    limits:
+      cpu: 120m
+      memory: 320Mi
+    requests:
+      cpu: 20m
+      memory: 120Mi
+
+    certManager:
+      enabled: true
+
+  serviceMonitor:
+    enabled: true
+
+defaultDashboards:
+  enabled: true
+  dashboards:
+    victoriametrics-vmalert:
+      enabled: true
+    victoriametrics-operator:
+      enabled: true
+    node-exporter-full:
+      enabled: true
+
+# -- Create default rules for monitoring the cluster
+defaultRules:
+  create: true
+
+# Configures vmsingle params
+vmsingle:
+  enabled: true
+  # -- Full spec for VMSingle CRD. Allowed values describe [here](https://docs.victoriametrics.com/operator/api#vmsinglespec)
+  spec:
+    port: "8429"
+    # -- Data retention period. Possible units character: h(ours), d(ays), w(eeks), y(ears), if no unit character specified - month. The minimum retention period is 24h. See these [docs](https://docs.victoriametrics.com/single-server-victoriametrics/#retention)
+    retentionPeriod: "4w"
+    replicaCount: 1
+    extraArgs: {}
+    storage:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 20Gi
+
+alertmanager:
+  enabled: true
+  # -- (object) Full spec for VMAlertmanager CRD. Allowed values described [here](https://docs.victoriametrics.com/operator/api#vmalertmanagerspec)
+  spec:
+    replicaCount: 1
+    port: "9093"
+    selectAllByDefault: true
+    image:
+      tag: v0.27.0
+    externalURL: "https://alertmanager.${BASE_DOMAIN}"
+    routePrefix: /
+
+  config:
+    templates:
+      - "/etc/vm/configs/**/*.tmpl"
+    route:
+      # group_by: ["alertgroup", "job"]
+      # group_wait: 30s
+      # group_interval: 5m
+      # repeat_interval: 12h
+      receiver: "blackhole"
+      ## routes:
+        ###################################################
+        ## Duplicate code_owner routes to teams
+        ## These will send alerts to team channels but continue
+        ## processing through the rest of the tree to handled by on-call
+        # - matchers:
+        #     - code_owner_channel!=""
+        #     - severity=~"info|warning|critical"
+        #   group_by: ["code_owner_channel", "alertgroup", "job"]
+        #   receiver: slack-code-owners
+        # ###################################################
+        # ## Standard on-call routes
+        # - matchers:
+        #     - severity=~"info|warning|critical"
+        #   receiver: slack-monitoring
+        #   continue: true
+
+    # inhibit_rules:
+    #   - target_matchers:
+    #       - severity=~"warning|info"
+    #     source_matchers:
+    #       - severity=critical
+    #     equal:
+    #       - cluster
+    #       - namespace
+    #       - alertname
+    #   - target_matchers:
+    #       - severity=info
+    #     source_matchers:
+    #       - severity=warning
+    #     equal:
+    #       - cluster
+    #       - namespace
+    #       - alertname
+    #   - target_matchers:
+    #       - severity=info
+    #     source_matchers:
+    #       - alertname=InfoInhibitor
+    #     equal:
+    #       - cluster
+    #       - namespace
+
+    receivers:
+      - name: blackhole
+      # - name: "slack-monitoring"
+      #   slack_configs:
+      #     - channel: "#channel"
+      #       send_resolved: true
+      #       title: '{{ template "slack.monzo.title" . }}'
+      #       icon_emoji: '{{ template "slack.monzo.icon_emoji" . }}'
+      #       color: '{{ template "slack.monzo.color" . }}'
+      #       text: '{{ template "slack.monzo.text" . }}'
+      #       actions:
+      #         - type: button
+      #           text: "Runbook :green_book:"
+      #           url: "{{ (index .Alerts 0).Annotations.runbook_url }}"
+      #         - type: button
+      #           text: "Query :mag:"
+      #           url: "{{ (index .Alerts 0).GeneratorURL }}"
+      #         - type: button
+      #           text: "Dashboard :grafana:"
+      #           url: "{{ (index .Alerts 0).Annotations.dashboard }}"
+      #         - type: button
+      #           text: "Silence :no_bell:"
+      #           url: '{{ template "__alert_silence_link" . }}'
+      #         - type: button
+      #           text: '{{ template "slack.monzo.link_button_text" . }}'
+      #           url: "{{ .CommonAnnotations.link_url }}"
+      # - name: slack-code-owners
+      #   slack_configs:
+      #     - channel: "#{{ .CommonLabels.code_owner_channel }}"
+      #       send_resolved: true
+      #       title: '{{ template "slack.monzo.title" . }}'
+      #       icon_emoji: '{{ template "slack.monzo.icon_emoji" . }}'
+      #       color: '{{ template "slack.monzo.color" . }}'
+      #       text: '{{ template "slack.monzo.text" . }}'
+      #       actions:
+      #         - type: button
+      #           text: "Runbook :green_book:"
+      #           url: "{{ (index .Alerts 0).Annotations.runbook }}"
+      #         - type: button
+      #           text: "Query :mag:"
+      #           url: "{{ (index .Alerts 0).GeneratorURL }}"
+      #         - type: button
+      #           text: "Dashboard :grafana:"
+      #           url: "{{ (index .Alerts 0).Annotations.dashboard }}"
+      #         - type: button
+      #           text: "Silence :no_bell:"
+      #           url: '{{ template "__alert_silence_link" . }}'
+      #         - type: button
+      #           text: '{{ template "slack.monzo.link_button_text" . }}'
+      #           url: "{{ .CommonAnnotations.link_url }}"
+      #
+
+vmalert:
+  enabled: true
+
+vmagent:
+  # -- Create VMAgent CR
+  enabled: true
+  spec:
+    externalLabels:
+      cluster: ${ENVIROMENT}
+
+grafana:
+  enabled: true
+  sidecar:
+    dashboards:
+      multicluster: true
+  plugins:
+    - "https://github.com/VictoriaMetrics/victoriametrics-datasource/releases/download/v0.10.1/victoriametrics-datasource-v0.10.1.zip;victoriametrics-datasource"
+  grafana.ini:
+    plugins:
+      allow_loading_unsigned_plugins: victoriametrics-datasource
+
+# -- prometheus-node-exporter dependency chart configuration. For possible values check [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-node-exporter/values.yaml)
+prometheus-node-exporter:
+  enabled: true
+  vmScrape:
+    enabled: true
+
+kube-state-metrics:
+  enabled: true
+  vmScrape:
+    enabled: true
+
+kubelet:
+  enabled: true
+
+kubeApiServer:
+  enabled: true
+
+kubeControllerManager:
+  enabled: true
+
+  # -- If your kube controller manager is not deployed as a pod, specify IPs it can be found on
+  endpoints:
+    - 10.253.0.101
+    - 10.254.0.101
+    - 10.255.0.101
+
+# Component scraping etcd
+kubeEtcd:
+  enabled: true
+  endpoints:
+    - 10.253.0.101
+    - 10.254.0.101
+    - 10.255.0.101
+
+kubeScheduler:
+  enabled: true
+  endpoints:
+    - 10.253.0.101
+    - 10.254.0.101
+    - 10.255.0.101
+
+kubeProxy:
+  enabled: false
