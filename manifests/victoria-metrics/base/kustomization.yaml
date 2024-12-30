@@ -5,5 +5,7 @@ resources:
 
 configMapGenerator:
   - name: victoria-metrics-k8s-stack-values
+    options:
+      disableNameSuffixHash: true
     files:
       - values.yaml
