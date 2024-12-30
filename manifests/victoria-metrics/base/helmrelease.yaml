@@ -4,7 +4,8 @@ metadata:
   name: victoria-metrics
 spec:
   interval: 10m
-  url: https://victoriametrics.github.io/helm-charts
+  type: oci
+  url: oci://ghcr.io/victoriametrics/helm-charts
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
@@ -15,7 +16,7 @@ spec:
   chart:
     spec:
       chart: victoria-metrics-k8s-stack
-      version: v1.108.1
+      version: 0.33.1
       sourceRef:
         kind: HelmRepository
         name: victoria-metrics
