@@ -8,7 +8,7 @@ spec:
   interval: 10m0s
   path: manifests/victoria-metrics/${ENVIRONMENT}
   prune: true
-  targetNamespace: observability
+  targetNamespace: monitoring
   sourceRef:
     kind: GitRepository
     name: flux-system
