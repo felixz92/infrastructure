@@ -212,13 +212,17 @@ kubeApiServer:
 
 kubeControllerManager:
   enabled: true
-
-  # -- If your kube controller manager is not deployed as a pod, specify IPs it can be found on
   endpoints:
     - 10.253.0.101
     - 10.254.0.101
     - 10.255.0.101
-
+  vmScrape:
+    spec:
+      endpoints:
+        - tlsConfig:
+            caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            serverName: kubernetes
+            insecureSkipVerify: true
 # Component scraping etcd
 kubeEtcd:
   enabled: true
@@ -226,6 +230,13 @@ kubeEtcd:
     - 10.253.0.101
     - 10.254.0.101
     - 10.255.0.101
+  vmScrape:
+    spec:
+      endpoints:
+        - tlsConfig:
+            caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            serverName: kubernetes
+            insecureSkipVerify: true
 
 kubeScheduler:
   enabled: true
@@ -233,6 +244,13 @@ kubeScheduler:
     - 10.253.0.101
     - 10.254.0.101
     - 10.255.0.101
+  vmScrape:
+    spec:
+      endpoints:
+        - tlsConfig:
+            caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            serverName: kubernetes
+            insecureSkipVerify: true
 
 kubeProxy:
   enabled: false
