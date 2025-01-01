@@ -2,6 +2,7 @@
 *.tfstate
 *.tfstate.backup
 *kubeconfig*
+*talosconfig*
 secrets.tfvars
 .idea
 *.iml

@@ -276,6 +276,54 @@
           "store_path": "/nix/store/v7axpyazl9mvkylr8na9hxyhnpgdry3x-opentofu-1.8.7"
         }
       }
+    },
+    "talosctl@1.8.3": {
+      "last_modified": "2024-12-03T12:40:06Z",
+      "resolved": "github:NixOS/nixpkgs/566e53c2ad750c84f6d31f9ccb9d00f823165550#talosctl",
+      "source": "devbox-search",
+      "version": "1.8.3",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/b2j7827gmk4fd19yxs1486n8q5v2vamw-talosctl-1.8.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/b2j7827gmk4fd19yxs1486n8q5v2vamw-talosctl-1.8.3"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/y89131ai42rjfhzy07ay7icgxphvgsz8-talosctl-1.8.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/y89131ai42rjfhzy07ay7icgxphvgsz8-talosctl-1.8.3"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/59qrk1fsa287alygin31sd2fgfj2cnrh-talosctl-1.8.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/59qrk1fsa287alygin31sd2fgfj2cnrh-talosctl-1.8.3"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/5j64c6dz4a20mispwk2qaqgz1pdjbp38-talosctl-1.8.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/5j64c6dz4a20mispwk2qaqgz1pdjbp38-talosctl-1.8.3"
+        }
+      }
     }
   }
 }
