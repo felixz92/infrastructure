@@ -1,22 +1,3 @@
-data "http" "kube_api_health" {
-  url      = "${module.kubernetes.kubeconfig_data.server}/version"
-  insecure = true
-
-  retry {
-    attempts     = 60
-    min_delay_ms = 5000
-    max_delay_ms = 5000
-  }
-
-  lifecycle {
-    postcondition {
-      condition     = self.status_code == 401
-      error_message = "Status code invalid"
-    }
-  }
-
-  depends_on = [module.kubernetes]
-}
 
 provider "flux" {
   kubernetes = {
