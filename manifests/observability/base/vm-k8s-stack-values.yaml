@@ -6,6 +6,7 @@ defaultDashboards:
   grafanaOperator:
     enabled: true
     spec:
+      folderRef: kubernetes
       instanceSelector:
         matchLabels:
           dashboards: grafana
