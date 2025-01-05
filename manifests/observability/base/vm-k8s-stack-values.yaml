@@ -195,6 +195,8 @@ kubeControllerManager:
 # Component scraping etcd
 kubeEtcd:
   enabled: true
+  endpoints:
+    - 10.0.64.1
 
 kubeScheduler:
   enabled: true
