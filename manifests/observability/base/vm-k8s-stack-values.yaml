@@ -33,8 +33,6 @@ vmsingle:
     retentionPeriod: "4w"
     replicaCount: 1
     extraArgs: {}
-    secrets:
-      - etcd-certs
     storage:
       accessModes:
         - ReadWriteOnce
@@ -166,6 +164,8 @@ vmagent:
   spec:
     externalLabels:
       cluster: ${ENVIROMENT}
+    secrets:
+      - etcd-certs
 
 grafana:
   enabled: false
