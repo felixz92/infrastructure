@@ -233,7 +233,7 @@ kubeScheduler:
           scheme: https
           tlsConfig:
             caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-            serverName: 127.0.0.1
+            insecureSkipVerify: true
 
 kubeProxy:
   enabled: false
