@@ -4,3 +4,5 @@ metadata:
   name: authentik
   labels:
     app.kubernetes.io/ingress: allowed
+    pod-security.kubernetes.io/enforce: restricted
+    
