@@ -7,6 +7,7 @@ resources:
 - grocy.yaml
 - kyverno.yaml
 - monitoring.yaml
+- observability.yaml
 - ocis.yaml
 - robusta.yaml
 - trivy-system.yaml
