@@ -5,8 +5,6 @@ metadata:
   name: vmks
 spec:
   interval: 10m
-  dependsOn:
-    - name: victoria-metrics-operator
   chart:
     spec:
       chart: victoria-metrics-k8s-stack

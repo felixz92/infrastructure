@@ -10,6 +10,7 @@ spec:
   prune: true
   dependsOn:
     - name: crds
+    - name: victoria-metrics-operator
   targetNamespace: observability
   sourceRef:
     kind: GitRepository
