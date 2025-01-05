@@ -1,3 +1,9 @@
+provider "kubernetes" {
+  host = module.kubernetes.kubeconfig_data.server
+  client_certificate = module.kubernetes.kubeconfig_data.cert
+  cluster_ca_certificate = module.kubernetes.kubeconfig_data.ca
+  client_key = module.kubernetes.kubeconfig_data.key
+}
 
 provider "flux" {
   kubernetes = {
@@ -41,4 +47,24 @@ resource "flux_bootstrap_git" "this" {
   depends_on = [github_repository_deploy_key.main, data.http.kube_api_health]
   path = local.target_path
   version = var.flux_version
+}
+
+resource "kubernetes_config_map" "cluster_env" {
+    metadata {
+        name = "cluster-env"
+        namespace = "flux-system"
+    }
+
+    data = {
+        "ENVIRONMENT" = var.environment
+        "BASE_DOMAIN" = var.base_domain
+        "LETSENCRYPT_EMAIL" = var.lets_encrypt_email
+    }
+
+    depends_on = [flux_bootstrap_git.this]
+}
+
+resource "kubernetes_manifest" "bootstrap" {
+  manifest = yamldecode(file("${path.module}/../manifests/flux/staging/bootstrap.yaml"))
+  depends_on = [flux_bootstrap_git.this, kubernetes_config_map.cluster_env]
 }

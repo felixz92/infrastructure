@@ -1,0 +1,45 @@
+image:
+  registry: ""
+  repository: victoriametrics/operator
+  tag: ""
+
+crds:
+  enabled: false
+  plain: false
+
+replicaCount: 1
+
+logLevel: "info"
+
+podSecurityContext:
+  enabled: true
+  runAsNonRoot: true
+securityContext:
+  enabled: true
+  allowPrivilegeEscalation: false
+  seccompProfile:
+    type: RuntimeDefault
+  capabilities:
+    drop:
+      - ALL
+  runAsNonRoot: true
+operator:
+  disable_prometheus_converter: false
+  enable_converter_ownership: true
+  useCustomConfigReloader: true
+
+# -- Resource object
+resources:
+  limits:
+    cpu: 120m
+    memory: 320Mi
+  requests:
+    cpu: 20m
+    memory: 120Mi
+
+admissionWebhooks:
+  certManager:
+    enabled: true
+
+serviceMonitor:
+  enabled: true

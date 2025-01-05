@@ -1,30 +1,5 @@
-# -- VictoriaMetrics Operator dependency chart configuration. More values can be found [here](https://docs.victoriametrics.com/helm/victoriametrics-operator#parameters). Also checkout [here](https://docs.victoriametrics.com/operator/vars) possible ENV variables to configure operator behaviour
 victoria-metrics-operator:
-  enabled: true
-  crds:
-    enabled: false
-    plain: false
-  replicaCount: 1
-
-  logLevel: "info"
-
-  operator:
-    disable_prometheus_converter: false
-    enable_converter_ownership: true
-
-  resources:
-    limits:
-      cpu: 120m
-      memory: 320Mi
-    requests:
-      cpu: 20m
-      memory: 120Mi
-
-    certManager:
-      enabled: true
-
-  serviceMonitor:
-    enabled: true
+  enabled: false
 
 defaultDashboards:
   enabled: true
