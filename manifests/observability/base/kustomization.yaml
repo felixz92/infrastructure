@@ -4,6 +4,8 @@ resources:
   - repo.yaml
   - grafana.yaml
   - vm-k8s-stack.yaml
+  - datasources.yaml
+  - folders.yaml
 
 configMapGenerator:
   - name: victoria-metrics-k8s-stack-values

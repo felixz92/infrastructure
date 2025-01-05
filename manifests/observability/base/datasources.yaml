@@ -34,4 +34,31 @@ spec:
   allowCrossNamespaceImport: true
   plugins:
     - name: "https://github.com/VictoriaMetrics/victoriametrics-datasource/releases/download/v0.10.1/victoriametrics-datasource-v0.10.1.zip;victoriametrics-datasource"
-      version: ""
+      version: "0.10.1"
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: hcloud
+spec:
+  valuesFrom:
+    - targetPath: secureJsonData.apiToken
+      valueFrom:
+        secretKeyRef:
+          key: token
+          name: hcloud-token
+          optional: true
+  datasource:
+    name: HetznerCloud
+    isDefault: false
+    type: apricote-hcloud-datasource
+    uid: hcloud
+    access: proxy
+    secureJsonData:
+      apiToken: ${token}
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  plugins:
+    - name: apricote-hcloud-datasource
+      version: 0.3.0
