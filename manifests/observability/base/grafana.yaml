@@ -7,6 +7,8 @@ metadata:
     dashboards: "grafana"
 spec:
   config:
+    plugins:
+      allow_loading_unsigned_plugins: victoriametrics-datasource
     security:
       admin_user: root
       admin_password: secret

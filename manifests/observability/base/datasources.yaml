@@ -10,26 +10,28 @@ spec:
     type: prometheus
     url: http://vmsingle-vmks-victoria-metrics-k8s-stack.observability.svc.cluster.local.:8429
     uid: prometheus
+    access: proxy
   instanceSelector:
     matchLabels:
       dashboards: "grafana"
   allowCrossNamespaceImport: true
-#---
-#apiVersion: grafana.integreatly.org/v1beta1
-#kind: GrafanaDatasource
-#metadata:
-#  name: victoria-metrics
-#spec:
-#  datasource:
-#    name: VictoriaMetrics
-#    isDefault: false
-#    type: victoriametrics-datasource
-#    url: http://vmsingle-vmks-victoria-metrics-k8s-stack.observability.svc.cluster.local.:8429
-#    uid: victoriametrics
-#  instanceSelector:
-#    matchLabels:
-#      dashboards: "grafana"
-#  allowCrossNamespaceImport: true
-#  plugins:
-#    - name:
-#      version:
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: victoria-metrics
+spec:
+  datasource:
+    name: VictoriaMetricsDS
+    isDefault: false
+    type: victoriametrics-datasource
+    url: http://vmsingle-vmks-victoria-metrics-k8s-stack.observability.svc.cluster.local.:8429
+    uid: victoriametrics
+    access: proxy
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  allowCrossNamespaceImport: true
+  plugins:
+    - name: "https://github.com/VictoriaMetrics/victoriametrics-datasource/releases/download/v0.10.1/victoriametrics-datasource-v0.10.1.zip;victoriametrics-datasource"
+      version: ""
