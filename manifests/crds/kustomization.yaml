@@ -5,3 +5,4 @@ resources:
 - velero
 - victoria-metrics
 - prometheus-operator
+- grafana-operator
