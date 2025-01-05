@@ -3,6 +3,13 @@ victoria-metrics-operator:
 
 defaultDashboards:
   enabled: true
+  grafanaOperator:
+    enabled: true
+    spec:
+      instanceSelector:
+        matchLabels:
+          dashboards: grafana
+      allowCrossNamespaceImport: true
   dashboards:
     victoriametrics-vmalert:
       enabled: true

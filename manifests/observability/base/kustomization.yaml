@@ -2,6 +2,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - repo.yaml
+  - grafana.yaml
+  - vm-k8s-stack.yaml
 
 configMapGenerator:
   - name: victoria-metrics-k8s-stack-values

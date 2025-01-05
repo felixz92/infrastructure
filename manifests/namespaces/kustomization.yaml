@@ -13,3 +13,4 @@ resources:
 - velero.yaml
 - weaveworks.yaml
 - victoria-metrics.yaml
+- observability.yaml
