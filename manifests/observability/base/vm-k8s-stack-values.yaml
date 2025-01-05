@@ -187,6 +187,10 @@ kubeApiServer:
 
 kubeControllerManager:
   enabled: true
+  service:
+    selector:
+      k8s-app: kube-controller-manager
+      tier: control-plane
 
 # Component scraping etcd
 kubeEtcd:
@@ -194,6 +198,10 @@ kubeEtcd:
 
 kubeScheduler:
   enabled: true
+  service:
+    selector:
+      k8s-app: kube-scheduler
+      tier: control-plane
 
 kubeProxy:
   enabled: false
