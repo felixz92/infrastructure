@@ -33,6 +33,8 @@ vmsingle:
     retentionPeriod: "4w"
     replicaCount: 1
     extraArgs: {}
+    secrets:
+      - etcd-certs
     storage:
       accessModes:
         - ReadWriteOnce
@@ -200,7 +202,15 @@ kubeEtcd:
   enabled: true
   endpoints:
     - 10.0.64.1
-
+  vmScrape:
+    spec:
+      endpoints:
+        - port: http-metrics
+          scheme: https
+          tlsConfig:
+            caFile: /etc/vm/secrets/etcd-certs/etcd-ca.crt
+            certFile: /etc/vm/secrets/etcd-certs/etcd-client.crt
+            keyFile: /etc/vm/secrets/etcd-certs/etcd-client-key.key
 kubeScheduler:
   enabled: true
   endpoints:
