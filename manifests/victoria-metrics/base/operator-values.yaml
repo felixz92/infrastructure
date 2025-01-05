@@ -37,6 +37,10 @@ resources:
     cpu: 20m
     memory: 120Mi
 
+env:
+  - name: VM_ENABLESTRICTSECURITY
+    value: "true"
+
 admissionWebhooks:
   certManager:
     enabled: true

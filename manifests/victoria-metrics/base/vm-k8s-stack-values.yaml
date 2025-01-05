@@ -170,7 +170,7 @@ grafana:
 
 # -- prometheus-node-exporter dependency chart configuration. For possible values check [here](https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus-node-exporter/values.yaml)
 prometheus-node-exporter:
-  enabled: true
+  enabled: false
   vmScrape:
     enabled: true
 
@@ -187,60 +187,13 @@ kubeApiServer:
 
 kubeControllerManager:
   enabled: true
-  endpoints:
-    - 10.253.0.101
-    - 10.254.0.101
-    - 10.255.0.101
-  vmScrape:
-    spec:
-      endpoints:
-        - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
-          # bearerTokenSecret:
-          #   key: ""
-          port: http-metrics
-          scheme: https
-          tlsConfig:
-            caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-            serverName: kubernetes
-            insecureSkipVerify: true
+
 # Component scraping etcd
 kubeEtcd:
   enabled: true
-  endpoints:
-    - 10.253.0.101
-    - 10.254.0.101
-    - 10.255.0.101
-  vmScrape:
-    spec:
-      endpoints:
-        - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
-          # bearerTokenSecret:
-          #   key: ""
-          port: http-metrics
-          scheme: https
-          tlsConfig:
-            caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-            serverName: kubernetes
-            insecureSkipVerify: true
 
 kubeScheduler:
   enabled: true
-  endpoints:
-    - 10.253.0.101
-    - 10.254.0.101
-    - 10.255.0.101
-  vmScrape:
-    spec:
-      endpoints:
-        - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
-          # bearerTokenSecret:
-          #   key: ""
-          port: http-metrics
-          scheme: https
-          tlsConfig:
-            caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-            serverName: kubernetes
-            insecureSkipVerify: true
 
 kubeProxy:
   enabled: false
