@@ -12,3 +12,4 @@ resources:
 - trivy-system.yaml
 - velero.yaml
 - weaveworks.yaml
+- victoria-metrics.yaml

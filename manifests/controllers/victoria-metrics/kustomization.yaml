@@ -1,11 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: victoria-metrics
 resources:
+  - operator.yaml
   - repo.yaml
 
 configMapGenerator:
-  - name: victoria-metrics-k8s-stack-values
+  - name: victoria-metrics-operator-values
     options:
       disableNameSuffixHash: true
     files:
-      - values.yaml=vm-k8s-stack-values.yaml
+      - values.yaml=operator-values.yaml
