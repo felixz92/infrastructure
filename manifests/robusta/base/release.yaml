@@ -24,6 +24,11 @@ spec:
       grafana_url: ""
       prometheus_url: "http://vmsingle-vmks-victoria-metrics-k8s-stack.observability.svc.cluster.local:8429"
     clusterName: ${ENVIRONMENT}
+    enableHolmesGPT: true
+    holmes:
+      additionalEnvVars:
+        - name: ROBUSTA_AI
+          value: "true"
     kubewatch:
       securityContext:
         container:
