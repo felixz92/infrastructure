@@ -6,6 +6,7 @@ resources:
   - vm-k8s-stack.yaml
   - datasources.yaml
   - folders.yaml
+  - alertmanager-config.yaml
 
 configMapGenerator:
   - name: victoria-metrics-k8s-stack-values

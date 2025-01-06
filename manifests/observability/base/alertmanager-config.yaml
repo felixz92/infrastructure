@@ -2,6 +2,8 @@ apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMAlertmanagerConfig
 metadata:
   name: robusta
+  labels:
+    alertmanager-config: global
 spec:
   route:
     group_by: [ '...' ]
