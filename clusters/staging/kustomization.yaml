@@ -6,6 +6,16 @@ resources:
 
 patches:
   - target:
+      kind: Kustomization
+      name: flux-system
+    patch: |
+      - op: add
+        path: /spec/postBuild
+        value:
+          substituteFrom:
+            - kind: ConfigMap
+              name: cluster-env
+  - target:
       kind: Deployment
     patch: |
       - op: replace
