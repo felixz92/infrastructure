@@ -6,4 +6,5 @@ resources:
 - namespaces.yaml
 - node-exporter.yaml
 - observability.yaml
+- robusta.yaml
 - victoria-metrics-operator.yaml
