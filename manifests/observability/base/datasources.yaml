@@ -39,6 +39,26 @@ spec:
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDatasource
 metadata:
+  name: victoria-logs
+spec:
+  datasource:
+    name: VictoriaLogs
+    isDefault: false
+    type: victoriametrics-logs-datasource
+    url: http://vlogs-victoria-logs.observability.svc.cluster.local.:9428
+    uid: victorialogs
+    access: proxy
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  allowCrossNamespaceImport: true
+  plugins:
+    - name: "https://github.com/VictoriaMetrics/victorialogs-datasource/releases/download/v0.13.1/victoriametrics-logs-datasource-v0.13.1.zip;victoriametrics-logs-datasource"
+      version: "0.13.1"
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
   name: hcloud
 spec:
   valuesFrom:
