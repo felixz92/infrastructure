@@ -4,5 +4,6 @@ resources:
 - crds.yaml
 - grafana-operator.yaml
 - namespaces.yaml
+- node-exporter.yaml
 - observability.yaml
 - victoria-metrics-operator.yaml
