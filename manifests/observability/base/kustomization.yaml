@@ -4,7 +4,7 @@ resources:
   - alloy
   - victoria-metrics-stack
   - grafana
-  - logs/vlogs.yaml
+  - logs
 
 configurations:
   - kustomize-configurations.yaml

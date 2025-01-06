@@ -9,3 +9,14 @@ spec:
       dashboards: "grafana"
   title: Kubernetes
   allowCrossNamespaceImport: true
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: observability
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  title: Observability
+  allowCrossNamespaceImport: true
