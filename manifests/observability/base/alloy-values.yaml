@@ -11,6 +11,7 @@ alloy:
     key: config.alloy
   enableReporting: false
   securityContext:
+    runAsUser: 473
     allowPrivilegeEscalation: false
     capabilities:
       drop:
