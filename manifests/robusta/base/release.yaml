@@ -18,6 +18,7 @@ spec:
     - kind: Secret
       name: robusta-values
   values:
+    clusterName: ${ENVIRONMENT}
     kubewatch:
       securityContext:
         container:
