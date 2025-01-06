@@ -28,7 +28,7 @@ tasks:
       TF_VAR_github_token:
         sh: op read --no-newline op://{{.PASSWORD_STORE_GITHUB_PAT_PATH}}
     cmds:
-      - cd cluster2 && terraform apply
+      - cd provision && terraform apply
   destroy-infra:
     env:
       TF_VAR_environment:
@@ -42,10 +42,10 @@ tasks:
       TF_VAR_github_token:
         sh: op read --no-newline op://{{.PASSWORD_STORE_GITHUB_PAT_PATH}}
     cmds:
-      - cd cluster2 && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.worker'
-      - cd cluster2 && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.control_plane'
-      - cd cluster2 && terraform state rm 'module.kubernetes.talos_machine_secrets.this'
-      - cd cluster2 && terraform destroy
+      - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.worker'
+      - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.control_plane'
+      - cd provision && terraform state rm 'module.kubernetes.talos_machine_secrets.this'
+      - cd provision && terraform destroy
   kubeconfig:
     env:
       TF_VAR_environment:
