@@ -207,9 +207,9 @@ vmagent:
     resources:
       requests:
         cpu: 40m
-        memory: 100Mi
+        memory: 150Mi
       limits:
-        memory: 100Mi
+        memory: 150Mi
     configReloaderResources:
       requests:
         cpu: 10m
