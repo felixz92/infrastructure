@@ -17,7 +17,7 @@ discovery.relabel "pod_logs" {
 
   // Label creation - "namespace" field from "__meta_kubernetes_namespace"
   rule {
-    source_labels = ["__meta_kubernetes_namespace]
+    source_labels = ["__meta_kubernetes_namespace"]
     action = "replace"
     target_label = "namespace"
   }
