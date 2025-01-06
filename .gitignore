@@ -9,5 +9,6 @@ secrets.tfvars
 deployments/monitoring.yaml
 *backup.yaml
 tmp/
+tmp*/
 target*/
 .ssh
