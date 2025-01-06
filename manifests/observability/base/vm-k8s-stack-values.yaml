@@ -197,6 +197,18 @@ kubeControllerManager:
       k8s-app: kube-controller-manager
       tier: control-plane
 
+  vmScrape:
+    spec:
+      endpoints:
+        - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+          # bearerTokenSecret:
+          #   key: ""
+          port: http-metrics
+          scheme: https
+          tlsConfig:
+            caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            serverName: kubernetes
+            insecureSkipVerify: true
 # Component scraping etcd
 kubeEtcd:
   enabled: true
@@ -223,9 +235,6 @@ kubeScheduler:
   # -- Spec for VMServiceScrape CRD is [here](https://docs.victoriametrics.com/operator/api.html#vmservicescrapespec)
   vmScrape:
     spec:
-      jobLabel: jobLabel
-      namespaceSelector:
-        matchNames: [kube-system]
       endpoints:
         - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
           # bearerTokenSecret:
