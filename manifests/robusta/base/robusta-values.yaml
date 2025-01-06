@@ -10,6 +10,7 @@ kubewatch:
       readOnlyRootFilesystem: false
       runAsUser: 1000
     pod:
+      runAsNonRoot: true
       seccompProfile:
         type: RuntimeDefault
 
@@ -29,6 +30,7 @@ runner:
           - ALL
       privileged: false
       readOnlyRootFilesystem: false
+      runAsUser: 65534
     pod:
       runAsNonRoot: true
       seccompProfile:
