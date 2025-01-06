@@ -7,11 +7,16 @@ resources:
   - datasources.yaml
   - folders.yaml
   - alertmanager-config.yaml
+  - alloy.yaml
+  - alloy
 
 configMapGenerator:
   - name: victoria-metrics-k8s-stack-values
     files:
       - values.yaml=vm-k8s-stack-values.yaml
+  - name: alloy-values
+    files:
+      - values.yaml=alloy-values.yaml
 
 configurations:
   - kustomize-configurations.yaml
