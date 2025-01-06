@@ -11,10 +11,7 @@ patches:
         path: /spec/template/spec/containers/0/resources
         value:
           limits:
-            memory: 100Mi
+            memory: 1000Mi
           requests:
             cpu: 10m
             memory: 64Mi
-#  - path: patches.yaml
-#    target:
-#      kind: Deployment
