@@ -23,7 +23,9 @@ spec:
             - name: grafana
               resources:
                 requests:
-                  cpu: 100m
+                  cpu: 30m
+                  memory: 150Mi
+                limits:
                   memory: 150Mi
               securityContext:
                 # Customize this in case your volume provider needs specific UIDs/GIDs

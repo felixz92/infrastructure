@@ -18,7 +18,12 @@ alloy:
         - ALL
     privileged: false
     readOnlyRootFilesystem: false
-  resources: {} # TODO
+  resources:
+    limits:
+      memory: 150Mi
+    requests:
+      cpu: 50m
+      memory: 150Mi
 
 configReloader:
   enabled: true
@@ -29,6 +34,12 @@ configReloader:
         - ALL
     privileged: false
     readOnlyRootFilesystem: false
+  resources:
+    limits:
+      memory: 10Mi
+    requests:
+      cpu: 50m
+      memory: 10Mi
 
 controller:
   type: 'statefulset'

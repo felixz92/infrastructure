@@ -11,7 +11,19 @@ patches:
         path: /spec/template/spec/containers/0/resources
         value:
           limits:
-            memory: 1000Mi
+            memory: 100Mi
           requests:
             cpu: 10m
             memory: 64Mi
+  - target:
+      kind: Deployment
+      name: kustomize-controller
+    patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/resources
+        value:
+          limits:
+            memory: 300Mi
+          requests:
+            cpu: 10m
+            memory: 300Mi

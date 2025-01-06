@@ -33,6 +33,12 @@ vmsingle:
     retentionPeriod: "4w"
     replicaCount: 1
     extraArgs: {}
+    resources:
+      requests:
+        cpu: 100m
+        memory: 1Gi
+      limits:
+        memory: 1Gi
     storage:
       accessModes:
         - ReadWriteOnce
@@ -55,6 +61,18 @@ alertmanager:
     configSelector:
       matchLabels:
         alertmanager-config: global
+    resources:
+      requests:
+        cpu: 10m
+        memory: 40Mi
+      limits:
+        memory: 40Mi
+    configReloaderResources:
+      requests:
+        cpu: 10m
+        memory: 10Mi
+      limits:
+        memory: 10Mi
 
   config:
     templates:
@@ -161,6 +179,20 @@ alertmanager:
 
 vmalert:
   enabled: true
+  spec:
+    resources:
+      requests:
+        cpu: 20m
+        memory: 50Mi
+      limits:
+        memory: 50Mi
+    configReloaderResources:
+      requests:
+        cpu: 10m
+        memory: 10Mi
+      limits:
+        memory: 10Mi
+
 
 vmagent:
   # -- Create VMAgent CR
@@ -172,6 +204,18 @@ vmagent:
       - etcd-certs
     extraArgs:
       promscrape.dropOriginalLabels: "false"
+    resources:
+      requests:
+        cpu: 40m
+        memory: 100Mi
+      limits:
+        memory: 100Mi
+    configReloaderResources:
+      requests:
+        cpu: 10m
+        memory: 20Mi
+      limits:
+        memory: 20Mi
 
 grafana:
   enabled: false
@@ -184,6 +228,13 @@ prometheus-node-exporter:
 
 kube-state-metrics:
   enabled: true
+  resources:
+    requests:
+      cpu: 10m
+      memory: 50Mi
+    limits:
+      memory: 50Mi
+
   vmScrape:
     enabled: true
 
