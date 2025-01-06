@@ -1,0 +1,17 @@
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMAlertmanagerConfig
+metadata:
+  name: discord
+spec:
+  route:
+    group_by: [ 'job' ]
+    group_wait: 30s
+    group_interval: 3m
+    repeat_interval: 12h
+    receiver: discord
+    routes:
+      - receiver: discord
+        matchers:
+          - {severity =~ "warning|critical"}
+  receivers:
+    - name: discord

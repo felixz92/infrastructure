@@ -1,0 +1,35 @@
+# parameters for the robusta forwarder deployment
+kubewatch:
+  securityContext:
+    container:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+      privileged: false
+      readOnlyRootFilesystem: false
+      runAsUser: 1000
+    pod:
+      seccompProfile:
+        type: RuntimeDefault
+
+# parameters for the robusta runner
+runner:
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: ~
+  securityContext:
+    container:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+      privileged: false
+      readOnlyRootFilesystem: false
+    pod:
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
