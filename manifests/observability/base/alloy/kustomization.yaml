@@ -4,3 +4,5 @@ configMapGenerator:
   - name: alloy-config
     files:
       - config.alloy
+generatorOptions:
+  disableNameSuffixHash: true
