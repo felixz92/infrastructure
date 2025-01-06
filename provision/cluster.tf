@@ -1,6 +1,8 @@
 module "kubernetes" {
-  source  = "hcloud-k8s/kubernetes/hcloud"
-  version = "0.12.0"
+#   source  = "hcloud-k8s/kubernetes/hcloud"
+#   version = "0.12.0"
+  # TODO: Use the latest version once released
+  source = "git::https://github.com/hcloud-k8s/terraform-hcloud-kubernetes.git?ref=855509f33f696490580cd603c378f5e24c40df72"
 
   talos_version = "v1.8.3"
   talos_ccm_version = "v1.8.1"
@@ -41,8 +43,7 @@ module "kubernetes" {
   cluster_autoscaler_nodepools = []
 
   control_plane_config_patches = [
-    {"op": "add", "path": "/cluster/controllerManager/extraArgs/bind-address", "value": "0.0.0.0"},
-#     {"op": "replace", "path": "/cluster/allowSchedulingOnControlPlanes", "value": "true"}
+    {"op": "replace", "path": "/cluster/allowSchedulingOnControlPlanes", "value": true}
   ]
 
   talos_image_extensions = []
