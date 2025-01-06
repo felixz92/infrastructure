@@ -51,6 +51,7 @@ alertmanager:
       tag: v0.27.0
     externalURL: "https://alertmanager.${BASE_DOMAIN}"
     routePrefix: /
+    disableNamespaceMatcher: true
     configSelector:
       matchLabels:
         alertmanager-config: global
