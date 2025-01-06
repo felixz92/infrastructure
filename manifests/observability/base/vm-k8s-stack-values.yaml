@@ -170,6 +170,8 @@ vmagent:
       cluster: ${ENVIROMENT}
     secrets:
       - etcd-certs
+    extraArgs:
+      promscrape.dropOriginalLabels: "false"
 
 grafana:
   enabled: false

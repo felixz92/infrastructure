@@ -1,0 +1,38 @@
+global:
+  podSecurityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
+alloy:
+  configMap:
+    create: false
+    name: alloy-config
+    key: config.alloy
+  enableReporting: false
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    privileged: false
+    readOnlyRootFilesystem: false
+  resources: {} # TODO
+
+configReloader:
+  enabled: true
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    privileged: false
+    readOnlyRootFilesystem: false
+
+controller:
+  type: 'statefulset'
+  enableStatefulSetAutoDeletePVC: true
+  volumeClaimTemplates: []
+
+serviceMonitor:
+  enabled: true
