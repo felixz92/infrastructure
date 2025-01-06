@@ -200,8 +200,6 @@ vmagent:
   spec:
     externalLabels:
       cluster: ${ENVIROMENT}
-    secrets:
-      - etcd-certs
     extraArgs:
       promscrape.dropOriginalLabels: "false"
     resources:
