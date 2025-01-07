@@ -9,13 +9,7 @@ vars:
     sh: if [ -n "$ENVIRONMENT" ]; then echo "$ENVIRONMENT" ; else exit 1 ; fi
 
 tasks:
-  gen-known-hosts:
-    cmds:
-      - mkdir -p ./cluster/.ssh
-      - ssh-keyscan -t ecdsa github.com > ./cluster/.ssh/known_hosts
   apply-infra:
-    deps:
-      - gen-known-hosts
     env:
       TF_VAR_environment:
         sh: printf {{.CLUSTER_NAME}}
