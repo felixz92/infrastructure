@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: manifests/controllers/grafana-operator/overlays/cluster_scoped
+  path: ./infrastructure/controllers/grafana-operator/overlays/cluster_scoped
   targetNamespace: grafana-operator
   prune: true
   dependsOn:

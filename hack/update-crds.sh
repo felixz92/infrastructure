@@ -3,7 +3,7 @@
 set -eo pipefail
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 
-for file in "${REPO_ROOT}"/manifests/crds/**/urls; do
+for file in "${REPO_ROOT}"/crds/**/urls; do
   echo "Updating crds with file $file"
   dir="$(dirname "${file}")"
   if ls $dir/*.yaml; then
