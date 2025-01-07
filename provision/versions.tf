@@ -20,6 +20,9 @@ terraform {
       source  = "siderolabs/talos"
       version = "0.7.0"
     }
-
+    doppler = {
+      source = "DopplerHQ/doppler"
+      version = ">=1.3.0"
+    }
   }
 }

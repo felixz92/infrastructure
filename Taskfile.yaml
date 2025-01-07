@@ -3,6 +3,7 @@ version: '3'
 vars:
   PASSWORD_STORE_HCLOUD_PATH: Personal/development-hetzner/token-staging
   PASSWORD_STORE_LETS_ENCRYPT_EMAIL_PATH: kubernetes-staging/kubernetes-lets-encrypt-email/password
+  PASSWORD_STORE_DOPPLER_PATH: Personal/development-doppler-personal-token/password
   PASSWORD_STORE_GITHUB_PAT_PATH: Personal/development-github.com/macos-pat
   PASSWORD_STORE_GITHUB_OWNER_PATH: Personal/development-github.com/username
   CLUSTER_NAME:
@@ -21,6 +22,8 @@ tasks:
         sh: op read --no-newline op://{{.PASSWORD_STORE_GITHUB_OWNER_PATH}}
       TF_VAR_github_token:
         sh: op read --no-newline op://{{.PASSWORD_STORE_GITHUB_PAT_PATH}}
+      TF_VAR_doppler_token:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_DOPPLER_PATH}}
     cmds:
       - cd provision && terraform apply
   destroy-infra:

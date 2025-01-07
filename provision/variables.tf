@@ -49,3 +49,8 @@ variable "flux_version" {
   type = string
   default = "v2.4.0"
 }
+
+variable "doppler_token" {
+  type = string
+  sensitive = true
+}
