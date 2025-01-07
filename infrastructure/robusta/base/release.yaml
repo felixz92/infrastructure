@@ -34,12 +34,14 @@ spec:
     enablePlatformPlaybooks: true
     enableHolmesGPT: true
     holmes:
-      additional_env_froms:
-        - secretRef:
-            name: robusta-secrets
       additionalEnvVars:
         - name: ROBUSTA_AI
           value: "true"
+        - name: ROBUSTA_ACCOUNT_ID
+          valueFrom:
+            secretKeyRef:
+              name: robusta-secrets
+              key: ACCOUNT_ID
     kubewatch:
       securityContext:
         container:
