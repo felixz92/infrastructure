@@ -8,8 +8,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: flux-system
     app.kubernetes.io/part-of: flux
-    resources:
-
     app.kubernetes.io/version: v2.4.0
     pod-security.kubernetes.io/warn: restricted
     pod-security.kubernetes.io/warn-version: latest
