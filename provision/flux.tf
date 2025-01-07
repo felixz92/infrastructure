@@ -28,7 +28,7 @@ data "github_repository" "main" {
 }
 
 locals {
-  target_path = "manifests/${var.environment}"
+  target_path = "clusters/${var.environment}"
 }
 
 resource "tls_private_key" "main" {
@@ -62,9 +62,4 @@ resource "kubernetes_config_map" "cluster_env" {
     }
 
     depends_on = [flux_bootstrap_git.this]
-}
-
-resource "kubernetes_manifest" "bootstrap" {
-  manifest = yamldecode(file("${path.module}/../manifests/flux/staging/bootstrap.yaml"))
-  depends_on = [flux_bootstrap_git.this, kubernetes_config_map.cluster_env]
 }
