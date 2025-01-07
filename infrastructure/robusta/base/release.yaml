@@ -42,6 +42,11 @@ spec:
             secretKeyRef:
               name: robusta-secrets
               key: ACCOUNT_ID
+        - name: ROBUSTA_UI_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: robusta-secrets
+              key: ROBUSTA_UI_TOKEN
     kubewatch:
       securityContext:
         container:
