@@ -4,6 +4,7 @@ resources:
 - crds.yaml
 - external-secrets.yaml
 - grafana-operator.yaml
+- ingress.yaml
 - namespaces.yaml
 - node-exporter.yaml
 - observability.yaml
