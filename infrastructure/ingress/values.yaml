@@ -1,5 +1,5 @@
 image:
-  tag: 33.2.1
+  tag: v3.2.2
 
 gatewayClass:
   enabled: true
