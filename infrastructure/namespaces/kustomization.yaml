@@ -10,6 +10,7 @@ resources:
 - observability.yaml
 - ocis.yaml
 - robusta.yaml
+- traefik.yaml
 - trivy-system.yaml
 - velero.yaml
 - weaveworks.yaml
