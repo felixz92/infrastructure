@@ -124,3 +124,6 @@ service:
     "load-balancer.hetzner.cloud/health-check-retries": "3"
 
 resources: {}
+podSecurityContext:
+  seccompProfile:
+    type: RuntimeDefault
