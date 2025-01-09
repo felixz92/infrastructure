@@ -5,7 +5,7 @@ resources:
   - traefik-release.yaml
 
 configMapGenerator:
-  - name: victoria-metrics-operator-values
+  - name: traefik-values
     files:
       - values.yaml=values.yaml
 
