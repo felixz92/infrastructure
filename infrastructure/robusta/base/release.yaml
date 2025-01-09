@@ -16,6 +16,7 @@ spec:
   interval: 1m0s
   values:
     globalConfig:
+      check_prometheus_flags: false
       signing_key: '{{ env.SIGNING_KEY }}'
       account_id: '{{ env.ACCOUNT_ID }}'
       alertmanager_url: "http://vmalertmanager-vmks-victoria-metrics-k8s-stack.observability.svc.cluster.local:9093"
