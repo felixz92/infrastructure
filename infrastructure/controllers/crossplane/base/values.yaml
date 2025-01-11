@@ -1,0 +1,43 @@
+image:
+  repository: xpkg.upbound.io/crossplane/crossplane
+  tag: ""
+  pullPolicy: IfNotPresent
+
+resourcesCrossplane:
+  limits:
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+securityContextCrossplane:
+  runAsUser: 65532
+  runAsGroup: 65532
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault
+
+resourcesRBACManager:
+  limits:
+    memory: 256Mi
+  requests:
+    cpu: 20m
+    memory: 256Mi
+
+securityContextRBACManager:
+  runAsUser: 65532
+  runAsGroup: 65532
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault
+
+metrics:
+  enabled: true
