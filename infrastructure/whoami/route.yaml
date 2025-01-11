@@ -5,19 +5,18 @@ metadata:
   name: whoami-http
 spec:
   parentRefs:
-    - name: traefik
+    - name: whoami
       sectionName: web
       kind: Gateway
-      namespace: traefik
   hostnames:
     - whoami.167.235.109.19.nip.io
   rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /
-
-      backendRefs:
-        - name: whoami
-          namespace: whoami
-          port: 80
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+#      backendRefs:
+#        - name: whoami
+#          namespace: whoami
+#          kind: Service
+#          port: 80
