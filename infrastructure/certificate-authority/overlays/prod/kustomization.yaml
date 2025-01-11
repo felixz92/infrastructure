@@ -1,0 +1,11 @@
+resources:
+  - ../../base
+
+patches:
+  - target:
+      name: http-clusterissuer
+      kind: ClusterIssuer
+    patch: |-
+      - op: replace
+        path: /spec/acme/server
+        value: https://acme-v02.api.letsencrypt.org/directory

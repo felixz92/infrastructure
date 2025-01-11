@@ -1,0 +1,50 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: http-clusterissuer
+spec:
+  acme:
+    privateKeySecretRef:
+      name: lets-encrypt-account-key
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: ${LETS_ENCRYPT_EMAIL}
+    solvers:
+      - http01:
+          ingress:
+            class: traefik
+            serviceType: ClusterIP
+#---
+#apiVersion: cert-manager.io/v1
+#kind: ClusterIssuer
+#metadata:
+#  name: dns-clusterissuer
+#spec:
+#  acme:
+#    privateKeySecretRef:
+#      name: lets-encrypt-account-key
+#    server: https://acme-staging-v02.api.letsencrypt.org/directory
+#    email: ${LETS_ENCRYPT_EMAIL}
+#    solvers:
+#      - dns01:
+#          cloudflare:
+#            apiTokenSecretRef:
+#              name: cloudflare-api-token
+#              key: api-token
+#---
+#apiVersion: cert-manager.io/v1
+#kind: ClusterIssuer
+#metadata:
+#  name: dns-clusterissuer-prod
+#spec:
+#  acme:
+#    privateKeySecretRef:
+#      name: lets-encrypt-account-key
+#    server: https://acme-v02.api.letsencrypt.org/directory
+#    email: ${LETS_ENCRYPT_EMAIL}
+#    solvers:
+#      - dns01:
+#          cloudflare:
+#            apiTokenSecretRef:
+#              name: cloudflare-api-token
+#              key: api-token

@@ -5,7 +5,7 @@ metadata:
   name: whoami-http
 spec:
   parentRefs:
-    - name: whoami
+    - name: traefik-gateway
       sectionName: web
       kind: Gateway
   hostnames:
