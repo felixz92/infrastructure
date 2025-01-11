@@ -9,11 +9,12 @@
     "talosctl@1.8.3",
     "stern@latest",
     "crossplane-cli@latest",
-    "upbound@latest"
+    "upbound@latest",
+    "krew@latest"
   ],
   "shell": {
     "init_hook": [
-      "echo 'Welcome to devbox!' > /dev/null"
+      "export PATH=\"${KREW_ROOT:-$HOME/.krew}/bin:$PATH\""
     ],
     "scripts": {
       "test": [
