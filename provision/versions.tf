@@ -24,5 +24,9 @@ terraform {
       source = "DopplerHQ/doppler"
       version = ">=1.3.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 4.0"
+    }
   }
 }

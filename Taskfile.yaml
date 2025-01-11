@@ -6,6 +6,8 @@ vars:
   PASSWORD_STORE_DOPPLER_PATH: Personal/development-doppler-personal-token/password
   PASSWORD_STORE_GITHUB_PAT_PATH: Personal/development-github.com/macos-pat
   PASSWORD_STORE_GITHUB_OWNER_PATH: Personal/development-github.com/username
+  PASSWORD_STORE_CLOUDFLARE_TOKEN_PATH: Personal/development-cloudflare/global-api-key
+  PASSWORD_STORE_CLOUDFLARE_EMAIL_PATH: Personal/development-cloudflare/username
   CLUSTER_NAME:
     sh: if [ -n "$ENVIRONMENT" ]; then echo "$ENVIRONMENT" ; else exit 1 ; fi
 
@@ -24,6 +26,10 @@ tasks:
         sh: op read --no-newline op://{{.PASSWORD_STORE_GITHUB_PAT_PATH}}
       TF_VAR_doppler_token:
         sh: op read --no-newline op://{{.PASSWORD_STORE_DOPPLER_PATH}}
+      TF_VAR_cloudflare_api_token:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_CLOUDFLARE_TOKEN_PATH}}
+      TF_VAR_cloudflare_email:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_CLOUDFLARE_EMAIL_PATH}}
     cmds:
       - cd provision && terraform apply
   destroy-infra:
@@ -38,6 +44,10 @@ tasks:
         sh: op read --no-newline op://{{.PASSWORD_STORE_GITHUB_OWNER_PATH}}
       TF_VAR_github_token:
         sh: op read --no-newline op://{{.PASSWORD_STORE_GITHUB_PAT_PATH}}
+      TF_VAR_cloudflare_api_token:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_CLOUDFLARE_TOKEN_PATH}}
+      TF_VAR_cloudflare_email:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_CLOUDFLARE_EMAIL_PATH}}
     cmds:
       - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.worker'
       - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.control_plane'

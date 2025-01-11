@@ -9,4 +9,4 @@ spec:
     name: http-clusterissuer
     kind: ClusterIssuer
   dnsNames:
-    - whoami.167.235.109.19.nip.io
+    - static.19.109.235.167.clients.your-server.de

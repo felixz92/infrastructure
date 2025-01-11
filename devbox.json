@@ -6,7 +6,10 @@
     "opentofu@1.8.7",
     "fluxcd@2.4.0",
     "go-task@3.40.1",
-    "talosctl@1.8.3"
+    "talosctl@1.8.3",
+    "stern@latest",
+    "crossplane-cli@latest",
+    "upbound@latest"
   ],
   "shell": {
     "init_hook": [

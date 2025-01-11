@@ -7,6 +7,6 @@ spec:
     app.kubernetes.io/name: whoami
   ports:
     - protocol: TCP
-      port: 80
+      port: 9000
       targetPort: 9000
   type: ClusterIP
