@@ -41,3 +41,9 @@ securityContextRBACManager:
 
 metrics:
   enabled: true
+podSecurityContextCrossplane:
+  runAsNonRoot: true
+
+# -- Add a custom `securityContext` to the RBAC Manager pod.
+podSecurityContextRBACManager:
+  runAsNonRoot: true
