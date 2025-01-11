@@ -4,6 +4,10 @@ image:
 gatewayClass:
   enabled: true
 
+ingressRoute:
+  dashboard:
+    enabled: true
+
 providers:
   kubernetesCRD:
     enabled: true
