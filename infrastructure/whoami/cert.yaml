@@ -1,0 +1,12 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: whoami-tls-certificate
+spec:
+  secretName: tls-whoami-ingress
+  issuerRef:
+    name: http-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - whoami.167.235.109.19.nip.io
