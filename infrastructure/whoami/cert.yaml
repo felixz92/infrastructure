@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: tls-whoami-ingress
   issuerRef:
-    name: http-clusterissuer
+    name: dns-clusterissuer
     kind: ClusterIssuer
   dnsNames:
-    - static.19.109.235.167.clients.your-server.de
+    - whoami.${BASE_DOMAIN}
