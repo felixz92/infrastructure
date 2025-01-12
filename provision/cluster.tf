@@ -82,8 +82,3 @@ data "http" "kube_api_health" {
 
   depends_on = [module.kubernetes]
 }
-
-output "machineconfig" {
-  value = module.kubernetes.talos_machine_configurations_control_plane
-  sensitive = true
-}

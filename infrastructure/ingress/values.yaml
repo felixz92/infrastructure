@@ -83,20 +83,22 @@ ports:
       default: true
 
 service:
-  enabled: false
+  enabled: true
   type: LoadBalancer
   annotations:
-    "load-balancer.hetzner.cloud/name": "${ENVIRONMENT}-traefik"
-    "load-balancer.hetzner.cloud/use-private-ip": "true"
+    "load-balancer.hetzner.cloud/algorithm-type": "least_connections"
     "load-balancer.hetzner.cloud/disable-private-ingress": "true"
-    "load-balancer.hetzner.cloud/location": "nbg1"
-    "load-balancer.hetzner.cloud/type": "lb11"
-    "load-balancer.hetzner.cloud/uses-proxyprotocol": "true"
-    "load-balancer.hetzner.cloud/algorithm-type": "round_robin"
+    load-balancer.hetzner.cloud/disable-public-network: "false"
     "load-balancer.hetzner.cloud/health-check-interval": "15s"
-    "load-balancer.hetzner.cloud/health-check-timeout": "10s"
     "load-balancer.hetzner.cloud/health-check-retries": "3"
-
+    "load-balancer.hetzner.cloud/health-check-timeout": "10s"
+    load-balancer.hetzner.cloud/ipv6-disabled: "false"
+    "load-balancer.hetzner.cloud/location": "nbg1"
+    "load-balancer.hetzner.cloud/private-ipv4": "10.0.64.252"
+    "load-balancer.hetzner.cloud/name": "${ENVIRONMENT}-ingress"
+    "load-balancer.hetzner.cloud/type": "lb11"
+    "load-balancer.hetzner.cloud/use-private-ip": "true"
+    "load-balancer.hetzner.cloud/uses-proxyprotocol": "true"
 resources:
   limits:
     memory: 128Mi
