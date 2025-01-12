@@ -4,6 +4,7 @@ resources:
 - ca.yaml
 - crds.yaml
 - crossplane.yaml
+- crossplane-addons.yaml
 - external-secrets.yaml
 - grafana-operator.yaml
 - ingress.yaml
