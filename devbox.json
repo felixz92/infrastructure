@@ -10,7 +10,8 @@
     "stern@latest",
     "crossplane-cli@latest",
     "upbound@latest",
-    "krew@latest"
+    "krew@latest",
+    "popeye@latest"
   ],
   "shell": {
     "init_hook": [

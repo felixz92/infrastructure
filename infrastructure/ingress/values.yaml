@@ -83,7 +83,7 @@ ports:
       default: true
 
 service:
-  enabled: true
+  enabled: false
   type: LoadBalancer
   annotations:
     "load-balancer.hetzner.cloud/name": "${ENVIRONMENT}-traefik"
