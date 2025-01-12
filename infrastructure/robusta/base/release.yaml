@@ -35,6 +35,12 @@ spec:
     enablePlatformPlaybooks: true
     enableHolmesGPT: true
     holmes:
+      resources:
+        limits:
+          memory: 384Mi
+        requests:
+          cpu: 10m
+          memory: 384Mi
       additionalEnvVars:
         - name: ROBUSTA_AI
           value: "true"

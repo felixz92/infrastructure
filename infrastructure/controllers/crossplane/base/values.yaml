@@ -5,6 +5,7 @@ image:
 
 resourcesCrossplane:
   limits:
+    cpu: null
     memory: 256Mi
   requests:
     cpu: 100m
@@ -23,6 +24,7 @@ securityContextCrossplane:
 
 resourcesRBACManager:
   limits:
+    cpu: null
     memory: 256Mi
   requests:
     cpu: 20m

@@ -60,7 +60,7 @@ module "kubernetes" {
   metrics_server_schedule_on_control_plane = true
   metrics_server_replicas = 1
 
-  //cert_manager_helm_values = {}
+  cert_manager_helm_values = yamldecode(file("values/cert-manager.yaml"))
 }
 
 data "http" "kube_api_health" {
