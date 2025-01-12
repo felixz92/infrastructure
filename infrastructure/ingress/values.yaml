@@ -37,7 +37,7 @@ metrics:
     serviceMonitor:
       enabled: true
       metricRelabelings:
-        - sourceLabels: [__name__]
+        - sourceLabels: [ __name__ ]
           separator: ;
           regex: ^fluentd_output_status_buffer_(oldest|newest)_.+
           replacement: $1
@@ -56,7 +56,7 @@ metrics:
             description: "{{ $labels.pod }} on {{ $labels.nodename }} is down"
 
 # set to empty array to disable calling home
-globalArguments: []
+globalArguments: [ ]
 
 ports:
   web:
@@ -97,7 +97,12 @@ service:
     "load-balancer.hetzner.cloud/health-check-timeout": "10s"
     "load-balancer.hetzner.cloud/health-check-retries": "3"
 
-resources: {}
+resources:
+  limits:
+    memory: 128Mi
+  requests:
+    cpu: 30m
+    memory: 128Mi
 podSecurityContext:
   seccompProfile:
     type: RuntimeDefault
