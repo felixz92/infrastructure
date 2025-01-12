@@ -55,6 +55,13 @@ spec:
               name: robusta-secrets
               key: ROBUSTA_UI_TOKEN
     kubewatch:
+      resources:
+        limits:
+          cpu: null
+          memory: 128Mi
+        requests:
+          cpu: 10m
+          memory: 128Mi
       securityContext:
         container:
           allowPrivilegeEscalation: false
@@ -76,9 +83,10 @@ spec:
       resources:
         limits:
           cpu: null
+          memory: 640Mi
         requests:
           cpu: 250m
-          memory: 512Mi
+          memory: 640Mi
       securityContext:
         container:
           allowPrivilegeEscalation: false
