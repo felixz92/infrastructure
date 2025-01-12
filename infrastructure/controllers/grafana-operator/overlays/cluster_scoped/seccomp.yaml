@@ -2,3 +2,11 @@
   path: /spec/template/spec/securityContext/seccompProfile
   value:
     type: RuntimeDefault
+- op: replace
+  path: /spec/template/spec/containers/0/resources
+  value:
+    limits:
+      memory: 128Mi
+    requests:
+      cpu: 20m
+      memory: 128Mi
