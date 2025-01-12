@@ -1,6 +1,9 @@
 image:
   tag: v3.2.2
 
+gatewayClass:
+  enabled: true
+
 gateway:
   enabled: false
 
@@ -17,7 +20,7 @@ providers:
     enabled: true
     ingressClass: traefik
   kubernetesGateway:
-    enabled: false
+    enabled: true
 
 logs:
   general:
