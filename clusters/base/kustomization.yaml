@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
 - ca.yaml
 - crds.yaml
+- domain.yaml
 - namespaces.yaml
 - node-exporter.yaml
 - observability.yaml

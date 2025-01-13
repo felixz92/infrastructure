@@ -1,0 +1,54 @@
+---
+apiVersion: kubernetes.crossplane.io/v1alpha2
+kind: Object
+metadata:
+  name: root-domain-dns-record-ip-v4
+spec:
+  references:
+    - patchesFrom:
+        apiVersion: v1
+        kind: Service
+        name: traefik
+        namespace: traefik
+        fieldPath: status.loadBalancer.ingress[0].ip
+      toFieldPath: spec.forProvider.manifest.spec.content
+  forProvider:
+    manifest:
+      apiVersion: cloudflare.felixz92.github.com/v1alpha1
+      kind: xDnsRecord
+      metadata:
+        name: root-domain-ip-v4
+      spec:
+        name: "@"
+        zone: staging-fzx-infra.dev
+        type: A
+        content: 167.235.109.19
+  providerConfigRef:
+    name: kubernetes-provider
+---
+apiVersion: kubernetes.crossplane.io/v1alpha2
+kind: Object
+metadata:
+  name: root-domain-dns-record-ip-v6
+spec:
+  references:
+    - patchesFrom:
+        apiVersion: v1
+        kind: Service
+        name: traefik
+        namespace: traefik
+        fieldPath: status.loadBalancer.ingress[1].ip
+      toFieldPath: spec.forProvider.manifest.spec.content
+  forProvider:
+    manifest:
+      apiVersion: cloudflare.felixz92.github.com/v1alpha1
+      kind: xDnsRecord
+      metadata:
+        name: root-domain-ip-v6
+      spec:
+        name: "@"
+        zone: staging-fzx-infra.dev
+        type: AAAA
+        content: 2a01:4f8:1c1f:624b::1
+  providerConfigRef:
+    name: kubernetes-provider
