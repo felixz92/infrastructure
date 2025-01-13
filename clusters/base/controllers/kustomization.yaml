@@ -6,5 +6,5 @@ resources:
 - crossplane.yaml
 - external-secrets.yaml
 - grafana-operator.yaml
-- ingress.yaml
+- traefik.yaml
 - victoria-metrics-operator.yaml

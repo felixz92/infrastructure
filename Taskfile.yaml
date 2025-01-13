@@ -15,7 +15,8 @@ tasks:
   destroy:
     cmds:
       - for ks in $(kubectl get kustomization --no-headers -o custom-columns=":metadata.name" -n flux-system); do flux suspend kustomization $ks ; done
-      - for: ["domain", "crossplane-configurations" ]
+      - kubectl --namespace flux-system delete helmrelease traefik
+      - for: ["domain", "observability", "traefik" ]
         cmd: kubectl delete kustomization {{ .ITEM }} -n flux-system
   apply-infra:
     env:
@@ -49,14 +50,16 @@ tasks:
         sh: op read --no-newline op://{{.PASSWORD_STORE_GITHUB_OWNER_PATH}}
       TF_VAR_github_token:
         sh: op read --no-newline op://{{.PASSWORD_STORE_GITHUB_PAT_PATH}}
+      TF_VAR_doppler_token:
+        sh: op read --no-newline op://{{.PASSWORD_STORE_DOPPLER_PATH}}
       TF_VAR_cloudflare_api_token:
         sh: op read --no-newline op://{{.PASSWORD_STORE_CLOUDFLARE_TOKEN_PATH}}
       TF_VAR_cloudflare_email:
         sh: op read --no-newline op://{{.PASSWORD_STORE_CLOUDFLARE_EMAIL_PATH}}
     cmds:
-      - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.worker'
-      - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.control_plane'
-      - cd provision && terraform state rm 'module.kubernetes.talos_machine_secrets.this'
+  #    - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.worker'
+  #    - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.control_plane'
+  #    - cd provision && terraform state rm 'module.kubernetes.talos_machine_secrets.this'
       - cd provision && terraform destroy
   kubeconfig:
     env:
