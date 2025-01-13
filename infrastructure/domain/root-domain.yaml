@@ -4,6 +4,7 @@ kind: Object
 metadata:
   name: root-domain-dns-record-ip-v4
 spec:
+  deletionPolicy: Delete
   references:
     - patchesFrom:
         apiVersion: v1
@@ -31,6 +32,7 @@ kind: Object
 metadata:
   name: root-domain-dns-record-ip-v6
 spec:
+  deletionPolicy: Delete
   references:
     - patchesFrom:
         apiVersion: v1

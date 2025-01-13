@@ -12,6 +12,11 @@ vars:
     sh: if [ -n "$ENVIRONMENT" ]; then echo "$ENVIRONMENT" ; else exit 1 ; fi
 
 tasks:
+  destroy:
+    cmds:
+      - for ks in $(kubectl get kustomization --no-headers -o custom-columns=":metadata.name" -n flux-system); do flux suspend kustomization $ks ; done
+      - for: ["domain", "robusta"]
+        cmd: kubectl delete kustomization {{ .ITEM }} -n flux-system
   apply-infra:
     env:
       TF_VAR_environment:
