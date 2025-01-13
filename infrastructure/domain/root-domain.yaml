@@ -5,6 +5,8 @@ metadata:
   name: root-domain-dns-record-ip-v4
 spec:
   deletionPolicy: Delete
+  readiness:
+    policy: AllTrue
   references:
     - patchesFrom:
         apiVersion: v1
@@ -33,6 +35,8 @@ metadata:
   name: root-domain-dns-record-ip-v6
 spec:
   deletionPolicy: Delete
+  readiness:
+    policy: AllTrue
   references:
     - patchesFrom:
         apiVersion: v1

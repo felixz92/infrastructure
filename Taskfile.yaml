@@ -15,7 +15,7 @@ tasks:
   destroy:
     cmds:
       - for ks in $(kubectl get kustomization --no-headers -o custom-columns=":metadata.name" -n flux-system); do flux suspend kustomization $ks ; done
-      - for: ["domain", "robusta"]
+      - for: ["domain", "crossplane-configurations" ]
         cmd: kubectl delete kustomization {{ .ITEM }} -n flux-system
   apply-infra:
     env:
