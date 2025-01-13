@@ -10,7 +10,7 @@ spec:
   targetNamespace: crossplane-system
   prune: true
   dependsOn:
-    - name: crossplane-addons
+    - name: crossplane-configurations
   sourceRef:
     kind: GitRepository
     name: flux-system
