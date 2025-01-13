@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- crossplane-addons.yaml
+- crossplane.yaml
+- external-secrets.yaml
+- grafana-operator.yaml
+- ingress.yaml
+- victoria-metrics-operator.yaml

@@ -2,12 +2,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: ingress
+  name: crossplane
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./infrastructure/ingress
-  targetNamespace: traefik
+  path: ./infrastructure/controllers/crossplane/${CLUSTER_NAME}
+  targetNamespace: crossplane-system
   prune: true
   dependsOn:
     - name: crds
@@ -16,6 +16,10 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  healthChecks:
+    - kind: Deployment
+      name: crossplane
+      namespace: crossplane-system
   postBuild:
     substituteFrom:
       - kind: ConfigMap
