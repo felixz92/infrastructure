@@ -22,7 +22,7 @@ spec:
       alertmanager_url: "http://vmalertmanager-vmks-victoria-metrics-k8s-stack.observability.svc.cluster.local:9093"
       grafana_url: ""
       prometheus_url: "http://vmsingle-vmks-victoria-metrics-k8s-stack.observability.svc.cluster.local:8429"
-    clusterName: ${ENVIRONMENT}
+    clusterName: ${CLUSTER_NAME}
     sinksConfig:
       - robusta_sink:
           name: robusta_ui_sink
