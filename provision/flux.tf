@@ -28,7 +28,7 @@ data "github_repository" "main" {
 }
 
 locals {
-  target_path = "clusters/${var.environment}"
+  target_path = "clusters/${var.cluster_name}"
 }
 
 resource "tls_private_key" "main" {
@@ -37,7 +37,7 @@ resource "tls_private_key" "main" {
 }
 
 resource "github_repository_deploy_key" "main" {
-  title      = "flux-${var.environment}"
+  title      = "flux-${var.cluster_name}"
   repository = data.github_repository.main.id
   key        = tls_private_key.main.public_key_openssh
   read_only  = false
@@ -56,7 +56,8 @@ resource "kubernetes_config_map" "cluster_env" {
     }
 
     data = {
-        "ENVIRONMENT" = var.environment
+        "CLUSTER_NAME" = var.cluster_name
+        "ENVIRONMENT" = var.cluster_name
         "BASE_DOMAIN" = var.base_domain
         "LETSENCRYPT_EMAIL" = var.lets_encrypt_email
     }

@@ -1,0 +1,7 @@
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Configuration
+metadata:
+  name: cloudflare-dns
+spec:
+  package: ghcr.io/felixz92/crossplane-cloudflare-dns:4a7cf60284c8ff3387184338b006ac0c3441479b

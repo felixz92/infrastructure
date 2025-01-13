@@ -71,7 +71,7 @@ resource "doppler_service_token" "service_token" {
   }
 
   project = each.value.project
-  config = "${var.environment}_${each.value.config}"
+  config = "${var.cluster_name}_${each.value.config}"
   name = each.key
   access = "read"
 }

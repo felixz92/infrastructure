@@ -1,4 +1,4 @@
-variable "environment" {
+variable "cluster_name" {
   default = "staging"
   type = string
 }

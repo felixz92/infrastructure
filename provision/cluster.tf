@@ -1,6 +1,6 @@
 module "kubernetes" {
   source  = "hcloud-k8s/kubernetes/hcloud"
-  version = "0.14.0"
+  version = "0.14.1"
 
   talos_version = "v1.8.3"
   talos_ccm_version = "v1.8.1"
@@ -12,7 +12,7 @@ module "kubernetes" {
   cert_manager_helm_version = "v1.15.4"
   prometheus_operator_crds_version = "v0.79.2"
 
-  cluster_name = var.environment
+  cluster_name = var.cluster_name
   hcloud_token = var.hcloud_token
 
 
