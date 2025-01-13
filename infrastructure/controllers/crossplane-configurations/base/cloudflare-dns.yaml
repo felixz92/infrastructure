@@ -4,4 +4,4 @@ kind: Configuration
 metadata:
   name: cloudflare-dns
 spec:
-  package: ghcr.io/felixz92/crossplane-cloudflare-dns:df2cdaa779010f76e2ab451c4aa00b519de1e9ea
+  package: ghcr.io/felixz92/crossplane-cloudflare-dns:1f2bae717796b5abff8d8b67ff84878591e1615a
