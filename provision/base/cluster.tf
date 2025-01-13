@@ -1,6 +1,5 @@
 module "kubernetes" {
-  source  = "hcloud-k8s/kubernetes/hcloud"
-  version = "0.14.1"
+  source = "git::https://github.com/hcloud-k8s/terraform-hcloud-kubernetes.git?ref=0.14.1"
 
   talos_version = "v1.8.3"
   talos_ccm_version = "v1.8.1"
@@ -21,9 +20,6 @@ module "kubernetes" {
   cluster_talosconfig_path = "talosconfig"
   firewall_use_current_ipv6 = false
   cluster_delete_protection = false
-
-  network_ipv4_cidr = var.network_ipv4_cidr
- // firewall_extra_rules = []
 
   control_plane_public_vip_ipv4_enabled = false
 

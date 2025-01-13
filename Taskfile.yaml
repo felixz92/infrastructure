@@ -57,9 +57,9 @@ tasks:
       TF_VAR_cloudflare_email:
         sh: op read --no-newline op://{{.PASSWORD_STORE_CLOUDFLARE_EMAIL_PATH}}
     cmds:
-  #    - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.worker'
-  #    - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.control_plane'
-  #    - cd provision && terraform state rm 'module.kubernetes.talos_machine_secrets.this'
+      - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.worker'
+      - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.control_plane'
+      - cd provision && terraform state rm 'module.kubernetes.talos_machine_secrets.this'
       - cd provision && terraform destroy
   kubeconfig:
     env:

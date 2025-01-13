@@ -57,9 +57,7 @@ resource "kubernetes_config_map" "cluster_env" {
 
     data = {
         "CLUSTER_NAME" = var.cluster_name
-        "ENVIRONMENT" = var.cluster_name
         "BASE_DOMAIN" = var.base_domain
-        "LETSENCRYPT_EMAIL" = var.lets_encrypt_email
     }
 
     depends_on = [flux_bootstrap_git.this]
