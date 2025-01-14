@@ -5,7 +5,7 @@ metadata:
   name: flux-patch
 spec:
   interval: 10m0s
-  path: system/controller/flux
+  path: system/controllers/flux
   prune: true
   targetNamespace: flux-system
   sourceRef:
