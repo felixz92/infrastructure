@@ -14,3 +14,13 @@ provider "onepassword" {
 data "onepassword_vault" "vault" {
   name = "Personal"
 }
+
+data "onepassword_item" "github_token" {
+  vault = data.onepassword_vault.vault.uuid
+  title = "development-github.com"
+}
+
+data "onepassword_item" "hcloud_token" {
+  vault = data.onepassword_vault.vault.uuid
+  title = "hcloud-token-staging"
+}

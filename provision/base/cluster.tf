@@ -1,5 +1,6 @@
 module "kubernetes" {
-  source = "git::https://github.com/hcloud-k8s/terraform-hcloud-kubernetes.git?ref=0.14.1"
+  source  = "hcloud-k8s/kubernetes/hcloud"
+  version = "0.14.1"
 
   talos_version = "v1.8.3"
   talos_ccm_version = "v1.8.1"
@@ -56,7 +57,7 @@ module "kubernetes" {
   metrics_server_schedule_on_control_plane = true
   metrics_server_replicas = 1
 
-  cert_manager_helm_values = yamldecode(file("values/cert-manager.yaml"))
+  cert_manager_helm_values = yamldecode(file("${path.module}/values/cert-manager.yaml"))
 }
 
 data "http" "kube_api_health" {
