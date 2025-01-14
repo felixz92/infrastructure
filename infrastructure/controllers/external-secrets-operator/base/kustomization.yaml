@@ -4,3 +4,4 @@ namespace: victoria-metrics
 resources:
   - operator.yaml
   - connect.yaml
+  - secretstore.yaml
