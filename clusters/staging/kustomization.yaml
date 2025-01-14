@@ -12,9 +12,8 @@ patches:
       - op: add
         path: /spec/postBuild
         value:
-          postBuild:
-            substitute:
-              CLUSTER_NAME: staging
+          substitute:
+            CLUSTER_NAME: staging
   - target:
       kind: Deployment
     patch: |
