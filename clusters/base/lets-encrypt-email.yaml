@@ -1,0 +1,15 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: lets-encrypt-email
+spec:
+  secretStoreRef:
+    name: cluster-store
+    kind: ClusterSecretStore
+  target:
+    name: lets-encrypt-email
+  data:
+    - remoteRef:
+        key: lets-encrypt-email
+        property: password
+      secretKey: LETSENCRYPT_EMAIL
