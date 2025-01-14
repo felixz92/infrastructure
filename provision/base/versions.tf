@@ -20,13 +20,13 @@ terraform {
       source  = "siderolabs/talos"
       version = "0.7.0"
     }
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "~> 4.0"
-    }
     hcloud = {
       source  = "hetznercloud/hcloud"
       version = "1.49.1"
+    }
+    onepassword = {
+      source = "1Password/onepassword"
+      version = "2.1.2"
     }
   }
 }

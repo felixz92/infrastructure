@@ -13,7 +13,7 @@ module "kubernetes" {
   prometheus_operator_crds_version = "v0.79.2"
 
   cluster_name = var.cluster_name
-  hcloud_token = var.hcloud_token
+  hcloud_token = data.onepassword_item.hcloud_token.password
 
 
   # Export configs for Talos and Kube API access

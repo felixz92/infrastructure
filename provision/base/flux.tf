@@ -1,3 +1,8 @@
+# provider "github" {
+#   owner = data.onepassword_item.github_token.username
+#   token = data.onepassword_item.github_token.username
+# }
+#
 provider "kubernetes" {
   host = module.kubernetes.kubeconfig_data.server
   client_certificate = module.kubernetes.kubeconfig_data.cert
@@ -49,3 +54,31 @@ resource "flux_bootstrap_git" "this" {
   version = var.flux_version
 }
 
+resource "kubernetes_namespace" "external_secrets" {
+  depends_on = [flux_bootstrap_git.this]
+  metadata {
+    name = "external-secrets"
+  }
+}
+
+resource "kubernetes_secret" "op_credentials" {
+    depends_on = [kubernetes_namespace.external_secrets]
+    metadata {
+      name = "op-credentials"
+      namespace = kubernetes_namespace.external_secrets.metadata.0.name
+    }
+    data = {
+      "1password-credentials.json" = data.onepassword_item.op_credentials_json.file[0].content_base64
+    }
+}
+
+resource "kubernetes_secret" "op_connect_token" {
+    depends_on = [kubernetes_namespace.external_secrets]
+    metadata {
+      name = "op-connect-token"
+      namespace = kubernetes_namespace.external_secrets.metadata.0.name
+    }
+    data = {
+      "onepassword-connect-token" = data.onepassword_item.op_connect_token.password
+    }
+}
