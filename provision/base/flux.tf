@@ -49,16 +49,3 @@ resource "flux_bootstrap_git" "this" {
   version = var.flux_version
 }
 
-resource "kubernetes_config_map" "cluster_env" {
-    metadata {
-        name = "cluster-env"
-        namespace = "flux-system"
-    }
-
-    data = {
-        "CLUSTER_NAME" = var.cluster_name
-        "BASE_DOMAIN" = var.base_domain
-    }
-
-    depends_on = [flux_bootstrap_git.this]
-}

@@ -4,3 +4,4 @@ namespace: crossplane-system
 resources:
   - cloudflare-dns.yaml
   - kubernetes.yaml
+  - terraform.yaml
