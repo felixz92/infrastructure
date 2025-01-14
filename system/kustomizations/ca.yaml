@@ -6,8 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./infrastructure/certificate-authority/${CLUSTER_NAME}
-  prune: true
+  path: ./system/certificate-authority/${CLUSTER_NAME}
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
