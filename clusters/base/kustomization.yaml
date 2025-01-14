@@ -6,5 +6,4 @@ resources:
 - observability.yaml
 - robusta.yaml
 - controllers
-- lets-encrypt-email.yaml
 - system.yaml

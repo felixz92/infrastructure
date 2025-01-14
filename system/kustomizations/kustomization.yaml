@@ -4,3 +4,4 @@ resources:
 - crds.yaml
 - namespaces.yaml
 - ca.yaml
+- flux-patch.yaml
