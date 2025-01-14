@@ -21,6 +21,6 @@ spec:
       name: crossplane
       namespace: crossplane-system
   postBuild:
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-env
+    substitute:
+      CLUSTER_NAME: ${CLUSTER_NAME}
+      BASE_DOMAIN: ${BASE_DOMAIN}
