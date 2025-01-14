@@ -68,7 +68,7 @@ resource "kubernetes_secret" "op_credentials" {
       namespace = kubernetes_namespace.external_secrets.metadata.0.name
     }
     data = {
-      "1password-credentials.json" = data.onepassword_item.op_credentials_json.file[0].content_base64
+      "1password-credentials.json" = data.onepassword_item.op_credentials_json.file[0].content
     }
 }
 
@@ -79,6 +79,6 @@ resource "kubernetes_secret" "op_connect_token" {
       namespace = kubernetes_namespace.external_secrets.metadata.0.name
     }
     data = {
-      "onepassword-connect-token" = data.onepassword_item.op_connect_token.password
+      "token" = data.onepassword_item.op_connect_token.password
     }
 }
