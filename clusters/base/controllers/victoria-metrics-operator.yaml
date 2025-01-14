@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./infrastructure/controllers/victoria-metrics/${CLUSTER_NAME}
+  path: ./system/controllers/victoria-metrics/${CLUSTER_NAME}
   targetNamespace: victoria-metrics
   prune: true
   dependsOn:

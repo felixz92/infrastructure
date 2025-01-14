@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./infrastructure/controllers/traefik/${CLUSTER_NAME}
+  path: ./system/controllers/traefik/${CLUSTER_NAME}
   targetNamespace: traefik
   prune: true
   dependsOn:
