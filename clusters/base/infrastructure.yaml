@@ -15,4 +15,3 @@ spec:
   postBuild:
     substitute:
       CLUSTER_NAME: ${CLUSTER_NAME}
-      BASE_DOMAIN: ${BASE_DOMAIN}

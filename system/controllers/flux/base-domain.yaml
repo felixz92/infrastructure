@@ -1,0 +1,16 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: base-domain
+  namespace: flux-system
+spec:
+  secretStoreRef:
+    name: cluster-store
+    kind: ClusterSecretStore
+  target:
+    name: base-domain
+  data:
+    - remoteRef:
+        key: base-domain
+        property: domain
+      secretKey: BASE_DOMAIN
