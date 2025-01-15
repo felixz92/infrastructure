@@ -6,10 +6,6 @@ variable "environment" {
   type = string
 }
 
-variable "base_domain" {
-  type = string
-}
-
 # Flux
 variable "branch" {
   type = string
