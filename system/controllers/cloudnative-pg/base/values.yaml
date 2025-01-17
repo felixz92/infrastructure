@@ -1,0 +1,17 @@
+replicaCount: 1
+crds:
+  create: false
+
+resources: {}
+  # If you want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  #
+  # limits:
+  #   cpu: 100m
+  #   memory: 200Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 100Mi
+
+monitoring:
+  podMonitorEnabled: true

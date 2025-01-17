@@ -7,3 +7,4 @@ resources:
 - prometheus-operator
 - grafana-operator
 - external-secrets-operator
+- cloudnative-pg

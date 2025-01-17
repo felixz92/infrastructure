@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- customresourcedefinition-backups.postgresql.cnpg.io.yaml
+- customresourcedefinition-clusterimagecatalogs.postgresql.cnpg.io.yaml
+- customresourcedefinition-clusters.postgresql.cnpg.io.yaml
+- customresourcedefinition-databases.postgresql.cnpg.io.yaml
+- customresourcedefinition-imagecatalogs.postgresql.cnpg.io.yaml
+- customresourcedefinition-poolers.postgresql.cnpg.io.yaml
+- customresourcedefinition-publications.postgresql.cnpg.io.yaml
+- customresourcedefinition-scheduledbackups.postgresql.cnpg.io.yaml
+- customresourcedefinition-subscriptions.postgresql.cnpg.io.yaml
