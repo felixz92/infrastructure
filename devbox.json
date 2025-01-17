@@ -11,7 +11,8 @@
     "crossplane-cli@latest",
     "upbound@latest",
     "krew@latest",
-    "popeye@latest"
+    "popeye@latest",
+    "clusterctl@latest"
   ],
   "shell": {
     "init_hook": [

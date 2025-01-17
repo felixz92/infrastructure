@@ -1,6 +1,54 @@
 {
   "lockfile_version": "1",
   "packages": {
+    "clusterctl@latest": {
+      "last_modified": "2025-01-04T17:00:17Z",
+      "resolved": "github:NixOS/nixpkgs/a1945f760a8fe019a4d753808de424dcd4e5b3cf#clusterctl",
+      "source": "devbox-search",
+      "version": "1.9.3",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/81d3dn1lbaqrs8xmh74wk5crwx3sg10i-clusterctl-1.9.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/81d3dn1lbaqrs8xmh74wk5crwx3sg10i-clusterctl-1.9.3"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/2jpwl1x6zrzpsb754d6qi6zaqgf6n8vx-clusterctl-1.9.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/2jpwl1x6zrzpsb754d6qi6zaqgf6n8vx-clusterctl-1.9.3"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/lrk17lfqamyksivkkpawys8w9aviqj49-clusterctl-1.9.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/lrk17lfqamyksivkkpawys8w9aviqj49-clusterctl-1.9.3"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/fx28212p5jgq6m82d8m8cibk64597z1n-clusterctl-1.9.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/fx28212p5jgq6m82d8m8cibk64597z1n-clusterctl-1.9.3"
+        }
+      }
+    },
     "crossplane-cli@latest": {
       "last_modified": "2024-12-27T03:08:00Z",
       "resolved": "github:NixOS/nixpkgs/7cc0bff31a3a705d3ac4fdceb030a17239412210#crossplane-cli",
