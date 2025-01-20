@@ -15,6 +15,7 @@ kind: GrafanaDashboard
 metadata:
   name: simple-victoria-logs
 spec:
+  folderRef: "observability"
   instanceSelector:
     matchLabels:
       dashboards: "grafana"
