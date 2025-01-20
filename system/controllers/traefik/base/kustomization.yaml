@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: traefik
 resources:
   - traefik-release.yaml
-  - dashboard.yaml
 
 configMapGenerator:
   - name: traefik-values
