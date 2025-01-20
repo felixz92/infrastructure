@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - helmrelease.yaml
   - image-catalog.yaml
+  - dashboard.yaml
 configMapGenerator:
   - name: cloudnative-pg-values
     files:

@@ -1,0 +1,19 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: hetzner-object-store
+spec:
+  secretStoreRef:
+    name: cluster-store
+    kind: ClusterSecretStore
+  target:
+    name: hetzner-object-store
+  data:
+    - remoteRef:
+        key: hetzner-object-store-staging
+        property: access_key
+      secretKey: access_key
+    - remoteRef:
+        key: hetzner-object-store-staging
+        property: secret_key
+      secretKey: secret_key

@@ -20,3 +20,14 @@ spec:
       dashboards: "grafana"
   title: Observability
   allowCrossNamespaceImport: true
+---
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaFolder
+metadata:
+  name: applications
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana"
+  title: Applications
+  allowCrossNamespaceImport: true

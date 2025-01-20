@@ -12,7 +12,11 @@
     "upbound@latest",
     "krew@latest",
     "popeye@latest",
-    "clusterctl@latest"
+    "clusterctl@latest",
+    "awscli@latest",
+    "s3cmd@latest",
+    "k9s@latest",
+    "minio-client@latest"
   ],
   "shell": {
     "init_hook": [
