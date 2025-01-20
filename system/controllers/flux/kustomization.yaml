@@ -1,5 +1,7 @@
 resources:
   - podmonitor.yaml
   - lets-encrypt-email.yaml
+  - dashboard.yaml
+  - base-domain.yaml
 
 namespace: flux-system

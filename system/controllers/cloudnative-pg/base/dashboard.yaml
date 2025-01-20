@@ -9,4 +9,3 @@ spec:
     matchLabels:
       dashboards: "grafana"
   url: "https://raw.githubusercontent.com/cloudnative-pg/grafana-dashboards/refs/heads/main/charts/cluster/grafana-dashboard.json"
-
