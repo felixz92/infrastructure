@@ -4,6 +4,7 @@ kind: GrafanaDashboard
 metadata:
   name: cnpg
 spec:
+  allowCrossNamespaceImport: true
   folderRef: "applications"
   instanceSelector:
     matchLabels:

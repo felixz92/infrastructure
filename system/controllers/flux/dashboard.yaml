@@ -4,6 +4,7 @@ kind: GrafanaDashboard
 metadata:
   name: flux
 spec:
+  allowCrossNamespaceImport: true
   folderRef: "kubernetes"
   instanceSelector:
     matchLabels:
