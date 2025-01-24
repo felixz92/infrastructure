@@ -2,7 +2,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: flux-system
 resources:
-  - domain.yaml
-  - node-exporter.yaml
-  - observability.yaml
-  - robusta.yaml
+  - authentik.yaml
