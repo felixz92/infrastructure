@@ -16,7 +16,8 @@
     "awscli@latest",
     "s3cmd@latest",
     "k9s@latest",
-    "minio-client@latest"
+    "minio-client@latest",
+    "kcl@latest"
   ],
   "shell": {
     "init_hook": [

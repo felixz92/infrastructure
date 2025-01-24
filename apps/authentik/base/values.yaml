@@ -1,0 +1,159 @@
+global:
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
+  env:
+    - name: AUTHENTIK_AVATARS
+      value: gravatar
+    - name: AUTHENTIK_POSTGRESQL__HOST
+      valueFrom:
+        secretKeyRef:
+          key: host
+          name: authentik-app
+    - name: AUTHENTIK_POSTGRESQL__PORT
+      valueFrom:
+        secretKeyRef:
+          key: port
+          name: authentik-app
+    - name: AUTHENTIK_POSTGRESQL__NAME
+      valueFrom:
+        secretKeyRef:
+          key: dbname
+          name: authentik-app
+    - name: AUTHENTIK_POSTGRESQL__USER
+      valueFrom:
+        secretKeyRef:
+          key: username
+          name: authentik-app
+    - name: AUTHENTIK_POSTGRESQL__PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: password
+          name: authentik-app
+
+    - name: AUTHENTIK_SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          key: secret
+          name: authentik-key
+    - name: AUTHENTIK_BOOTSTRAP_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: password
+          name: authentik-bootstrap-password
+    - name: AUTHENTIK_BOOTSTRAP_EMAIL
+      valueFrom:
+        secretKeyRef:
+          key: email
+          name: authentik-bootstrap-password
+    - name: AUTHENTIK_BOOTSTRAP_TOKEN
+      valueFrom:
+        secretKeyRef:
+          key: token
+          name: authentik-bootstrap-token
+
+authentik:
+  log_level: info
+  postgresql:
+    host: null
+    name: null
+    user: null
+    password: null
+    port: null
+  redis:
+    host: null
+    password: null
+
+## authentik server
+server:
+  # -- Environment variables to pass to the authentik server. Does not apply to GeoIP
+  # See configuration options at https://goauthentik.io/docs/installation/configuration/
+  # @default -- `[]` (See [values.yaml])
+  env: [ ]
+    # - name: AUTHENTIK_VAR_NAME
+    #   value: VALUE
+    # - name: AUTHENTIK_VAR_OTHER
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: secret-name
+    #       key: secret-key
+    # - name: AUTHENTIK_VAR_ANOTHER
+    #   valueFrom:
+    #     configMapKeyRef:
+    #       name: config-map-name
+  #       key: config-map-key
+
+  # -- envFrom to pass to the authentik server. Does not apply to GeoIP
+  # @default -- `[]` (See [values.yaml])
+  envFrom: [ ]
+    # - configMapRef:
+    #     name: config-map-name
+    # - secretRef:
+  #     name: secret-name
+  # -- Resource limits and requests for the authentik server
+  resources: { }
+    # requests:
+    #   cpu: 100m
+    #   memory: 512Mi
+    # limits:
+  #   memory: 512Mi
+
+  # -- authentik server pod-level security context
+  # @default -- `{}` (See [values.yaml])
+  securityContext: { }
+
+  # -- authentik server container-level security context
+  # @default -- See [values.yaml]
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+worker:
+  # -- Environment variables to pass to the authentik worker. Does not apply to GeoIP
+  # See configuration options at https://goauthentik.io/docs/installation/configuration/
+  # @default -- `[]` (See [values.yaml])
+  env: [ ]
+    # - name: AUTHENTIK_VAR_NAME
+    #   value: VALUE
+    # - name: AUTHENTIK_VAR_OTHER
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: secret-name
+    #       key: secret-key
+    # - name: AUTHENTIK_VAR_ANOTHER
+    #   valueFrom:
+    #     configMapKeyRef:
+    #       name: config-map-name
+  #       key: config-map-key
+
+  # -- envFrom to pass to the authentik worker. Does not apply to GeoIP
+  # @default -- `[]` (See [values.yaml])
+  envFrom: [ ]
+    # - configMapRef:
+    #     name: config-map-name
+    # - secretRef:
+  #     name: secret-name
+  # -- authentik worker container-level security context
+  # @default -- See [values.yaml]
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+
+prometheus:
+  rules:
+    enabled: true

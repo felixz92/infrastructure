@@ -305,6 +305,54 @@
         }
       }
     },
+    "kcl@latest": {
+      "last_modified": "2025-01-04T17:00:17Z",
+      "resolved": "github:NixOS/nixpkgs/a1945f760a8fe019a4d753808de424dcd4e5b3cf#kcl",
+      "source": "devbox-search",
+      "version": "0.11.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/m52m2bkji0ripm7j83ns0fx0x2jxnsgz-kcl-0.11.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/m52m2bkji0ripm7j83ns0fx0x2jxnsgz-kcl-0.11.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/v19a5997c7lg94gv43vlfpa4dm18h3si-kcl-0.11.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/v19a5997c7lg94gv43vlfpa4dm18h3si-kcl-0.11.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/9sfnibn12chzara8gz0x56sjdaa2k54r-kcl-0.11.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/9sfnibn12chzara8gz0x56sjdaa2k54r-kcl-0.11.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/yydzqwq2xdr5ngx9r28c84nxq0z0jdki-kcl-0.11.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/yydzqwq2xdr5ngx9r28c84nxq0z0jdki-kcl-0.11.0"
+        }
+      }
+    },
     "krew@latest": {
       "last_modified": "2024-12-23T21:10:33Z",
       "resolved": "github:NixOS/nixpkgs/de1864217bfa9b5845f465e771e0ecb48b30e02d#krew",
