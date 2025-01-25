@@ -79,9 +79,9 @@ server:
   resources:
     requests:
       cpu: 100m
-      memory: 640mi
+      memory: 640Mi
     limits:
-      memory: 640mi
+      memory: 640Mi
 
   securityContext:
     runAsNonRoot: true
@@ -108,9 +108,9 @@ worker:
   resources:
     requests:
       cpu: 100m
-      memory: 640mi
+      memory: 640Mi
     limits:
-      memory: 640mi
+      memory: 640Mi
 
   securityContext:
     runAsNonRoot: true
