@@ -1,9 +1,4 @@
 global:
-  securityContext:
-    runAsNonRoot: true
-    seccompProfile:
-      type: RuntimeDefault
-
   env:
     - name: AUTHENTIK_AVATARS
       value: gravatar
@@ -103,6 +98,10 @@ server:
   # -- authentik server pod-level security context
   # @default -- `{}` (See [values.yaml])
   securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
 
   # -- authentik server container-level security context
   # @default -- See [values.yaml]
@@ -146,6 +145,10 @@ worker:
   #     name: secret-name
   # -- authentik worker container-level security context
   # @default -- See [values.yaml]
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
   containerSecurityContext:
     allowPrivilegeEscalation: false
     capabilities:
