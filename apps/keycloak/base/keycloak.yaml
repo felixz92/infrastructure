@@ -19,9 +19,9 @@ spec:
       key: password
   bootstrapAdmin:
     user:
-      secret: keycloak-admin-user
+      secret: keycloak-bootstrap-admin
     service:
-      secret: keycloak-admin-service
+      secret: keycloak-bootstrap-service
   http:
     httpEnabled: true
     tlsSecret: tls-keycloak-ingress
