@@ -7,6 +7,7 @@ resources:
 - external-secrets.yaml
 - grafana-operator.yaml
 - grocy.yaml
+- keycloak.yaml
 - kyverno.yaml
 - monitoring.yaml
 - observability.yaml
