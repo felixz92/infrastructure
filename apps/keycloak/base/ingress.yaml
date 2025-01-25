@@ -1,0 +1,12 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kecloak-tls-certificate
+spec:
+  secretName: tls-keycloak-ingress
+  issuerRef:
+    name: dns-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - keycloak.${BASE_DOMAIN}
