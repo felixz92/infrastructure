@@ -4,6 +4,8 @@ namespace: traefik
 resources:
   - authentik-release.yaml
   - dashboard.yaml
+  - redis.yaml
+  - secrets.yaml
 
 configMapGenerator:
   - name: authentik-values
