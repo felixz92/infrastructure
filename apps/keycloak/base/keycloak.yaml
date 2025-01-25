@@ -20,8 +20,6 @@ spec:
   http:
     httpEnabled: true
     tlsSecret: tls-keycloak-ingress
-  httpManagement:
-    port: 9990
   hostname:
     hostname: keycloak.${BASE_DOMAIN}
   proxy:
