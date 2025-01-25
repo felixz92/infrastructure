@@ -56,6 +56,13 @@ global:
           key: token
           name: authentik-bootstrap-token
 
+  volumeMounts:
+    - name: media
+      mountPath: /media
+  volumes:
+    - name: media
+      emptyDir: {}
+
 authentik:
   log_level: info
   postgresql:
