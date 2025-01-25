@@ -13,27 +13,27 @@ global:
       valueFrom:
         secretKeyRef:
           key: host
-          name: authentik-app
+          name: authentik-database-app
     - name: AUTHENTIK_POSTGRESQL__PORT
       valueFrom:
         secretKeyRef:
           key: port
-          name: authentik-app
+          name: authentik-database-app
     - name: AUTHENTIK_POSTGRESQL__NAME
       valueFrom:
         secretKeyRef:
           key: dbname
-          name: authentik-app
+          name: authentik-database-app
     - name: AUTHENTIK_POSTGRESQL__USER
       valueFrom:
         secretKeyRef:
           key: username
-          name: authentik-app
+          name: authentik-database-app
     - name: AUTHENTIK_POSTGRESQL__PASSWORD
       valueFrom:
         secretKeyRef:
           key: password
-          name: authentik-app
+          name: authentik-database-app
 
     - name: AUTHENTIK_SECRET_KEY
       valueFrom:
