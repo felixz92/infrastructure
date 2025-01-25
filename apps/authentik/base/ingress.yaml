@@ -1,0 +1,46 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: authentik-tls-certificate
+spec:
+  secretName: tls-authentik-ingress
+  issuerRef:
+    name: dns-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - authentik.${BASE_DOMAIN}
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: authentik-gateway
+spec:
+  gatewayClassName: traefik
+  listeners:
+    - name: websecure
+      port: 8443
+      protocol: HTTPS
+      hostname: authentik.${BASE_DOMAIN}
+      tls:
+        certificateRefs:
+          - name: tls-authentik-ingress  # <==== Use the name defined in Certificate resource.
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: authentik-http
+spec:
+  parentRefs:
+    - name: authentik-gateway
+  hostnames:
+    - authentik.${BASE_DOMAIN}
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /
+      backendRefs:
+        - name: authentik-server
+          port: 80
+          weight: 1
