@@ -9,7 +9,7 @@ spec:
     - name: websecure
       port: 8443
       protocol: HTTPS
-      hostname: whoami.${BASE_DOMAIN}
+      hostname: whoami.staging-fzx-infra.dev
       tls:
         certificateRefs:
           - name: tls-whoami-ingress  # <==== Use the name defined in Certificate resource.
@@ -22,7 +22,7 @@ spec:
   parentRefs:
     - name: whoami-gateway
   hostnames:
-    - whoami.${BASE_DOMAIN}
+    - whoami.staging-fzx-infra.dev
   rules:
     - matches:
         - path:
