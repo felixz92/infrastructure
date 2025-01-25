@@ -61,7 +61,7 @@ global:
       mountPath: /media
   volumes:
     - name: media
-      emptyDir: {}
+      emptyDir: { }
 
 authentik:
   log_level: info
@@ -75,42 +75,14 @@ authentik:
     host: null
     password: null
 
-## authentik server
 server:
-  # -- Environment variables to pass to the authentik server. Does not apply to GeoIP
-  # See configuration options at https://goauthentik.io/docs/installation/configuration/
-  # @default -- `[]` (See [values.yaml])
-  env: [ ]
-    # - name: AUTHENTIK_VAR_NAME
-    #   value: VALUE
-    # - name: AUTHENTIK_VAR_OTHER
-    #   valueFrom:
-    #     secretKeyRef:
-    #       name: secret-name
-    #       key: secret-key
-    # - name: AUTHENTIK_VAR_ANOTHER
-    #   valueFrom:
-    #     configMapKeyRef:
-  #       name: config-map-name
-  #       key: config-map-key
+  resources:
+    requests:
+      cpu: 100m
+      memory: 640mi
+    limits:
+      memory: 640mi
 
-  # -- envFrom to pass to the authentik server. Does not apply to GeoIP
-  # @default -- `[]` (See [values.yaml])
-  envFrom: [ ]
-    # - configMapRef:
-    #     name: config-map-name
-  # - secretRef:
-  #     name: secret-name
-  # -- Resource limits and requests for the authentik server
-  resources: { }
-    # requests:
-    #   cpu: 100m
-    #   memory: 512Mi
-  # limits:
-  #   memory: 512Mi
-
-  # -- authentik server pod-level security context
-  # @default -- `{}` (See [values.yaml])
   securityContext:
     runAsNonRoot: true
     seccompProfile:
@@ -133,32 +105,13 @@ server:
       enabled: true
 
 worker:
-  # -- Environment variables to pass to the authentik worker. Does not apply to GeoIP
-  # See configuration options at https://goauthentik.io/docs/installation/configuration/
-  # @default -- `[]` (See [values.yaml])
-  env: [ ]
-    # - name: AUTHENTIK_VAR_NAME
-    #   value: VALUE
-    # - name: AUTHENTIK_VAR_OTHER
-    #   valueFrom:
-    #     secretKeyRef:
-    #       name: secret-name
-    #       key: secret-key
-    # - name: AUTHENTIK_VAR_ANOTHER
-    #   valueFrom:
-    #     configMapKeyRef:
-  #       name: config-map-name
-  #       key: config-map-key
+  resources:
+    requests:
+      cpu: 100m
+      memory: 640mi
+    limits:
+      memory: 640mi
 
-  # -- envFrom to pass to the authentik worker. Does not apply to GeoIP
-  # @default -- `[]` (See [values.yaml])
-  envFrom: [ ]
-    # - configMapRef:
-    #     name: config-map-name
-  # - secretRef:
-  #     name: secret-name
-  # -- authentik worker container-level security context
-  # @default -- See [values.yaml]
   securityContext:
     runAsNonRoot: true
     seccompProfile:
