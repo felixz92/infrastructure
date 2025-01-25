@@ -5,3 +5,4 @@ resources:
   - cloudflare-dns.yaml
   - kubernetes.yaml
   - terraform.yaml
+  - cloudflare-secret.yaml
