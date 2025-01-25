@@ -9,4 +9,3 @@ resources:
 - grafana-operator.yaml
 - traefik.yaml
 - victoria-metrics-operator.yaml
-- keycloak.yaml
