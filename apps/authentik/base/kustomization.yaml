@@ -7,6 +7,7 @@ resources:
   - redis.yaml
   - secrets.yaml
   - ingress.yaml
+  - database.yaml
 
 configMapGenerator:
   - name: authentik-values
