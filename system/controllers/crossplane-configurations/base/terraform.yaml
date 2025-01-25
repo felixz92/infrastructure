@@ -28,7 +28,7 @@ spec:
     }
     
     provider "cloudflare" {
-      api_key = file("cloudflare-api-token")
+      api_token = file("cloudflare-api-token")
       email = file("cloudflare-email")
     }
 
