@@ -18,6 +18,7 @@ spec:
       name: keycloak-database-app
       key: password
   http:
+    httpEnabled: true
     tlsSecret: tls-keycloak-ingress
   hostname:
     hostname: keycloak.${BASE_DOMAIN}
