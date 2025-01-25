@@ -11,12 +11,6 @@ spec:
         namespace: crossplane-system
       source: Secret
       filename: cloudflare-api-token
-    - secretRef:
-        key: email
-        name: cloudflare-credentials
-        namespace: crossplane-system
-      source: Secret
-      filename: cloudflare-email
   configuration: |
     terraform {
       required_providers {
@@ -29,7 +23,6 @@ spec:
     
     provider "cloudflare" {
       api_token = file("cloudflare-api-token")
-      email = file("cloudflare-email")
     }
 
     // Modules _must_ use remote state. The provider does not persist state.
