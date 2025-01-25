@@ -19,3 +19,8 @@
     requests:
       cpu: 100m
       memory: 512Mi
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: QUARKUS_LOG_LEVEL
+    value: DEBUG
