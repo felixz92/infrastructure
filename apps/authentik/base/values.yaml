@@ -2,6 +2,13 @@ global:
   env:
     - name: AUTHENTIK_AVATARS
       value: gravatar
+    - name: AUTHENTIK_REDIS__HOST
+      value: authentik-redis-master
+    - name: AUTHENTIK_REDIS__PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: password
+          name: redis-password
     - name: AUTHENTIK_POSTGRESQL__HOST
       valueFrom:
         secretKeyRef:
@@ -77,7 +84,7 @@ server:
     # - name: AUTHENTIK_VAR_ANOTHER
     #   valueFrom:
     #     configMapKeyRef:
-    #       name: config-map-name
+  #       name: config-map-name
   #       key: config-map-key
 
   # -- envFrom to pass to the authentik server. Does not apply to GeoIP
@@ -85,14 +92,14 @@ server:
   envFrom: [ ]
     # - configMapRef:
     #     name: config-map-name
-    # - secretRef:
+  # - secretRef:
   #     name: secret-name
   # -- Resource limits and requests for the authentik server
   resources: { }
     # requests:
     #   cpu: 100m
     #   memory: 512Mi
-    # limits:
+  # limits:
   #   memory: 512Mi
 
   # -- authentik server pod-level security context
@@ -133,7 +140,7 @@ worker:
     # - name: AUTHENTIK_VAR_ANOTHER
     #   valueFrom:
     #     configMapKeyRef:
-    #       name: config-map-name
+  #       name: config-map-name
   #       key: config-map-key
 
   # -- envFrom to pass to the authentik worker. Does not apply to GeoIP
@@ -141,7 +148,7 @@ worker:
   envFrom: [ ]
     # - configMapRef:
     #     name: config-map-name
-    # - secretRef:
+  # - secretRef:
   #     name: secret-name
   # -- authentik worker container-level security context
   # @default -- See [values.yaml]
