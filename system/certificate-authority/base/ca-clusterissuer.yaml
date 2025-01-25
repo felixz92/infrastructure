@@ -23,7 +23,8 @@ spec:
   acme:
     privateKeySecretRef:
       name: lets-encrypt-account-key
-    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    #server: https://acme-staging-v02.api.letsencrypt.org/directory
+    server: https://acme-v02.api.letsencrypt.org/directory
     email: ${LETSENCRYPT_EMAIL}
     solvers:
       - dns01:
