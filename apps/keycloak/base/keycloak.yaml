@@ -17,6 +17,11 @@ spec:
     passwordSecret:
       name: keycloak-database-app
       key: password
+  bootstrapAdmin:
+    user:
+      secret: keycloak-admin-user
+    service:
+      secret: keycloak-admin-service
   http:
     httpEnabled: true
     tlsSecret: tls-keycloak-ingress
