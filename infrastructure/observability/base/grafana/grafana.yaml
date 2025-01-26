@@ -7,11 +7,26 @@ metadata:
     dashboards: "grafana"
 spec:
   config:
+    server:
+      root_url: "https://grafana.${BASE_DOMAIN}"
     plugins:
       allow_loading_unsigned_plugins: victoriametrics-datasource,victoriametrics-logs-datasource
     security:
       admin_user: root
       admin_password: secret
+    auth:
+      disable_login_form: "false"
+      signout_redirect_url: "https://authentik.${BASE_DOMAIN}/application/o/grafana/end-session/"
+    auth.generic_oauth:
+      enabled: "true"
+      name: "authentik"
+      allow_sign_up: "true"
+      client_id: "grafana"
+      scopes: "openid email profile"
+      auth_url: "https://authentik.${BASE_DOMAIN}/application/o/authorize/"
+      token_url: "https://authentik.${BASE_DOMAIN}/application/o/token/"
+      api_url: "https://authentik.${BASE_DOMAIN}/application/o/userinfo/"
+      role_attribute_path: "contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'"
   deployment:
     spec:
       template:
@@ -21,6 +36,12 @@ spec:
               type: RuntimeDefault
           containers:
             - name: grafana
+              env:
+                - name: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      key: attribute.client_secret
+                      name: grafana-client-secret
               resources:
                 requests:
                   cpu: 30m

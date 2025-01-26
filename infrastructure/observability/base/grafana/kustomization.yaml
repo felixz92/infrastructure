@@ -4,3 +4,5 @@ resources:
   - grafana.yaml
   - datasources.yaml
   - folders.yaml
+  - hcloud-token.yaml
+  - ingress.yaml

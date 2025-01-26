@@ -1,0 +1,28 @@
+---
+apiVersion: authentik.crossplane.io/v1alpha1
+kind: Flow
+metadata:
+  name: default-provider-authorization-implicit-consent
+  annotations:
+    crossplane.io/external-name: default-provider-authorization-implicit-consent
+spec:
+  forProvider:
+    designation: authorization
+    name: default-provider-authorization-implicit-consent
+    title: Redirecting to %(app)s
+  providerConfigRef:
+    name: authentik-provider
+---
+apiVersion: authentik.crossplane.io/v1alpha1
+kind: Flow
+metadata:
+  name: default-provider-invalidation-flow
+  annotations:
+    crossplane.io/external-name: default-provider-invalidation-flow
+spec:
+  forProvider:
+    designation: invalidation
+    name: default-provider-invalidation-flow
+    title: You've logged out of %(app)s.
+  providerConfigRef:
+    name: authentik-provider
