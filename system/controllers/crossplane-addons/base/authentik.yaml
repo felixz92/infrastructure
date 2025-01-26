@@ -12,14 +12,12 @@ spec:
           containers:
             - name: package-runtime
               args:
-                - --enable-management-policies
-                - --debug
               resources:
                 requests:
                   cpu: 20m
-                  memory: 100Mi
+                  memory: 200Mi
                 limits:
-                  memory: 100Mi
+                  memory: 200Mi
 
 ---
 apiVersion: pkg.crossplane.io/v1
@@ -28,7 +26,7 @@ metadata:
   name: jacobcolvin-provider-authentik
 spec:
   ignoreCrossplaneConstraints: false
-  package: xpkg.upbound.io/jacobcolvin/provider-authentik:v0.1.0-1.g74ef781
+  package: felixz92/provider-authentik:v0.2.1
   packagePullPolicy: IfNotPresent
   revisionActivationPolicy: Automatic
   revisionHistoryLimit: 1

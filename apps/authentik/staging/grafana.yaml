@@ -1,0 +1,70 @@
+---
+apiVersion: authentik.crossplane.io/v1alpha1
+kind: Flow
+metadata:
+  name: default-provider-authorization-implicit-consent
+  annotations:
+    crossplane.io/external-name: 0a16d999-f9b4-4e6d-8652-eaa28bdb6356
+spec:
+  forProvider:
+    designation: authorization
+    name: default-provider-authorization-implicit-consent
+    title: Redirecting to %(app)s
+  providerConfigRef:
+    name: authentik-provider
+---
+apiVersion: authentik.crossplane.io/v1alpha1
+kind: Flow
+metadata:
+  name: default-provider-invalidation-flow
+  annotations:
+    crossplane.io/external-name: 0bdd2918-d61a-4d91-9329-a83c52ae14db
+spec:
+  forProvider:
+    designation: invalidation
+    name: default-provider-invalidation-flow
+    title: You've logged out of %(app)s.
+  providerConfigRef:
+    name: authentik-provider
+---
+apiVersion: provider.authentik.crossplane.io/v1alpha1
+kind: OAuth2
+metadata:
+  name: grafana
+spec:
+  forProvider:
+    clientId: grafana
+    name: grafana
+    authorizationFlowRef:
+      name: default-provider-authorization-implicit-consent
+    invalidationFlowRef:
+      name: default-provider-invalidation-flow
+    allowedRedirectUris:
+      - matching_mode: strict
+        url: https://grafana.staging-fzx-infra.dev/login/generic_oauth
+  providerConfigRef:
+    name: authentik-provider
+---
+apiVersion: authentik.crossplane.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+spec:
+  providerConfigRef:
+    name: authentik-provider
+  forProvider:
+    name: Grafana
+    protocolProvider: 1
+    metaIcon: "https://cdn.worldvectorlogo.com/logos/grafana.svg"
+    metaDescription: "https://grafana.com/docs/grafana/latest/"
+    metaLaunchUrl: https://grafana.staging-fzx-infra.dev
+
+#---
+#apiVersion: authentik.crossplane.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: name
+#spec:
+#  forProvider:
+#    name: test app
+#    protocolProvider: ${authentik_provider_oauth2.name.id}
