@@ -11,9 +11,6 @@ spec:
       root_url: "https://grafana.${BASE_DOMAIN}"
     plugins:
       allow_loading_unsigned_plugins: victoriametrics-datasource,victoriametrics-logs-datasource
-    security:
-      admin_user: root
-      admin_password: secret
     auth:
       disable_login_form: "false"
       signout_redirect_url: "https://authentik.${BASE_DOMAIN}/application/o/grafana/end-session/"
@@ -26,7 +23,7 @@ spec:
       auth_url: "https://authentik.${BASE_DOMAIN}/application/o/authorize/"
       token_url: "https://authentik.${BASE_DOMAIN}/application/o/token/"
       api_url: "https://authentik.${BASE_DOMAIN}/application/o/userinfo/"
-      role_attribute_path: "contains(groups[*], 'grafana-admins') && 'Admin' || contains(groups[*], 'grafana-editors') && 'Editor' || 'Viewer'"
+      role_attribute_path: "contains(groups[*], 'cluster-admins') && 'Admin' || contains(groups[*], 'grafana-admins') && 'Admin' || contains(groups[*], 'grafana-editors') && 'Editor' || 'Viewer'"
   deployment:
     spec:
       template:
@@ -37,6 +34,16 @@ spec:
           containers:
             - name: grafana
               env:
+                - name: GF_SECURITY_ADMIN_USER
+                  valueFrom:
+                    secretKeyRef:
+                      key: GF_SECURITY_ADMIN_USER
+                      name: grafana-admin
+                - name: GF_SECURITY_ADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: GF_SECURITY_ADMIN_PASSWORD
+                      name: grafana-admin
                 - name: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
                   valueFrom:
                     secretKeyRef:

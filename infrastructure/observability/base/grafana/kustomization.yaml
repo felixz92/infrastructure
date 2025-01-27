@@ -6,3 +6,4 @@ resources:
   - folders.yaml
   - hcloud-token.yaml
   - ingress.yaml
+  - admin-user.yaml

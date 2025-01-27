@@ -1,0 +1,19 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: grafana-admin
+spec:
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: cluster-store
+  target:
+    name: grafana-admin
+  data:
+    - secretKey: GF_SECURITY_ADMIN_PASSWORD
+      remoteRef:
+        property: password
+        key: grafana-admin
+    - secretKey: GF_SECURITY_ADMIN_USER
+      remoteRef:
+        property: username
+        key: grafana-admin
