@@ -63,7 +63,7 @@ outpost: authentik.Outpost = {
             config = json.encode({
                 "authentik_host": "http://authentik-server/"
                 "authentik_host_insecure": True
-                "authentik_host_browser": "https://authentik.staging-fzx-infra.dev/"
+                "authentik_host_browser": "https://authentik.${BASE_DOMAIN}/"
                 "log_level": "info"
                 "object_naming_template": "ak-outpost-%(name)s"
                 "kubernetes_replicas": 1

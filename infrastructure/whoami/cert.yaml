@@ -9,4 +9,4 @@ spec:
     name: dns-clusterissuer
     kind: ClusterIssuer
   dnsNames:
-    - whoami.staging-fzx-infra.dev
+    - whoami.${BASE_DOMAIN}

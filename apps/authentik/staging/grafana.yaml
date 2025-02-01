@@ -22,7 +22,7 @@ spec:
       name: default-provider-invalidation-flow
     allowedRedirectUris:
       - matching_mode: strict
-        url: https://grafana.staging-fzx-infra.dev/login/generic_oauth
+        url: https://grafana.${BASE_DOMAIN}/login/generic_oauth
   providerConfigRef:
     name: authentik-provider
 ---
@@ -56,4 +56,4 @@ spec:
           protocolProvider: 2
           metaIcon: "https://cdn.worldvectorlogo.com/logos/grafana.svg"
           metaDescription: "https://grafana.com/docs/grafana/latest/"
-          metaLaunchUrl: https://grafana.staging-fzx-infra.dev
+          metaLaunchUrl: https://grafana.${BASE_DOMAIN}

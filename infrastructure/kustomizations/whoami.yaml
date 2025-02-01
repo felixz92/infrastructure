@@ -2,16 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: traefik
+  name: whoami
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./system/controllers/traefik/${CLUSTER_NAME}
-  targetNamespace: traefik
+  path: ./infrastructure/whoami
+  targetNamespace: whoami
   prune: true
-  dependsOn:
-    - name: crds
-    - name: namespaces
   sourceRef:
     kind: GitRepository
     name: flux-system

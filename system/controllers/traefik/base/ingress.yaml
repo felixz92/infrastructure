@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik-admin
+spec:
+  selector:
+    app.kubernetes.io/instance: traefik-traefik
+    app.kubernetes.io/name: traefik
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: traefik
+      name: traefik
+  type: ClusterIP
+---
+apiVersion: applications.authentik.crossplane.io/v1alpha1
+kind: ForwardAuthClaim
+metadata:
+  name: traefik
+spec:
+  externalHost: "traefik.${BASE_DOMAIN}"
+  icon: "https://github.com/traefik/traefik/raw/master/docs/content/assets/img/traefik.logo.png"
+  description: "https://doc.traefik.io/traefik/"
+  backendService:
+    name: traefik-admin
+    port: 8080

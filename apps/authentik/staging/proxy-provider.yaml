@@ -7,7 +7,7 @@ spec:
   forProvider:
     name: prometheus
     mode: forward_single
-    externalHost: "https://prometheus.staging-fzx-infra.dev"
+    externalHost: "https://prometheus.${BASE_DOMAIN}"
     accessTokenValidity: "hours=24"
     authorizationFlowRef:
       name: default-provider-authorization-implicit-consent
@@ -50,7 +50,7 @@ spec:
       {
         "authentik_host": "http://authentik-server/",
         "authentik_host_insecure": true,
-        "authentik_host_browser": "https://authentik.staging-fzx-infra.dev/",
+        "authentik_host_browser": "https://authentik.${BASE_DOMAIN}/",
         "log_level": "info",
         "object_naming_template": "ak-outpost-%(name)s",
         "kubernetes_replicas": 1,

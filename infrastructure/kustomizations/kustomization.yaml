@@ -6,3 +6,4 @@ resources:
   - node-exporter.yaml
   - observability.yaml
   - robusta.yaml
+  - whoami.yaml
