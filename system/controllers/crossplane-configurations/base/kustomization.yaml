@@ -6,3 +6,4 @@ resources:
   - kubernetes.yaml
   - terraform.yaml
   - cloudflare-secret.yaml
+  - custom-config.yaml
