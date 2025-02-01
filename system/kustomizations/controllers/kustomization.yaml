@@ -4,6 +4,7 @@ resources:
 - cloudnative-pg.yaml
 - crossplane-addons.yaml
 - crossplane-configurations.yaml
+- crossplane-custom-config.yaml
 - crossplane.yaml
 - external-secrets.yaml
 - grafana-operator.yaml
