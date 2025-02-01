@@ -59,7 +59,7 @@ spec:
       kind: Input
       spec:
         extraResources:
-        - apiVersion: policy.authentik.crossplane.io/v1alpha1
+        - apiVersion: directory.authentik.crossplane.io/v1alpha1
           kind: Group
           into: adminGroup
           type: Reference
@@ -83,6 +83,7 @@ spec:
           ocds = option("params").ocds
 
           _providerId = ocds[oxr.metadata.name + "-proxy"]?.Resource?.status?.atProvider?.id
+          _appId = ocds[oxr.metadata.name + "-application"]?.Resource?.status?.atProvider?.uuid
 
           proxy: provider.Proxy = {
               metadata.name = oxr.metadata.name + "-proxy"

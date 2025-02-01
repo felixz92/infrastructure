@@ -67,7 +67,7 @@ forwardauthComposition = xpv1.Composition {
                     spec = {
                         extraResources = [
                            {
-                               apiVersion = "policy.authentik.crossplane.io/v1alpha1"
+                               apiVersion = "directory.authentik.crossplane.io/v1alpha1"
                                kind = "Group"
                                into: "adminGroup"
                                $type = "Reference"

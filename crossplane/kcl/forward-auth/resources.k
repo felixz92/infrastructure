@@ -8,6 +8,7 @@ oxr = option("params").oxr
 ocds = option("params").ocds
 
 _providerId = ocds[oxr.metadata.name + "-proxy"]?.Resource?.status?.atProvider?.id
+_appId = ocds[oxr.metadata.name + "-application"]?.Resource?.status?.atProvider?.uuid
 
 proxy: provider.Proxy = {
     metadata.name = oxr.metadata.name + "-proxy"
