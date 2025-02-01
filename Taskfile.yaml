@@ -8,6 +8,7 @@ tasks:
   generate:
     cmds:
       - kcl run ./crossplane/kcl/forward-auth/crossplane.k > ./crossplane/rendered/forward-auth.yaml
+      - kcl run ./crossplane/kcl/oauth-app/crossplane.k > ./crossplane/rendered/oauth-app.yaml
   destroy:
     cmds:
       - for ks in $(kubectl get kustomization --no-headers -o custom-columns=":metadata.name" -n flux-system); do flux suspend kustomization $ks ; done

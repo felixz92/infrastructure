@@ -1,0 +1,13 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "authentik",
+      "Group": "Servers",
+      "Port": 5432,
+      "Username": "app",
+      "Host": "authentik-database-r.authentik.svc.cluster.local",
+      "SSLMode": "prefer",
+      "MaintenanceDB": "postgres"
+    }
+  }
+}

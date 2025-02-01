@@ -1,0 +1,88 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pgadmin
+spec:
+  ports:
+    - port: 3004
+  type: ClusterIP
+#---
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: pgadmin-data
+#spec:
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#    requests:
+#      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pgadmin
+spec:
+  replicas: 1
+  template:
+    spec:
+      securityContext:
+        runAsGroup: 5050
+        runAsUser: 5050
+        fsGroup: 5050
+      containers:
+        - name: pgadmin
+          image: dpage/pgadmin4:8.14
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+          ports:
+            - containerPort: 3004
+              protocol: TCP
+          env:
+            - name: PGADMIN_DISABLE_POSTFIX
+              value: "true"
+            - name: PGADMIN_LISTEN_PORT
+              value: "3004"
+          envFrom:
+            - secretRef:
+                name: pgadmin-default-creds
+          volumeMounts:
+            - mountPath: /var/lib/pgadmin
+              name: pgadmin-data
+            - name: config
+              mountPath: /pgadmin4/servers.json
+              subPath: servers.json
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: config
+          configMap:
+            name: pgadmin-config
+        - name: pgadmin-data
+          emptyDir: {}
+
+#          persistentVolumeClaim:
+#            claimName: pgadmin-data
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: pgadmin-default-creds
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: cluster-store
+    kind: ClusterSecretStore
+  target:
+    name: pgadmin-default-creds
+  data:
+    - secretKey: PGADMIN_DEFAULT_EMAIL
+      remoteRef:
+        key: pgadmin-default-creds
+        property: username
+    - secretKey: PGADMIN_DEFAULT_PASSWORD
+      remoteRef:
+        key: pgadmin-default-creds
+        property: password
