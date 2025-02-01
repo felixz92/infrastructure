@@ -1,0 +1,23 @@
+apiVersion: directory.authentik.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  name: cluster-admins
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    attributes: '{}'
+    isSuperuser: false
+    name: cluster-admins
+  initProvider: { }
+  managementPolicies:
+    - '*'
+  providerConfigRef:
+    name: authentik-provider
+status:
+  atProvider:
+    attributes: '{}'
+    id: cabab51f-a3b7-46fc-bdad-9c3488492397
+    isSuperuser: false
+    name: cluster-admins
+    users:
+      - 34

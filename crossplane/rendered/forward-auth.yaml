@@ -75,6 +75,7 @@ spec:
         source: |
           import k8s.apimachinery.pkg.apis.meta.v1
           import crossplane_authentik.provider.v1alpha1 as provider
+          import crossplane_authentik.policy.v1alpha1 as policy
           import crossplane_authentik.v1alpha1 as authentik
           import json
 
@@ -84,6 +85,7 @@ spec:
 
           _providerId = ocds[oxr.metadata.name + "-proxy"]?.Resource?.status?.atProvider?.id
           _appId = ocds[oxr.metadata.name + "-application"]?.Resource?.status?.atProvider?.uuid
+          _groupId = option("params").ctx["apiextensions.crossplane.io/extra-resources"]?.adminGroup[0]?.status?.atProvider?.id
 
           proxy: provider.Proxy = {
               metadata.name = oxr.metadata.name + "-proxy"
@@ -148,6 +150,17 @@ spec:
                   providerConfigRef = {
                       name = "authentik-provider"
                   }
+              }
+          }
+
+          binding: policy.Binding {
+              metadata.name = oxr.metadata.name + "-binding"
+              providerConfigRef.name = "authentik-provider"
+              spec.forProvider = {
+                  target = _appId
+                  group = _groupId
+                  enabled = True
+                  order: 0
               }
           }
 

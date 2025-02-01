@@ -1,0 +1,39 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: function-template-go
+spec:
+  compositeTypeRef:
+    apiVersion: example.crossplane.io/v1
+    kind: XR
+  mode: Pipeline
+  pipeline:
+    - step: pull-extra-resources
+      functionRef:
+        name: crossplane-contrib-function-extra-resources
+      input:
+        apiVersion: extra-resources.fn.crossplane.io/v1beta1
+        kind: Input
+        spec:
+          extraResources:
+            - kind: Group
+              into: adminGroup
+              apiVersion: directory.authentik.crossplane.io/v1alpha1
+              type: Reference
+              ref:
+                name: cluster-admins
+    # Just for test
+    - step: normal
+      functionRef:
+        name: crossplane-contrib-function-kcl
+      input:
+        apiVersion: krm.kcl.dev/v1alpha1
+        kind: KCLInput
+        metadata:
+          name: show-ocds
+        spec:
+          source: |
+            {
+                metadata.name = "ocds"
+                spec.ocds = option("params").ctx["apiextensions.crossplane.io/extra-resources"].adminGroup[0].status.atProvider.id
+            }
