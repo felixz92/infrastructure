@@ -1,11 +1,24 @@
+---
 apiVersion: applications.authentik.crossplane.io/v1alpha1
 kind: ForwardAuthClaim
 metadata:
   name: alertmanager
 spec:
   externalHost: "grocy.${BASE_DOMAIN}"
-  icon: "https://avatars1.githubusercontent.com/u/3380462?s=200&v=4"
+  icon: "https://avatars.githubusercontent.com/u/3380462?s=200&v=4"
   description: "https://prometheus.io/docs/alerting/latest/alertmanager/"
   backendService:
     name: vmalertmanager-vmks-victoria-metrics-k8s-stack
     port: 9093
+---
+apiVersion: applications.authentik.crossplane.io/v1alpha1
+kind: ForwardAuthClaim
+metadata:
+  name: prometheus
+spec:
+  externalHost: "prometheus.${BASE_DOMAIN}"
+  icon: "https://avatars1.githubusercontent.com/u/3380462?s=200&v=4"
+  description: "https://prometheus.io/docs"
+  backendService:
+    name: vmsingle-vmks-victoria-metrics-k8s-stack
+    port: 8429
