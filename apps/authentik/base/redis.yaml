@@ -70,6 +70,9 @@ spec:
         accessModes:
           - ReadWriteOnce
         size: 8Gi
+      extraFlags:
+        - "--maxmemory-policy allkeys-lru"
+        - "--maxmemory 100mb"
 
     metrics:
       enabled: true
