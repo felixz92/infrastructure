@@ -4,3 +4,4 @@ namespace: crossplane-system
 resources:
   - ./kubernetes.yaml
   - ./terraform.yaml
+  - ./functions.yaml

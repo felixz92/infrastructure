@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - vm-k8s-stack.yaml
   - alertmanager-config.yaml
+  - ingress.yaml
 
 configMapGenerator:
   - name: victoria-metrics-k8s-stack-values

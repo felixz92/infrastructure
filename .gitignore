@@ -12,3 +12,5 @@ tmp/
 tmp*/
 target*/
 .ssh
+.DS_Store
+vendor/
