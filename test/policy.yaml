@@ -4,7 +4,7 @@ metadata:
   name: binding
 spec:
   forProvider:
-    target: 93a15900-5fff-4c11-bd13-dd00c5de4957
+    target: 7609b267-7f6d-4ef8-8873-5df65bc7b239
     group: cabab51f-a3b7-46fc-bdad-9c3488492397
     enabled: true
     order: 0

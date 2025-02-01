@@ -59,6 +59,25 @@ forwardauthComposition = xpv1.Composition {
         mode: "Pipeline"
         pipeline: [
             {
+                step = "pull-group"
+                functionRef.name = "crossplane-contrib-function-extra-resources"
+                input = {
+                    apiVersion = "extra-resources.fn.crossplane.io/v1beta1"
+                    kind: "Input"
+                    spec = {
+                        extraResources = [
+                           {
+                               apiVersion = "policy.authentik.crossplane.io/v1alpha1"
+                               kind = "Group"
+                               into: "adminGroup"
+                               $type = "Reference"
+                               ref.name = "cluster-admins"
+                           }
+                        ]
+                    }
+                }
+            }
+            {
                 step = "provider"
                 functionRef.name = "crossplane-contrib-function-kcl"
                 input = {

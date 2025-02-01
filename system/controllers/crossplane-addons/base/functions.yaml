@@ -18,3 +18,10 @@ metadata:
   name: crossplane-contrib-function-kcl
 spec:
   package: xpkg.upbound.io/crossplane-contrib/function-kcl:v0.11.1
+---
+apiVersion: pkg.crossplane.io/v1beta1
+kind: Function
+metadata:
+  name: crossplane-contrib-function-extra-resources
+spec:
+  package: xpkg.upbound.io/crossplane-contrib/function-extra-resources:v0.0.3
