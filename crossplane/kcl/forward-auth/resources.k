@@ -80,7 +80,7 @@ outpost: authentik.Outpost = {
 
 binding: policy.Binding {
     metadata.name = oxr.metadata.name + "-binding"
-    providerConfigRef.name = "authentik-provider"
+    spec.providerConfigRef.name = "authentik-provider"
     spec.forProvider = {
         target = _appId
         group = _groupId
