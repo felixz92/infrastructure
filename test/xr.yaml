@@ -1,0 +1,14 @@
+apiVersion: applications.authentik.crossplane.io/v1alpha1
+kind: ForwardAuthClaim
+metadata:
+  name: alertmanager
+spec:
+  externalHost: "alertmanager.staging-fzx-infra.dev"
+  icon: "https://avatars1.githubusercontent.com/u/3380462?s=200&v=4"
+  description: "https://prometheus.io/docs/alerting/latest/alertmanager/"
+  backendService:
+    name: vmalertmanager-vmks-victoria-metrics-k8s-stack
+    port: 9093
+#status:
+#  atProvider:
+#    providerId: 3

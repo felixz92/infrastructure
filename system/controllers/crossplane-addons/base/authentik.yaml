@@ -11,13 +11,12 @@ spec:
         spec:
           containers:
             - name: package-runtime
-              args:
               resources:
                 requests:
                   cpu: 20m
-                  memory: 200Mi
+                  memory: 400Mi
                 limits:
-                  memory: 200Mi
+                  memory: 400Mi
 
 ---
 apiVersion: pkg.crossplane.io/v1
@@ -26,7 +25,7 @@ metadata:
   name: jacobcolvin-provider-authentik
 spec:
   ignoreCrossplaneConstraints: false
-  package: felixz92/provider-authentik:v0.2.1
+  package: felixz92/provider-authentik:v0.2.2
   packagePullPolicy: IfNotPresent
   revisionActivationPolicy: Automatic
   revisionHistoryLimit: 1

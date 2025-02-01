@@ -1,0 +1,12 @@
+apiVersion: custom.fzx.dev/v1alpha1
+kind: HTTPSIngress
+metadata:
+  name: alertmanager
+spec:
+  externalHost: "alertmanager.staging-fzx-infra.dev"
+  backendService:
+    name: vmalertmanager-vmks-victoria-metrics-k8s-stack
+    port: 9093
+#status:
+#  atProvider:
+#    providerId: 3

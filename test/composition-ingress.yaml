@@ -1,0 +1,135 @@
+kind: Composition
+apiVersion: apiextensions.crossplane.io/v1
+metadata:
+  name: https-ingress
+spec:
+  compositeTypeRef:
+    apiVersion: custom.fzx.dev/v1alpha1
+    kind: xHTTPSIngress
+  mode: Pipeline
+  pipeline:
+    - step: create-ingress
+      functionRef:
+        name: crossplane-contrib-function-patch-and-transform
+      input:
+        apiVersion: pt.fn.crossplane.io/v1beta1
+        kind: Resources
+        resources:
+          - name: cert
+            base:
+              apiVersion: kubernetes.crossplane.io/v1alpha2
+              kind: Object
+              spec:
+                providerConfigRef:
+                  name: kubernetes-provider
+                deletionPolicy: Delete
+                readiness:
+                  policy: AllTrue
+                forProvider:
+                  manifest:
+                    apiVersion: cert-manager.io/v1
+                    kind: Certificate
+                    spec:
+                      issuerRef:
+                        name: dns-clusterissuer
+                        kind: ClusterIssuer
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: "metadata.name"
+                toFieldPath: "spec.forProvider.manifest.metadata.name"
+                transforms:
+                  - type: string
+                    string:
+                      type: Format
+                      fmt: "%s-ingress"
+              - type: FromCompositeFieldPath
+                fromFieldPath: "metadata.labels['crossplane.io/claim-namespace']"
+                toFieldPath: "spec.forProvider.manifest.metadata.namespace"
+              - type: FromCompositeFieldPath
+                fromFieldPath: "metadata.name"
+                toFieldPath: "spec.forProvider.manifest.spec.secretName"
+                transforms:
+                  - type: string
+                    string:
+                      type: Format
+                      fmt: "%s-ingress"
+              - type: FromCompositeFieldPath
+                fromFieldPath: "spec.externalHost"
+                toFieldPath: "spec.forProvider.manifest.spec.dnsNames[0]"
+          - name: gateway
+            base:
+              apiVersion: kubernetes.crossplane.io/v1alpha2
+              kind: Object
+              spec:
+                providerConfigRef:
+                  name: kubernetes-provider
+                deletionPolicy: Delete
+                readiness:
+                  policy: AllTrue
+                forProvider:
+                  manifest:
+                    apiVersion: gateway.networking.k8s.io/v1
+                    kind: Gateway
+                    spec:
+                      gatewayClassName: traefik
+                      listeners:
+                        - name: websecure
+                          port: 8443
+                          protocol: HTTPS
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: "metadata.name"
+                toFieldPath: "spec.forProvider.manifest.metadata.name"
+              - type: FromCompositeFieldPath
+                fromFieldPath: "metadata.labels['crossplane.io/claim-namespace']"
+                toFieldPath: "spec.forProvider.manifest.metadata.namespace"
+              - type: FromCompositeFieldPath
+                fromFieldPath: "spec.externalHost"
+                toFieldPath: "spec.forProvider.manifest.spec.listeners[0].hostname"
+              - type: FromCompositeFieldPath
+                fromFieldPath: "metadata.name"
+                toFieldPath: "spec.forProvider.manifest.spec.listeners[0].tls.certificateRefs[0].name"
+                transforms:
+                  - type: string
+                    string:
+                      type: Format
+                      fmt: "%s-ingress"
+          - name: route
+            base:
+              apiVersion: kubernetes.crossplane.io/v1alpha2
+              kind: Object
+              spec:
+                providerConfigRef:
+                  name: kubernetes-provider
+                deletionPolicy: Delete
+                readiness:
+                  policy: SuccessfulCreate
+                forProvider:
+                  manifest:
+                    apiVersion: gateway.networking.k8s.io/v1
+                    kind: HTTPRoute
+                    spec:
+                      rules:
+                        - matches:
+                            - path:
+                                type: PathPrefix
+                                value: /
+            patches:
+              - type: FromCompositeFieldPath
+                fromFieldPath: "metadata.name"
+                toFieldPath: "spec.forProvider.manifest.metadata.name"
+              - type: FromCompositeFieldPath
+                fromFieldPath: "metadata.labels['crossplane.io/claim-namespace']"
+                toFieldPath: "spec.forProvider.manifest.metadata.namespace"
+              - type: FromCompositeFieldPath
+                fromFieldPath: "metadata.name"
+                toFieldPath: "spec.forProvider.manifest.spec.parentRefs[0].name"
+              - type: FromCompositeFieldPath
+                fromFieldPath: "spec.externalHost"
+                toFieldPath: "spec.forProvider.manifest.spec.hostnames[0]"
+              - type: FromCompositeFieldPath
+                fromFieldPath: "spec.backendService.name"
+                toFieldPath: "spec.forProvider.manifest.spec.rules[0].backendRefs[0].name"
+              - type: FromCompositeFieldPath
+                fromFieldPath: "spec.backendService.port"
+                toFieldPath: "spec.forProvider.manifest.spec.rules[0].backendRefs[0].port"

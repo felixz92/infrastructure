@@ -1,0 +1,60 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: forwardauths.applications.authentik.crossplane.io
+spec:
+  group: applications.authentik.crossplane.io
+  names:
+    kind: ForwardAuth
+    plural: forwardauths
+  claimNames:
+    kind: ForwardAuthClaim
+    plural: forwardauthclaims
+  defaultCompositeDeletePolicy: Foreground
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                externalHost:
+                  type: string
+                icon:
+                  type: string
+                description:
+                  type: string
+                publisher:
+                  type: string
+                backendService:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    port:
+                      type: integer
+              required:
+                - externalHost
+                - backendService
+            status:
+              type: object
+              properties:
+                atProvider:
+                  type: object
+                  properties:
+                    providerId:
+                      type: number
+                ingress:
+                  type: object
+                  properties:
+                    middleware:
+                      type: string
+                outpost:
+                  type: object
+                  properties:
+                    name:
+                      type: string

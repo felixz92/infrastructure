@@ -1,0 +1,60 @@
+---
+apiVersion: provider.authentik.crossplane.io/v1alpha1
+kind: Proxy
+metadata:
+  name: prometheus
+spec:
+  forProvider:
+    name: prometheus
+    mode: forward_single
+    externalHost: "https://prometheus.staging-fzx-infra.dev"
+    accessTokenValidity: "hours=24"
+    authorizationFlowRef:
+      name: default-provider-authorization-implicit-consent
+    invalidationFlowRef:
+      name: default-provider-invalidation-flow
+  providerConfigRef:
+    name: authentik-provider
+---
+kind: Application
+apiVersion: authentik.crossplane.io/v1alpha1
+metadata:
+  name: prometheus
+spec:
+  providerConfigRef:
+    name: authentik-provider
+  forProvider:
+    name: prometheus
+    protocolProvider: 3
+    metaIcon: ""
+    metaDescription: ""
+    metaPublisher: ""
+    metaLaunchUrl: ""
+    group: ""
+---
+apiVersion: authentik.crossplane.io/v1alpha1
+kind: Outpost
+metadata:
+  name: prometheus
+spec:
+  providerConfigRef:
+    name: authentik-provider
+  forProvider:
+    name: prometheus
+    protocolProviders:
+      - 3
+    type: proxy
+    serviceConnectionRef:
+      name: local
+    config: |
+      {
+        "authentik_host": "http://authentik-server/",
+        "authentik_host_insecure": true,
+        "authentik_host_browser": "https://authentik.staging-fzx-infra.dev/",
+        "log_level": "info",
+        "object_naming_template": "ak-outpost-%(name)s",
+        "kubernetes_replicas": 1,
+        "kubernetes_namespace": "authentik",
+        "kubernetes_service_type": "ClusterIP",
+        "kubernetes_disabled_components": ["ingress"]
+      }

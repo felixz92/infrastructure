@@ -1,0 +1,25 @@
+[dependencies]
+  [dependencies.crossplane]
+    name = "crossplane"
+    full_name = "crossplane_1.17.3"
+    version = "1.17.3"
+    sum = "8hx/1t6Gn0UZjaycAJIJ2Xj1R7vefZq7mMpAim21COc="
+    reg = "ghcr.io"
+    repo = "kcl-lang/crossplane"
+    oci_tag = "1.17.3"
+  [dependencies.crossplane_authentik]
+    name = "crossplane_authentik"
+    full_name = "crossplane_authentik_0.3.0"
+    version = "0.3.0"
+    sum = "xGpDru6sw9pey3gxyKo/3pE2v17/vcYD1C9LYECMtJA="
+    reg = "ghcr.io"
+    repo = "felixz92/crossplane-provider-authentik/crossplane-authetik"
+    oci_tag = "0.3.0"
+  [dependencies.k8s]
+    name = "k8s"
+    full_name = "k8s_1.31.2"
+    version = "1.31.2"
+    sum = "xBZgPsnpVVyWBpahuPQHReeRx28eUHGFoaPeqbct+vs="
+    reg = "ghcr.io"
+    repo = "kcl-lang/k8s"
+    oci_tag = "1.31.2"

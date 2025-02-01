@@ -17,7 +17,9 @@
     "s3cmd@latest",
     "k9s@latest",
     "minio-client@latest",
-    "kcl@latest"
+    "kcl@latest",
+    "kcl-cli@latest",
+    "oras@latest"
   ],
   "shell": {
     "init_hook": [

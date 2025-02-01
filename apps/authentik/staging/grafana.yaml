@@ -3,6 +3,8 @@ apiVersion: provider.authentik.crossplane.io/v1alpha1
 kind: OAuth2
 metadata:
   name: grafana
+  annotations:
+    crossplane.io/external-name: "2"
 spec:
   writeConnectionSecretToRef:
     name: grafana-client-secret
@@ -24,93 +26,34 @@ spec:
   providerConfigRef:
     name: authentik-provider
 ---
-apiVersion: authentik.crossplane.io/v1alpha1
-kind: Application
+apiVersion: kubernetes.crossplane.io/v1alpha2
+kind: Object
 metadata:
-  name: grafana
+  name: grafana-oauth-application
 spec:
   providerConfigRef:
-    name: authentik-provider
+    name: kubernetes-provider
+  references:
+    - patchesFrom:
+        apiVersion: provider.authentik.crossplane.io/v1alpha1
+        kind: OAuth2
+        name: grafana
+        fieldPath: status.atProvider.id
+      toFieldPath: spec.forProvider.manifest.spec.forProvider.protocolProvider
   forProvider:
-    name: Grafana
-    protocolProvider: 2
-    metaIcon: "https://cdn.worldvectorlogo.com/logos/grafana.svg"
-    metaDescription: "https://grafana.com/docs/grafana/latest/"
-    metaLaunchUrl: https://grafana.staging-fzx-infra.dev
----
-apiVersion: propertymapping.authentik.crossplane.io/v1alpha1
-kind: ProviderScope
-metadata:
-  name: openid-email
-  annotations:
-    crossplane.io/external-name: f3c16977-d530-4ede-8513-554c4d2d24f8
-spec:
-  providerConfigRef:
-    name: authentik-provider
-  forProvider:
-      expression: |
-        return {
-          "email": request.user.email,
-          "email_verified": True
-        }
-      name: openid email address
-      scopeName: email
-
----
-apiVersion: propertymapping.authentik.crossplane.io/v1alpha1
-kind: ProviderScope
-metadata:
-  name: openid-openid
-  annotations:
-    crossplane.io/external-name: 82d8725b-fb0c-4847-a951-f4d5b092a6f1
-spec:
-  providerConfigRef:
-    name: authentik-provider
-  forProvider:
-    expression: |
-      # This scope is required by the OpenID-spec, and must as such exist in authentik.
-      # The scope by itself does not grant any information
-      return {}
-    name: openid openid
-    scopeName: openid
-
----
-apiVersion: propertymapping.authentik.crossplane.io/v1alpha1
-kind: ProviderScope
-metadata:
-  name: openid-profile
-  annotations:
-    crossplane.io/external-name: 624a5550-0202-4afa-99ea-a1ae2048e665
-spec:
-  providerConfigRef:
-    name: authentik-provider
-  forProvider:
-    expression: |
-      return {
-        # Because authentik only saves the user's full name, and has no concept of first and last names,
-        # the full name is used as given name.
-        # You can override this behaviour in custom mappings, i.e. `request.user.name.split(" ")`
-        "name": request.user.name,
-        "given_name": request.user.name,
-        "preferred_username": request.user.username,
-        "nickname": request.user.username,
-        "groups": [group.name for group in request.user.ak_groups.all()],
-      }
-    name: openid profile
-    scopeName: profile
-
----
-metadata:
-   name: grafana-access
-spec:
-  forProvider:
-    target:
-#---
-#apiVersion: authentik.crossplane.io/v1alpha1
-#kind: Application
-#metadata:
-#  name: name
-#spec:
-#  forProvider:
-#    name: test app
-#    protocolProvider: ${authentik_provider_oauth2.name.id}
+    manifest:
+      apiVersion: authentik.crossplane.io/v1alpha1
+      kind: Application
+      metadata:
+        name: grafana
+        annotations:
+          crossplane.io/external-name: grafana
+      spec:
+        providerConfigRef:
+          name: authentik-provider
+        forProvider:
+          name: Grafana
+          protocolProvider: 2
+          metaIcon: "https://cdn.worldvectorlogo.com/logos/grafana.svg"
+          metaDescription: "https://grafana.com/docs/grafana/latest/"
+          metaLaunchUrl: https://grafana.staging-fzx-infra.dev

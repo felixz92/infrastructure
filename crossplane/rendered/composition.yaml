@@ -1,0 +1,135 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: forward-auth-application
+spec:
+  compositeTypeRef:
+    apiVersion: applications.authentik.crossplane.io/v1alpha1
+    kind: ForwardAuth
+  mode: Pipeline
+  pipeline:
+  - functionRef:
+      name: crossplane-contrib-function-kcl
+    input:
+      apiVersion: krm.kcl.dev/v1alpha1
+      kind: KCLInput
+      spec:
+        source: |
+          import k8s.apimachinery.pkg.apis.meta.v1
+          import crossplane_authentik.provider.v1alpha1 as authentik
+
+          # Read the XR
+          oxr = option("params").oxr
+          ocds = option("params").ocds
+
+          proxy: authentik.Proxy = {
+              metadata.name = oxr.metadata.name + "-proxy"
+              spec = {
+                  forProvider = {
+                      name = oxr.metadata.name
+                      mode = "forward_single"
+                      accessTokenValidity = "hours=24"
+                      authorizationFlowRef = {
+                          name = "default-provider-authorization-implicit-consent"
+                      }
+                      invalidationFlowRef = {
+                          name = "default-provider-invalidation-flow"
+                      }
+                      externalHost = "https://" + oxr.spec.externalHost
+                  }
+                  providerConfigRef = {
+                      name = "authentik-provider"
+                  }
+              }
+          }
+
+          items = [proxy]
+        dependencies: crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.3.0", version = "0.3.0" }
+    step: provider
+  - functionRef:
+      name: crossplane-contrib-function-kcl
+    input:
+      apiVersion: krm.kcl.dev/v1alpha1
+      kind: KCLInput
+      spec:
+        source: |
+          import k8s.apimachinery.pkg.apis.meta.v1
+          import crossplane_authentik.v1alpha1 as authentik
+
+          # Read the XR
+          oxr = option("params").oxr
+          ocds = option("params").ocds
+
+          _providerId = ocds[oxr.metadata.name + "-proxy"]?.Resource?.status?.atProvider?.id
+
+          application: authentik.Application = {
+              metadata.name = oxr.metadata.name + "-application"
+              spec = {
+                  forProvider = {
+                      name = oxr.metadata.name
+                      if _providerId:
+                          protocolProvider = int(_providerId)
+                      metaIcon = oxr.spec.icon
+                      metaDescription = oxr.spec.description
+                      metaLaunchUrl = "https://" + oxr.spec.externalHost
+                      metaPublisher = oxr.spec.publisher
+                  }
+                  providerConfigRef = {
+                      name = "authentik-provider"
+                  }
+              }
+          }
+
+          items = [application]
+        dependencies: crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.3.0", version = "0.3.0" }
+    step: application
+  - functionRef:
+      name: crossplane-contrib-function-kcl
+    input:
+      apiVersion: krm.kcl.dev/v1alpha1
+      kind: KCLInput
+      spec:
+        source: |
+          import k8s.apimachinery.pkg.apis.meta.v1
+          import crossplane_authentik.v1alpha1 as authentik
+          import json
+
+          # Read the XR
+          oxr = option("params").oxr
+          ocds = option("params").ocds
+
+          _providerId = ocds[oxr.metadata.name + "-proxy"]?.Resource?.status?.atProvider?.id
+
+          outpost: authentik.Outpost = {
+              metadata.name = oxr.metadata.name + "-outpost"
+              spec = {
+                  forProvider = {
+                      name = oxr.metadata.name
+                      "type" = "proxy"
+                      serviceConnectionRef.name = "local"
+                      if _providerId:
+                          protocolProviders = [int(_providerId)]
+                      config = json.encode({
+                          "authentik_host": "http://authentik-server/"
+                          "authentik_host_insecure": bool("true")
+                          "authentik_host_browser": "https://authentik.staging-fzx-infra.dev/"
+                          "log_level": "info"
+                          "object_naming_template": "ak-outpost-%(name)s"
+                          "kubernetes_replicas": 1
+                          "kubernetes_namespace": "authentik"
+                          "kubernetes_service_type": "ClusterIP"
+                          "kubernetes_disabled_components": ["ingress","middleware"]
+                      })
+                  }
+                  providerConfigRef = {
+                      name = "authentik-provider"
+                  }
+              }
+          }
+
+          items = [outpost]
+        dependencies: crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.3.0", version = "0.3.0" }
+    step: outpost
+  - functionRef:
+      name: crossplane-contrib-function-auto-ready
+    step: automatically-detect-ready-composed-resources
