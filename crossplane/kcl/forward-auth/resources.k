@@ -201,4 +201,4 @@ route: object = {
     }
 }
 
-items = [proxy, application, outpost, middleware, cert, gateway, route]
+items = [proxy, application, outpost,binding, middleware, cert, gateway, route]

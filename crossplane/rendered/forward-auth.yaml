@@ -276,7 +276,7 @@ spec:
               }
           }
 
-          items = [proxy, application, outpost, middleware, cert, gateway, route]
+          items = [proxy, application, outpost,binding, middleware, cert, gateway, route]
         dependencies: crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.3.0", version = "0.3.0" }
     step: provider
   - functionRef:
