@@ -4,8 +4,8 @@ metadata:
   name: binding
 spec:
   forProvider:
-    target: grafana
-    group: cluster-admins
+    target: 93a15900-5fff-4c11-bd13-dd00c5de4957
+    group: cabab51f-a3b7-46fc-bdad-9c3488492397
     enabled: true
     order: 0
   providerConfigRef:
