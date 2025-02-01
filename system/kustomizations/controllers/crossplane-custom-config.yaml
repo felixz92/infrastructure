@@ -15,3 +15,9 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  postBuild:
+    substitute:
+      CLUSTER_NAME: ${CLUSTER_NAME}
+    substituteFrom:
+      - kind: Secret
+        name: base-domain
