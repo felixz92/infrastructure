@@ -1,4 +1,15 @@
 ---
+apiVersion: applications.authentik.crossplane.io/v1alpha1
+kind: OAuthClaim
+metadata:
+  name: grafana
+spec:
+  externalHost: "grafana.${BASE_DOMAIN}"
+  icon: "https://cdn.worldvectorlogo.com/logos/grafana.svg"
+  description: "https://grafana.com/docs/grafana/latest/"
+  redirectURL: /login/generic_oauth
+  adminBinding: false
+---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
