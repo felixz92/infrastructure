@@ -45,24 +45,24 @@ spec:
               value: "true"
             - name: PGADMIN_LISTEN_PORT
               value: "3004"
-            - name: OAUTH2_NAME
+            - name: PGADMIN_CONFIG_OAUTH2_NAME
               value: authentik
-            - name: OAUTH2_CLIENT_ID
+            - name: PGADMIN_CONFIG_OAUTH2_CLIENT_ID
               value: pgadmin
-            - name: OAUTH2_CLIENT_SECRET
+            - name: PGADMIN_CONFIG_OAUTH2_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: pgadmin-client-secret
                   key: attribute.client_secret
-            - name: OAUTH2_TOKEN_URL
+            - name: PGADMIN_CONFIG_OAUTH2_TOKEN_URL
               value: "https://authentik.${BASE_DOMAIN}/application/o/token/"
-            - name: OAUTH2_AUTHORIZATION_URL
+            - name: PGADMIN_CONFIG_OAUTH2_AUTHORIZATION_URL
               value: "https://authentik.${BASE_DOMAIN}/application/o/authorize/"
-            - name: OAUTH2_USERINFO_ENDPOINT
+            - name: PGADMIN_CONFIG_OAUTH2_USERINFO_ENDPOINT
               value: "https://authentik.${BASE_DOMAIN}/application/o/userinfo/"
-            - name: OAUTH2_SCOPE
+            - name: PGADMIN_CONFIG_OAUTH2_SCOPE
               value: "openid email profile"
-            - name: OAUTH2_AUTO_CREATE_USER
+            - name: PGADMIN_CONFIG_OAUTH2_AUTO_CREATE_USER
               value: "True"
           envFrom:
             - secretRef:
