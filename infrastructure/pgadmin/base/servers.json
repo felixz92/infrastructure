@@ -3,11 +3,13 @@
     "1": {
       "Name": "authentik",
       "Group": "Servers",
-      "Port": 5432,
-      "Username": "app",
       "Host": "authentik-database-r.authentik.svc.cluster.local",
-      "SSLMode": "prefer",
-      "MaintenanceDB": "postgres"
+      "Port": 5432,
+      "MaintenanceDB": "postgres",
+      "Username": "app",
+      "ConnectionParameters": {
+        "sslmode": "prefer"
+      }
     }
   }
 }
