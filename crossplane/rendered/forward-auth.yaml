@@ -83,11 +83,11 @@ spec:
           oxr = option("params").oxr
           ocds = option("params").ocds
 
-          _providerId = ocds[oxr.metadata.name + "-proxy"]?.Resource?.status?.atProvider?.id
-          _appId = ocds[oxr.metadata.name + "-application"]?.Resource?.status?.atProvider?.uuid
-          _groupId = option("params").ctx["apiextensions.crossplane.io/extra-resources"]?.adminGroup[0]?.status?.atProvider?.id
-
           _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
+
+          _providerId = ocds[_claimName + "-proxy"]?.Resource?.status?.atProvider?.id
+          _appId = ocds[_claimName + "-application"]?.Resource?.status?.atProvider?.uuid
+          _groupId = option("params").ctx["apiextensions.crossplane.io/extra-resources"]?.adminGroup[0]?.status?.atProvider?.id
 
           proxy: provider.Proxy = {
               metadata.name = _claimName + "-proxy"
