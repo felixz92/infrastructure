@@ -70,6 +70,40 @@ binding: policy.Binding {
     }
 }
 
+schema object:
+    _name: str
+    _manifest: any
+    _readiness: str
+    apiVersion = "kubernetes.crossplane.io/v1alpha2"
+    kind = "Object"
+    metadata = {
+        name = _name
+    }
+    spec = {
+        providerConfigRef.name = "kubernetes-provider"
+        deletionPolicy = "Delete"
+        readiness.policy = _readiness
+        forProvider.manifest = _manifest
+        forProvider.manifest.metadata.name = _name
+        forProvider.manifest.metadata.namespace = _namespace
+    }
+
+_signingKey: object = {
+    _name = _claimName + "-signing-cert"
+    _readiness = "AllTrue"
+    _manifest = {
+        apiVersion: "cert-manager.io/v1"
+        kind: "Certificate"
+        spec.secretName = _claimName + "-signing-cert"
+        spec.commonName = _claimName + "-signing"
+        spec.usages = ["signing"]
+        spec.issuerRef = {
+            name = "cert-authority-issuer"
+            kind = "ClusterIssuer"
+        }
+    }
+}
+
 _adminBinding = oxr.spec.adminBinding
 
 items = [

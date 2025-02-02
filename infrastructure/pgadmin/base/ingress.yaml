@@ -8,6 +8,7 @@ spec:
   icon: "https://github.com/dpage/pgadmin4/blob/master/docs/en_US/images/logo-128.png?raw=true"
   description: "https://www.pgadmin.org/docs/pgadmin4/latest/index.html"
   redirectURL: /oauth2/authorize
+  adminBinding: true
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
