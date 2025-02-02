@@ -9,12 +9,12 @@
     oci_tag = "1.17.3"
   [dependencies.crossplane_authentik]
     name = "crossplane_authentik"
-    full_name = "crossplane_authentik_0.4.0"
-    version = "0.4.0"
-    sum = "wkSG0EfzCfsLeZR7WCgOe7D+3EL5d0boK4Llt1SJoSQ="
+    full_name = "crossplane_authentik_0.4.1"
+    version = "0.4.1"
+    sum = "UHw3IvHtnEByDl5WaGl8UXCq9b4WkN0RhOaF+7plv8o="
     reg = "ghcr.io"
-    repo = "felixz92/crossplane-provider-authentik/crossplane-authetik"
-    oci_tag = "0.4.0"
+    repo = "felixz92/crossplane-provider-authentik/crossplane-authetik:0.4.1"
+    oci_tag = "0.4.1"
   [dependencies.k8s]
     name = "k8s"
     full_name = "k8s_1.31.2"

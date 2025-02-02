@@ -2,17 +2,17 @@ import crossplane.v1 as xpv1
 import file
 import manifests
 
-forwardauthDefinition = xpv1.CompositeResourceDefinition {
-    metadata.name = "forwardauths.applications.authentik.crossplane.io"
+oauthDefinition = xpv1.CompositeResourceDefinition {
+    metadata.name = "ldap.applications.authentik.crossplane.io"
     spec = {
         group: "applications.authentik.crossplane.io"
         names = {
-            kind = "ForwardAuth"
-            plural = "forwardauths"
+            kind = "Ldap"
+            plural = "ldaps"
         }
         claimNames = {
-            kind = "ForwardAuthClaim"
-            plural = "forwardauthclaims"
+            kind = "LdapClaim"
+            plural = "ldapclaims"
         }
         defaultCompositeDeletePolicy = "Foreground"
         versions = [
@@ -31,15 +31,13 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
                                     icon = { $type = "string" }
                                     description = { $type = "string" }
                                     publisher = { $type = "string" }
-                                    backendService = {
-                                        $type = "object"
-                                        properties = {
-                                            name = { $type = "string" }
-                                            port = { $type = "integer" }
-                                        }
+                                    redirectURL = { $type = "string" }
+                                    adminBinding = {
+                                        $type = "boolean"
+                                        default = False
                                     }
                                 }
-                                required = ["externalHost", "backendService"]
+                                required = ["externalHost", "redirectURL"]
                             }
                         }
                     }
@@ -49,12 +47,12 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
     }
 }
 
-forwardauthComposition = xpv1.Composition {
-    metadata.name = "forward-auth-application"
+oauthComposition = xpv1.Composition {
+    metadata.name = "oauth-application"
     spec = {
         compositeTypeRef: {
             apiVersion = "applications.authentik.crossplane.io/v1alpha1"
-            kind = "ForwardAuth"
+            kind = "OAuth"
         }
         mode: "Pipeline"
         pipeline: [
@@ -83,7 +81,7 @@ forwardauthComposition = xpv1.Composition {
                 input = {
                     apiVersion = "krm.kcl.dev/v1alpha1"
                     kind: "KCLInput"
-                    spec.source = file.read("crossplane/kcl/forward-auth/resources.k")
+                    spec.source = file.read("crossplane/kcl/ldap-app/resources.k")
                     spec.dependencies = "\n".join([
                         'crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.4.1", version = "0.4.1" }'
                     ])
@@ -97,5 +95,5 @@ forwardauthComposition = xpv1.Composition {
     }
 }
 
-items = [forwardauthDefinition, forwardauthComposition]
+items = [oauthDefinition, oauthComposition]
 manifests.yaml_stream(items)
