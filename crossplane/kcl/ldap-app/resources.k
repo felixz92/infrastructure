@@ -44,7 +44,8 @@ oauth: provider.LDAP = {
         forProvider = {
             name = _claimName
             baseDn   = "DC=ldap,DC=goauthentik,DC=io"
-            bindFlowRef.name = data.authentik_flow.default-authentication-flow.id
+            bindFlowRef.name = "default-authentication-flow"
+            unbindFlowRef.name = "default-provider-invalidation-flow"
             name      = "ldap-ocis"
             searchMode = "direct"
             bindMode = "direct"
