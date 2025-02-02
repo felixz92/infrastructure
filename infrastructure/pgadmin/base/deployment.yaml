@@ -46,7 +46,7 @@ spec:
             - name: PGADMIN_LISTEN_PORT
               value: "3004"
             - name: PGADMIN_CONFIG_OAUTH2_NAME
-              value: authentik
+              value: "'authentik'"
             - name: PGADMIN_CONFIG_OAUTH2_CLIENT_ID
               value: "'pgadmin'"
             - name: OAUTH2_CLIENT_SECRET
