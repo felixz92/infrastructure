@@ -31,10 +31,9 @@ oauth: provider.OAuth2 = {
             allowedRedirectUris = [
                 {
                    "matching_mode" = "strict"
-                   "url" = "https://" + oxr.spec.externalHost + "/" + oxr.spec.redirectURL
+                   "url" = "https://" + oxr.spec.externalHost +  oxr.spec.redirectURL
                 }
             ]
-
         }
         providerConfigRef = {
             name = "authentik-provider"

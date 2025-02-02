@@ -1,0 +1,20 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: pgadmin
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./infrastructure/pgadmin/${CLUSTER_NAME}
+  prune: true
+  dependsOn:
+    - name: crds
+  targetNamespace: pgadmin
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  postBuild:
+    substitute:
+      CLUSTER_NAME: ${CLUSTER_NAME}

@@ -1,0 +1,10 @@
+---
+apiVersion: applications.authentik.crossplane.io/v1alpha1
+kind: OAuthClaim
+metadata:
+  name: pgadmin
+spec:
+  externalHost: "pgadmin.${BASE_DOMAIN}"
+  icon: "https://github.com/dpage/pgadmin4/blob/master/docs/en_US/images/logo-128.png?raw=true"
+  description: "https://www.pgadmin.org/docs/pgadmin4/latest/index.html"
+  redirectURL: /oauth2/authorize
