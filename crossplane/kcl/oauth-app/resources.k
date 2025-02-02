@@ -44,6 +44,7 @@ oauth: provider.OAuth2 = {
         forProvider = {
             name = _claimName
             clientId = _claimName
+            signingKey = _certId
             authorizationFlowRef.name = "default-provider-authorization-implicit-consent"
             invalidationFlowRef.name =  "default-provider-invalidation-flow"
             propertyMappingsRefs = [
