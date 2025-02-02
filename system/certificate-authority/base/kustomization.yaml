@@ -1,3 +1,4 @@
 resources:
   - ca-clusterissuer.yaml
   - cloudflare-secret.yaml
+  - ca.yaml
