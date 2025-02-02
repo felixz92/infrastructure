@@ -11,11 +11,13 @@ _appId = ocds[oxr.metadata.name + "-application"]?.Resource?.status?.atProvider?
 _groupId = option("params").ctx["apiextensions.crossplane.io/extra-resources"]?.adminGroup[0]?.status?.atProvider?.id
 
 _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
+_namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
 oauth: provider.OAuth2 = {
     metadata.name = oxr.metadata.name + "-provider"
     spec = {
         writeConnectionSecretToRef.name = _claimName + "-client-secret"
+        writeConnectionSecretToRef.name = _namespace
         forProvider = {
             name = oxr.metadata.name
             clientId = _claimName
