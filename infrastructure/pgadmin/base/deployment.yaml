@@ -49,11 +49,13 @@ spec:
               value: authentik
             - name: PGADMIN_CONFIG_OAUTH2_CLIENT_ID
               value: pgadmin
-            - name: PGADMIN_CONFIG_OAUTH2_CLIENT_SECRET
+            - name: OAUTH2_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: pgadmin-client-secret
                   key: attribute.client_secret
+            - name: PGADMIN_CONFIG_OAUTH2_CLIENT_SECRET
+              value: "'$(OAUTH2_CLIENT_SECRET)'"
             - name: PGADMIN_CONFIG_OAUTH2_TOKEN_URL
               value: "https://authentik.${BASE_DOMAIN}/application/o/token/"
             - name: PGADMIN_CONFIG_OAUTH2_AUTHORIZATION_URL
