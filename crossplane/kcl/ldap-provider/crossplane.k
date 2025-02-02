@@ -32,10 +32,6 @@ oauthDefinition = xpv1.CompositeResourceDefinition {
                                     description = { $type = "string" }
                                     publisher = { $type = "string" }
                                     redirectURL = { $type = "string" }
-                                    adminBinding = {
-                                        $type = "boolean"
-                                        default = False
-                                    }
                                 }
                                 required = ["externalHost", "redirectURL"]
                             }

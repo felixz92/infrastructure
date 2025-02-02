@@ -32,9 +32,6 @@ spec:
                 type: string
               redirectURL:
                 type: string
-              adminBinding:
-                type: boolean
-                default: false
             required:
             - externalHost
             - redirectURL
