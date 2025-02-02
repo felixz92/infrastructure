@@ -94,7 +94,7 @@ binding: policy.Binding {
     }
 }
 
-_signingKey: object = {
+signingKey: object = {
     _name = _claimName + "-signing-cert"
     _readiness = "AllTrue"
     _manifest = {
@@ -134,6 +134,8 @@ _adminBinding = oxr.spec.adminBinding
 items = [
     oauth,
     application,
+    signingKey,
+    certPair,
     if _adminBinding:
         binding
 ]

@@ -167,7 +167,7 @@ spec:
               }
           }
 
-          _signingKey: object = {
+          signingKey: object = {
               _name = _claimName + "-signing-cert"
               _readiness = "AllTrue"
               _manifest = {
@@ -207,6 +207,8 @@ spec:
           items = [
               oauth,
               application,
+              signingKey,
+              certPair,
               if _adminBinding:
                   binding
           ]
