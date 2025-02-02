@@ -116,6 +116,7 @@ signingKey: object = {
 
 certPair: authentik.CertificateKeyPair = {
     metadata.name = _claimName + "-cert-pair"
+    spec.forProvider.name = _claimName
     spec.forProvider.certificateDataSecretRef = {
         name = _claimName + "-signing-cert"
         key = "tls.crt"
