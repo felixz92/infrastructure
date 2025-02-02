@@ -104,7 +104,7 @@ signingKey: object = {
         spec.commonName = _claimName + "-signing"
         spec.usages = ["signing"]
         spec.privateKey = {
-            algorithm = "EDCSA"
+            algorithm = "ECDSA"
             size = 256
         }
         spec.issuerRef = {
