@@ -14,7 +14,7 @@ spec:
         name: traefik
         namespace: traefik
         fieldPath: status.loadBalancer.ingress[0].ip
-      toFieldPath: spec.forProvider.manifest.spec.content
+      toFieldPath: spec.content
   forProvider:
     manifest:
       apiVersion: cloudflare.felixz92.github.com/v1alpha1
@@ -25,7 +25,6 @@ spec:
         name: "@"
         zone: ${BASE_DOMAIN}
         type: A
-        content: 167.235.109.19
   providerConfigRef:
     name: kubernetes-provider
 ---
@@ -44,7 +43,7 @@ spec:
         name: traefik
         namespace: traefik
         fieldPath: status.loadBalancer.ingress[1].ip
-      toFieldPath: spec.forProvider.manifest.spec.content
+      toFieldPath: spec.content
   forProvider:
     manifest:
       apiVersion: cloudflare.felixz92.github.com/v1alpha1
@@ -55,6 +54,5 @@ spec:
         name: "@"
         zone: ${BASE_DOMAIN}
         type: AAAA
-        content: 2a01:4f8:1c1f:624b::1
   providerConfigRef:
     name: kubernetes-provider
