@@ -57,7 +57,7 @@ spec:
             - name: PGADMIN_CONFIG_OAUTH2_CLIENT_SECRET
               value: "'$(OAUTH2_CLIENT_SECRET)'"
             - name: PGADMIN_CONFIG_OAUTH2_TOKEN_URL
-              value: "https://authentik.${BASE_DOMAIN}/application/o/token/"
+              value: "'https://authentik.${BASE_DOMAIN}/application/o/token/'"
             - name: PGADMIN_CONFIG_OAUTH2_AUTHORIZATION_URL
               value: "https://authentik.${BASE_DOMAIN}/application/o/authorize/"
             - name: PGADMIN_CONFIG_OAUTH2_USERINFO_ENDPOINT
