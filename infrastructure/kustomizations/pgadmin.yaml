@@ -18,3 +18,6 @@ spec:
   postBuild:
     substitute:
       CLUSTER_NAME: ${CLUSTER_NAME}
+    substituteFrom:
+      - kind: Secret
+        name: base-domain
