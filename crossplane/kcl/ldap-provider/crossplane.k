@@ -3,16 +3,16 @@ import file
 import manifests
 
 oauthDefinition = xpv1.CompositeResourceDefinition {
-    metadata.name = "ldap.applications.authentik.crossplane.io"
+    metadata.name = "ldapproviders.applications.authentik.crossplane.io"
     spec = {
         group: "applications.authentik.crossplane.io"
         names = {
-            kind = "Ldap"
-            plural = "ldaps"
+            kind = "LDAPProvider"
+            plural = "ldapproviders"
         }
         claimNames = {
-            kind = "LdapClaim"
-            plural = "ldapclaims"
+            kind = "LDAPProviderClaim"
+            plural = "ldapproviderclaims"
         }
         defaultCompositeDeletePolicy = "Foreground"
         versions = [
@@ -48,40 +48,21 @@ oauthDefinition = xpv1.CompositeResourceDefinition {
 }
 
 oauthComposition = xpv1.Composition {
-    metadata.name = "oauth-application"
+    metadata.name = "ldap-provider"
     spec = {
         compositeTypeRef: {
             apiVersion = "applications.authentik.crossplane.io/v1alpha1"
-            kind = "OAuth"
+            kind = "LDAPProvider"
         }
         mode: "Pipeline"
         pipeline: [
-            {
-                step = "pull-group"
-                functionRef.name = "crossplane-contrib-function-extra-resources"
-                input = {
-                    apiVersion = "extra-resources.fn.crossplane.io/v1beta1"
-                    kind: "Input"
-                    spec = {
-                        extraResources = [
-                           {
-                               apiVersion = "directory.authentik.crossplane.io/v1alpha1"
-                               kind = "Group"
-                               into: "adminGroup"
-                               $type = "Reference"
-                               ref.name = "cluster-admins"
-                           }
-                        ]
-                    }
-                }
-            }
             {
                 step = "provider"
                 functionRef.name = "crossplane-contrib-function-kcl"
                 input = {
                     apiVersion = "krm.kcl.dev/v1alpha1"
                     kind: "KCLInput"
-                    spec.source = file.read("crossplane/kcl/ldap-app/resources.k")
+                    spec.source = file.read("crossplane/kcl/ldap-provider/resources.k")
                     spec.dependencies = "\n".join([
                         'crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.4.1", version = "0.4.1" }'
                     ])
