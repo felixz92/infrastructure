@@ -87,11 +87,13 @@ spec:
           _appId = ocds[oxr.metadata.name + "-application"]?.Resource?.status?.atProvider?.uuid
           _groupId = option("params").ctx["apiextensions.crossplane.io/extra-resources"]?.adminGroup[0]?.status?.atProvider?.id
 
+          _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
+
           proxy: provider.Proxy = {
-              metadata.name = oxr.metadata.name + "-proxy"
+              metadata.name = _claimName + "-proxy"
               spec = {
                   forProvider = {
-                      name = oxr.metadata.name
+                      name = _claimName
                       mode = "forward_single"
                       accessTokenValidity = "hours=24"
                       authorizationFlowRef = {
@@ -109,10 +111,10 @@ spec:
           }
 
           application: authentik.Application = {
-              metadata.name = oxr.metadata.name + "-application"
+              metadata.name = _claimName + "-application"
               spec = {
                   forProvider = {
-                      name = oxr.metadata.name
+                      name = _claimName
                       if _providerId:
                           protocolProvider = int(_providerId)
                       metaIcon = oxr.spec.icon
@@ -127,10 +129,10 @@ spec:
           }
 
           outpost: authentik.Outpost = {
-              metadata.name = oxr.metadata.name + "-outpost"
+              metadata.name = _claimName + "-outpost"
               spec = {
                   forProvider = {
-                      name = oxr.metadata.name
+                      name = _claimName
                       "type" = "proxy"
                       serviceConnectionRef.name = "local"
                       if _providerId:
@@ -154,7 +156,7 @@ spec:
           }
 
           binding: policy.Binding {
-              metadata.name = oxr.metadata.name + "-binding"
+              metadata.name = _claimName + "-binding"
               spec.providerConfigRef.name = "authentik-provider"
               spec.forProvider = {
                   target = _appId
@@ -185,14 +187,14 @@ spec:
           _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
           middleware: object = {
-              _name = oxr.metadata.name + "-middleware"
+              _name = _claimName + "-middleware"
               _readiness = "SuccessfulCreate"
               _manifest = {
                   apiVersion: "traefik.io/v1alpha1"
                   kind: "Middleware"
                   spec.forwardAuth = {
                       trustForwardHeader = True
-                      address = "http://ak-outpost-{}.authentik:9000/outpost.goauthentik.io/auth/traefik".format(oxr.metadata.name)
+                      address = "http://ak-outpost-{}.authentik:9000/outpost.goauthentik.io/auth/traefik".format(_claimName)
                       authResponseHeaders = [
                           "X-authentik-username"
                           "X-authentik-groups"

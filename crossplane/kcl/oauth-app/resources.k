@@ -14,12 +14,12 @@ _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
 _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
 oauth: provider.OAuth2 = {
-    metadata.name = oxr.metadata.name + "-provider"
+    metadata.name = _claimName + "-provider"
     spec = {
         writeConnectionSecretToRef.name = _claimName + "-client-secret"
         writeConnectionSecretToRef.namespace = _namespace
         forProvider = {
-            name = oxr.metadata.name
+            name = _claimName
             clientId = _claimName
             authorizationFlowRef.name = "default-provider-authorization-implicit-consent"
             invalidationFlowRef.name =  "default-provider-invalidation-flow"
@@ -42,10 +42,10 @@ oauth: provider.OAuth2 = {
 }
 
 application: authentik.Application = {
-    metadata.name = oxr.metadata.name + "-application"
+    metadata.name = _claimName + "-application"
     spec = {
         forProvider = {
-            name = oxr.metadata.name
+            name = _claimName
             if _providerId:
                 protocolProvider = int(_providerId)
             metaIcon = oxr.spec.icon
