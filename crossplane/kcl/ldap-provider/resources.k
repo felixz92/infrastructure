@@ -28,7 +28,8 @@ oxr = option("params").oxr
 ocds = option("params").ocds
 
 _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
-_providerId = ocds[_claimName + "-provider"]?.Resource?.status?.atProvider?.id
+_providerIdLdap = ocds[_claimName + "-provider"]?.Resource?.status?.atProvider?.id
+_providerIdOauth = ocds[_claimName + "-provider-oauth"]?.Resource?.status?.atProvider?.id
 _certId = ocds[_claimName + "-cert-pair"]?.Resource?.status?.atProvider?.id
 
 _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
@@ -82,6 +83,55 @@ ldap: provider.LDAP = {
     }
 }
 
+oauth: provider.OAuth2 = {
+    metadata.name = _claimName + "-provider-oauth"
+    spec = {
+        writeConnectionSecretToRef.name = _claimName + "-client-secret"
+        writeConnectionSecretToRef.namespace = _namespace
+        forProvider = {
+            name = _claimName
+            clientId = _claimName
+            signingKey = _certId
+            authorizationFlowRef.name = "default-provider-authorization-implicit-consent"
+            invalidationFlowRef.name =  "default-provider-invalidation-flow"
+            propertyMappingsRefs = [
+                { name = "openid-email" }
+                { name = "openid-openid" }
+                { name = "openid-profile" }
+            ]
+            allowedRedirectUris = [
+                {
+                   "matching_mode" = "strict"
+                   "url" = "https://" + oxr.spec.externalHost +  oxr.spec.redirectURL
+                }
+            ]
+        }
+        providerConfigRef = {
+            name = "authentik-provider"
+        }
+    }
+}
+
+application: authentik.Application = {
+    metadata.name = _claimName + "-application"
+    spec = {
+        forProvider = {
+            name = _claimName
+            if _providerIdOauth:
+                protocolProvider = int(_providerIdOauth)
+            metaIcon = oxr.spec.icon
+            metaDescription = oxr.spec.description
+            metaLaunchUrl = "https://" + oxr.spec.externalHost
+            metaPublisher = oxr.spec.publisher
+            if _providerIdLdap:
+                backchannelProviders =[int(_providerIdLdap)]
+        }
+        providerConfigRef = {
+            name = "authentik-provider"
+        }
+    }
+}
+
 certPair: authentik.CertificateKeyPair = {
     metadata.name = _claimName + "-cert-pair"
     spec.providerConfigRef.name = "authentik-provider"
@@ -105,8 +155,8 @@ outpost: authentik.Outpost = {
             name = _claimName
             "type" = "ldap"
             serviceConnectionRef.name = "local"
-            if _providerId:
-                protocolProviders = [int(_providerId)]
+            if _providerIdLdap:
+                protocolProviders = [int(_providerIdLdap)]
             config = json.encode({
                 "authentik_host": "http://authentik-server/"
                 "authentik_host_insecure": True
