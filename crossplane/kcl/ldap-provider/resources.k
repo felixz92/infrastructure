@@ -66,7 +66,7 @@ user: directory.User = {
     metadata.name = _claimName + "-ldap-user"
     spec.forProvider = {
         username = "ldap-"+_claimName
-        $type = "service-account"
+        $type = "service_account"
         path = "goauthentik.io/serviceaccounts"
     }
     spec.providerConfigRef = {
