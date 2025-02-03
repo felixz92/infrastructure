@@ -129,6 +129,4 @@ items = [
     cert,
     certPair,
     outpost
-    if _adminBinding:
-        binding
 ]
