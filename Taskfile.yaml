@@ -5,6 +5,12 @@ vars:
     sh: if [ -n "$ENVIRONMENT" ]; then echo "$ENVIRONMENT" ; else exit 1 ; fi
 
 tasks:
+  reconcile:
+    cmds:
+      - flux reconcile kustomization crds --with-source
+      - flux reconcile kustomization crossplane
+      - flux reconcile kustomization crossplane-addons
+      - flux reconcile kustomization crossplane-custom-config
   generate:
     cmds:
       - kcl run ./crossplane/kcl/forward-auth/crossplane.k > ./crossplane/rendered/forward-auth.yaml

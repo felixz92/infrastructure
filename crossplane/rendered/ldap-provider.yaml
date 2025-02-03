@@ -185,8 +185,6 @@ spec:
               cert,
               certPair,
               outpost
-              if _adminBinding:
-                  binding
           ]
         dependencies: crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.4.1", version = "0.4.1" }
     step: provider
