@@ -235,6 +235,8 @@ spec:
               cert,
               certPair,
               ldap,
+              application,
+              oauth
               outpost
           ]
         dependencies: crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.4.1", version = "0.4.1" }
