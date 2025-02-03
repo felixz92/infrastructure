@@ -69,6 +69,9 @@ user: directory.User = {
         $type = "service-account"
         path = "goauthentik.io/serviceaccounts"
     }
+    spec.providerConfigRef = {
+        name = "authentik-provider"
+    }
 }
 
 ldap: provider.LDAP = {
