@@ -77,7 +77,7 @@ authentik:
 
 server:
   deploymentAnnotations:
-    terasky.backstage.io/dependsOn: "resource:authentik-database"
+    terasky.backstage.io/dependsOn: "component:authentik-database"
   resources:
     requests:
       cpu: 100m
