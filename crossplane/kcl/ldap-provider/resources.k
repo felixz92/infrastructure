@@ -1,5 +1,6 @@
 import crossplane_authentik.provider.v1alpha1 as provider
 import crossplane_authentik.v1alpha1 as authentik
+import crossplane_authentik.directory.v1alpha1 as directory
 import json
 
 schema object:
@@ -58,6 +59,15 @@ cert: object = {
             name = "cert-authority-issuer"
             kind = "ClusterIssuer"
         }
+    }
+}
+
+user: directory.User = {
+    metadata.name = _claimName + "-ldap"
+    spec.forProvider = {
+        name = "ldap-"+_claimName
+        $type = "service-account"
+        path = "goauthentik.io/serviceaccounts"
     }
 }
 
@@ -177,6 +187,7 @@ outpost: authentik.Outpost = {
 items = [
     cert,
     certPair,
+    user,
     ldap,
     application,
     oauth

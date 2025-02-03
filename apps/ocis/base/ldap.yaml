@@ -4,7 +4,7 @@ kind: LDAPProviderClaim
 metadata:
   name: ocis
 spec:
-  externalHost: "ocis.${BASE_DOMAIN}"
+  externalHost: "ocis.staging-fzx-infra.dev"
   icon: "https://cdn.worldvectorlogo.com/logos/grafana.svg"
   description: "https://grafana.com/docs/grafana/latest/"
   redirectURL: /login/generic_oauth
