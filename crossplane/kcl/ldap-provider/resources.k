@@ -28,7 +28,7 @@ oxr = option("params").oxr
 ocds = option("params").ocds
 
 _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
-_providerIdLdap = ocds[_claimName + "-provider"]?.Resource?.status?.atProvider?.id
+_providerIdLdap = ocds[_claimName + "-provider-ldap"]?.Resource?.status?.atProvider?.id
 _providerIdOauth = ocds[_claimName + "-provider-oauth"]?.Resource?.status?.atProvider?.id
 _certId = ocds[_claimName + "-cert-pair"]?.Resource?.status?.atProvider?.id
 
@@ -62,16 +62,15 @@ cert: object = {
 }
 
 ldap: provider.LDAP = {
-    metadata.name = _claimName + "-provider"
+    metadata.name = _claimName + "-provider-ldap"
     spec = {
-        writeConnectionSecretToRef.name = _claimName + "-client-secret"
+        writeConnectionSecretToRef.name = _claimName + "-ldap-secret"
         writeConnectionSecretToRef.namespace = _namespace
         forProvider = {
-            name = _claimName
+            name = "ldap-"+_claimName
             baseDn   = "DC=ldap,DC=goauthentik,DC=io"
             bindFlowRef.name = "default-authentication-flow"
             unbindFlowRef.name = "default-provider-invalidation-flow"
-            name      = "ldap-ocis"
             searchMode = "direct"
             bindMode = "direct"
             certificate = _certId
