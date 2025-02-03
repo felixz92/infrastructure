@@ -105,8 +105,7 @@ outpost: authentik.Outpost = {
             name = _claimName
             "type" = "ldap"
             serviceConnectionRef.name = "local"
-            if _providerId:
-                protocolProviders = [int(_providerId)]
+            protocolProviders = [int(_providerId)]
             config = json.encode({
                 "authentik_host": "http://authentik-server/"
                 "authentik_host_insecure": True
