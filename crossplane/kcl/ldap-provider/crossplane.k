@@ -60,7 +60,7 @@ oauthComposition = xpv1.Composition {
                     kind: "KCLInput"
                     spec.source = file.read("crossplane/kcl/ldap-provider/resources.k")
                     spec.dependencies = "\n".join([
-                        'crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.4.1", version = "0.4.1" }'
+                        'crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.4.2", version = "0.4.2" }'
                     ])
                 }
             }
