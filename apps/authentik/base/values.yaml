@@ -76,6 +76,8 @@ authentik:
     password: null
 
 server:
+  deploymentAnnotations:
+    terasky.backstage.io/depensOn: "resource:authentik-database"
   resources:
     requests:
       cpu: 100m
@@ -105,6 +107,8 @@ server:
       enabled: true
 
 worker:
+  deploymentAnnotations:
+    terasky.backstage.io/depensOn: "resource:authentik-database"
   resources:
     requests:
       cpu: 100m

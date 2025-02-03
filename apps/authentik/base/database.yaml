@@ -6,6 +6,8 @@ metadata:
   labels:
     app.kubernetes.io/part-of: authentik
     app.kubernetes.io/component: database
+  annotations:
+    terasky.backstage.io/component-type: resource
 spec:
   instances: 3
   imageCatalogRef:
