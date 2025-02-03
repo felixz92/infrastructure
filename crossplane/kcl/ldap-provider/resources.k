@@ -78,7 +78,7 @@ user: directory.User = {
 permission:  rbac.UserPermission = {
     metadata.name = _claimName + "-ldap-permission"
     spec.forProvider = {
-        userRef.name = "ldap-"+_claimName
+        userRef.name = _claimName + "-ldap-user"
         permission = "search_full_directory"
         model = "authentik_providers_ldap.ldapprovider"
     }
