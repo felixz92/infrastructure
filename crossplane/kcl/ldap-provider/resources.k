@@ -1,6 +1,7 @@
 import crossplane_authentik.provider.v1alpha1 as provider
 import crossplane_authentik.v1alpha1 as authentik
 import crossplane_authentik.directory.v1alpha1 as directory
+import crossplane_authentik.rbac.v1alpha1 as rbac
 import json
 
 schema object:
@@ -68,6 +69,18 @@ user: directory.User = {
         username = "ldap-"+_claimName
         $type = "service_account"
         path = "goauthentik.io/serviceaccounts"
+    }
+    spec.providerConfigRef = {
+        name = "authentik-provider"
+    }
+}
+
+permission:  rbac.UserPermission = {
+    metadata.name = _claimName + "-ldap-permission"
+    spec.forProvider = {
+        userRef.name = "ldap-"+_claimName
+        permission = "search_full_directory"
+        model = "authentik_providers_ldap.ldapprovider"
     }
     spec.providerConfigRef = {
         name = "authentik-provider"
@@ -192,6 +205,7 @@ items = [
     certPair,
     user,
     ldap,
+    permission,
     application,
     oauth
     outpost
