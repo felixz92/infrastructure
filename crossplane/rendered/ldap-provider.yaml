@@ -145,7 +145,7 @@ spec:
                   writeConnectionSecretToRef.name = _claimName + "-client-secret"
                   writeConnectionSecretToRef.namespace = _namespace
                   forProvider = {
-                      name = _claimName
+                      name = "oauth-"+_claimName
                       clientId = _claimName
                       signingKey = _certId
                       authorizationFlowRef.name = "default-provider-authorization-implicit-consent"
