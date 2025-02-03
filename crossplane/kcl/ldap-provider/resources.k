@@ -1,5 +1,6 @@
 import crossplane_authentik.provider.v1alpha1 as provider
 import crossplane_authentik.v1alpha1 as authentik
+import json
 
 schema object:
     _name: str
