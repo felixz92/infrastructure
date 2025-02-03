@@ -125,8 +125,8 @@ outpost: authentik.Outpost = {
 }
 
 items = [
-    ldap,
     cert,
     certPair,
+    ldap,
     outpost
 ]
