@@ -81,6 +81,7 @@ permission:  rbac.UserPermission = {
         userRef.name = _claimName + "-ldap-user"
         permission = "search_full_directory"
         model = "authentik_providers_ldap.ldapprovider"
+        objectId = _providerIdLdap
     }
     spec.providerConfigRef = {
         name = "authentik-provider"
