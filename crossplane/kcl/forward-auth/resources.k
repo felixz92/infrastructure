@@ -40,7 +40,8 @@ application: authentik.Application = {
     spec = {
         forProvider = {
             name = _claimName
-            protocolProvider = int(_providerId)
+            if _providerId:
+                protocolProvider = int(_providerId)
             metaIcon = oxr.spec.icon
             metaDescription = oxr.spec.description
             metaLaunchUrl = "https://" + oxr.spec.externalHost
@@ -59,7 +60,8 @@ outpost: authentik.Outpost = {
             name = _claimName
             "type" = "proxy"
             serviceConnectionRef.name = "local"
-            protocolProviders = [int(_providerId)]
+            if _providerId:
+                protocolProviders = [int(_providerId)]
             config = json.encode({
                 "authentik_host": "http://authentik-server/"
                 "authentik_host_insecure": True

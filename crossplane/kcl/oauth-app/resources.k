@@ -70,7 +70,8 @@ application: authentik.Application = {
     spec = {
         forProvider = {
             name = _claimName
-            protocolProvider = int(_providerId)
+            if _providerId:
+                protocolProvider = int(_providerId)
             metaIcon = oxr.spec.icon
             metaDescription = oxr.spec.description
             metaLaunchUrl = "https://" + oxr.spec.externalHost

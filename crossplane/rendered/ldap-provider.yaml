@@ -161,7 +161,8 @@ spec:
                       name = _claimName
                       "type" = "ldap"
                       serviceConnectionRef.name = "local"
-                      protocolProviders = [int(_providerId)]
+                      if _providerId:
+                          protocolProviders = [int(_providerId)]
                       config = json.encode({
                           "authentik_host": "http://authentik-server/"
                           "authentik_host_insecure": True
