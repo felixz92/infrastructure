@@ -179,5 +179,7 @@ items = [
     cert,
     certPair,
     ldap,
+    application,
+    oauth
     outpost
 ]
