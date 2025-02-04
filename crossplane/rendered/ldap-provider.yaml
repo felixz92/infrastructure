@@ -134,7 +134,7 @@ spec:
           token: directory.Token = {
               metadata.name = _claimName + "-ldap-token"
               spec = {
-                  writeConnectionSecretToRef.name = _claimName + "-ldap-secret"
+                  writeConnectionSecretToRef.name = _claimName + "-ldap-token"
                   writeConnectionSecretToRef.namespace = _namespace
                   providerConfigRef.name = "authentik-provider"
                   forProvider = {
