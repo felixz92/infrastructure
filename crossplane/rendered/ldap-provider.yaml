@@ -89,6 +89,7 @@ spec:
           _providerIdLdap = ocds[_claimName + "-provider-ldap"]?.Resource?.status?.atProvider?.id
           _providerIdOauth = ocds[_claimName + "-provider-oauth"]?.Resource?.status?.atProvider?.id
           _certId = ocds[_claimName + "-cert-pair"]?.Resource?.status?.atProvider?.id
+          _userId = ocds[_claimName + "-ldap-user"]?.Resource?.status?.atProvider?.id
 
           _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
@@ -128,6 +129,19 @@ spec:
               }
               spec.providerConfigRef = {
                   name = "authentik-provider"
+              }
+          }
+
+          token: authentik.Token = {
+              metadata.name = _claimName + "-ldap-token"
+              spec = {
+                  providerConfigRef.name = "authentik-provider"
+                  forProvider = {
+                      identifier = _claimName + "-ldap-token"
+                      description = "token to access ldap outpost"
+                      intent ="api"
+                      userRef.name = _claimName + "-ldap-user"
+                  }
               }
           }
 
@@ -267,7 +281,7 @@ spec:
               oauth
               outpost
           ]
-        dependencies: crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.4.2", version = "0.4.2" }
+        dependencies: crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.5.0", version = "0.5.0" }
     step: provider
   - functionRef:
       name: crossplane-contrib-function-auto-ready

@@ -214,7 +214,7 @@ spec:
               if _adminBinding:
                   binding
           ]
-        dependencies: crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.4.2", version = "0.4.2" }
+        dependencies: crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.5.0", version = "0.5.0" }
     step: provider
   - functionRef:
       name: crossplane-contrib-function-auto-ready

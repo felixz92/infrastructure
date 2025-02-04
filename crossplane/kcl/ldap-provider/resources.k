@@ -33,6 +33,7 @@ _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
 _providerIdLdap = ocds[_claimName + "-provider-ldap"]?.Resource?.status?.atProvider?.id
 _providerIdOauth = ocds[_claimName + "-provider-oauth"]?.Resource?.status?.atProvider?.id
 _certId = ocds[_claimName + "-cert-pair"]?.Resource?.status?.atProvider?.id
+_userId = ocds[_claimName + "-ldap-user"]?.Resource?.status?.atProvider?.id
 
 _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
@@ -72,6 +73,19 @@ user: directory.User = {
     }
     spec.providerConfigRef = {
         name = "authentik-provider"
+    }
+}
+
+token: authentik.Token = {
+    metadata.name = _claimName + "-ldap-token"
+    spec = {
+        providerConfigRef.name = "authentik-provider"
+        forProvider = {
+            identifier = _claimName + "-ldap-token"
+            description = "token to access ldap outpost"
+            intent ="api"
+            userRef.name = _claimName + "-ldap-user"
+        }
     }
 }
 
