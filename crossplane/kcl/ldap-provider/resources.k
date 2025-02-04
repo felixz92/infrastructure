@@ -84,7 +84,8 @@ token: directory.Token = {
         forProvider = {
             identifier = _claimName + "-ldap-token"
             description = "token to access ldap outpost"
-            intent ="api"
+            intent ="app_password"
+            expiring = False
             userRef.name = _claimName + "-ldap-user"
             retrieveKey = True
         }

@@ -1,0 +1,31 @@
+writeable: false
+uri: ldaps://ak-outpost-ldap-ocis.authentik.svc.cluster.local
+certTrusted: false
+insecure: false
+bindDN: cn=ocis-ldap,ou=users,dc=ldap,dc=goauthentik,dc=io
+refintEnabled: false
+passwordModifyExOpEnabled: false
+useServerUUID: true
+user:
+  schema:
+    id: uid
+    idIsOctetString: false
+    mail: mail
+    displayName: displayName
+    userName: mail
+    userType: ownCloudUserType
+  baseDN: dc=ldap,dc=goauthentik,dc=ioDC=ldap
+  scope: sub
+  substringFilterType: any
+  objectClass: user
+group:
+  schema:
+    id: uid
+    idIsOctetString: false
+    mail:
+    displayName: cn
+    groupName: cn
+    member: member
+  baseDN: ou=groups,dc=ldap,dc=goauthentik,dc=io
+  scope: sub
+  objectClass: group
