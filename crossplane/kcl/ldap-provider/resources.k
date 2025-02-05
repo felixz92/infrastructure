@@ -43,11 +43,11 @@ cert: object = {
         apiVersion: "cert-manager.io/v1"
         kind: "Certificate"
         spec.secretName = _claimName + "-ldap-cert"
-        spec.commonName = "ak-outpost-ldap-" + _claimName
+        spec.commonName = "ak-outpost-" + _claimName
         spec.dnsNames = [
-            "ak-outpost-ldap-{}.authentik".format(_claimName),
-            "ak-outpost-ldap-{}.authentik.svc".format(_claimName),
-            "ak-outpost-ldap-{}.authentik.svc.cluster.local".format(_claimName)
+            "ak-outpost-{}.authentik".format(_claimName),
+            "ak-outpost-{}.authentik.svc".format(_claimName),
+            "ak-outpost-{}.authentik.svc.cluster.local".format(_claimName)
         ]
         spec.subject.organisations = ["fzx"]
         spec.usages = ["key encipherment", "digital signature", "server auth"]

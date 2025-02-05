@@ -1,0 +1,46 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ocis-tls-certificate
+spec:
+  secretName: tls-ocis-ingress
+  issuerRef:
+    name: dns-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - ocis.staging-fzx-infra.dev
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: ocis-gateway
+spec:
+  gatewayClassName: traefik
+  listeners:
+    - name: websecure
+      port: 8443
+      protocol: HTTPS
+      hostname: ocis.staging-fzx-infra.dev
+      tls:
+        certificateRefs:
+          - name: tls-ocis-ingress  # <==== Use the name defined in Certificate resource.
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: ocis-http
+spec:
+  parentRefs:
+    - name: ocis-gateway
+  hostnames:
+    - ocis.staging-fzx-infra.dev
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: ocis
+          port: 9200
+          weight: 1

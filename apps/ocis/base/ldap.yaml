@@ -7,4 +7,4 @@ spec:
   externalHost: "ocis.staging-fzx-infra.dev"
   icon: "https://avatars.githubusercontent.com/u/1645051?s=200&v=4"
   description: "https://owncloud.dev/"
-  redirectURL: /login/generic_oauth
+  redirectURL: /oidc-callback.html

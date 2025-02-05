@@ -1,0 +1,16 @@
+policy_selector:
+  static:
+    policy: ocis
+role_assignment:
+  driver: oidc
+  oidc_role_mapper:
+    role_claim: groups
+#    role_mapping:
+#      - claim_value: ocis-admin
+#        role_name: admin
+#      - claim_value: ocis-space-admin
+#        role_name: spaceadmin
+#      - claim_value: ocis-user
+#        role_name: user
+#      - claim_value: ocis-guest
+#        role_name: guest

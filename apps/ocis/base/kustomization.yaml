@@ -1,16 +1,57 @@
-resources: [ ]
+resources:
+  - deployment.yaml
+  - secrets.yaml
+  - ldap.yaml
+  - service.yaml
+  - ingress.yaml
 
+images:
+  - name: ocis
+    newName: owncloud/ocis
+    newTag: 7.0.0
+
+commonLabels:
+  app.kubernetes.io/name: ocis
 configMapGenerator:
-  - literals:
+  - name: ocis-config
+    files:
+      - proxy.yaml
+      - csp.yaml
+      - ocis.yaml
+  - name: ocis-env
+    literals:
+      # General Configuration
+      - OCIS_URL=https://ocis.staging-fzx-infra.dev
+      - OCIS_LOG_LEVEL=debug
+      - OCIS_EXCLUDE_RUN_SERVICES=idp,idm
+      # LDAP Configuration
       - OCIS_LDAP_URI=ldaps://ak-outpost-ocis.authentik.svc.cluster.local
+      - OCIS_LDAP_CACERT=/ldap-certs/ca.crt
       - OCIS_LDAP_BIND_DN="cn=ocis-ldap,ou=users,dc=ldap,dc=goauthentik,dc=io"
-      - OCIS_LDAP_BIND_PASSWORD=set to secret
-      - OCIS_LDAP_GROUP_BASE_DN="ou=groups,dc=ldap,dc=goauthentik,dc=io"
-      - OCIS_LDAP_GROUP_FILTER="(objectclass=owncloud)"
-      - OCIS_LDAP_GROUP_OBJECTCLASS="group"
-      - OCIS_LDAP_USER_BASE_DN="dc=ldap,dc=goauthentik,dc=io"
-      - OCIS_LDAP_USER_FILTER="(objectclass=owncloud)"
-      - OCIS_LDAP_USER_OBJECTCLASS="user"
-      - LDAP_LOGIN_ATTRIBUTES="uid"
       - OCIS_LDAP_SERVER_WRITE_ENABLED="false"
-      - OCIS_EXCLUDE_RUN_SERVICES=idm
+      - OCIS_LDAP_USER_BASE_DN="ou=users,dc=ldap,dc=goauthentik,dc=io"
+      - OCIS_LDAP_GROUP_BASE_DN="ou=groups,dc=ldap,dc=goauthentik,dc=io"
+      - OCIS_LDAP_USER_FILTER="(owncloud=true)"
+      - OCIS_LDAP_GROUP_FILTER="(owncloud=true)"
+      - OCIS_LDAP_USER_OBJECTCLASS=inetOrgPerson
+      - OCIS_LDAP_GROUP_OBJECTCLASS=groupOfNames
+      - OCIS_LDAP_USER_SCHEMA_ID=uid
+      - OCIS_LDAP_USER_SCHEMA_USERNAME=cn
+      - OCIS_LDAP_GROUP_SCHEMA_ID=uid
+      - OCIS_LDAP_USER_SCHEMA_USER_TYPE=ownCloudUserType
+      - OCIS_LDAP_USER_ENABLED_ATTRIBUTE=ownCloudUserEnabled
+      - GRAPH_LDAP_SERVER_UUID="true"
+      - GRAPH_ASSIGN_DEFAULT_USER_ROLE="true"
+      # Proxy Configuration
+      - PROXY_DEBUG_ADDR="0.0.0.0:9205"
+      - PROXY_TLS="false"
+      - PROXY_AUTOPROVISION_ACCOUNTS="false"
+      - PROXY_ROLE_ASSIGNMENT_DRIVER=oidc
+      - PROXY_OIDC_REWRITE_WELLKNOWN="true"
+      - PROXY_USER_OIDC_CLAIM=sub
+      - PROXY_USER_CS3_CLAIM=userid
+      - PROXY_CSP_CONFIG_FILE_LOCATION=/etc/ocis/csp.yaml
+      # OIDC Configuration
+      - OCIS_OIDC_ISSUER=https://authentik.staging-fzx-infra.dev/application/o/ocis-application/
+      - OCIS_OIDC_CLIENT_ID=ocis
+      - WEB_OPTION_LOGOUT_URL="https://authentik.staging-fzx-infra.dev/if/user/#/settings;%7B%22page%22%3A%22page-sessions%22%7D"
