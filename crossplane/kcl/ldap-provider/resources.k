@@ -135,6 +135,7 @@ oauth: provider.OAuth2 = {
             name = "oauth-"+_claimName
             clientId = _claimName
             signingKey = _certId
+            clientType = "public"
             authorizationFlowRef.name = "default-provider-authorization-implicit-consent"
             invalidationFlowRef.name =  "default-provider-invalidation-flow"
             propertyMappingsRefs = [
