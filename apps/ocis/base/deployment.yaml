@@ -58,22 +58,6 @@ spec:
                 secretKeyRef:
                   key: attribute.key
                   name: ocis-ldap-token
-            - name: IDM_SVC_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: attribute.key
-                  name: ocis-ldap-token
-            - name: IDM_IDPSVC_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: attribute.key
-                  name: ocis-ldap-token
-            - name: IDM_REVASVC_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: attribute.key
-                  name: ocis-ldap-token
-
           volumeMounts:
             - name: ldap-certs
               mountPath: /ldap-certs

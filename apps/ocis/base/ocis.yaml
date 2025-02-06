@@ -1,0 +1,40 @@
+graph:
+  events:
+    tls_insecure: true
+  spaces:
+    insecure: true
+collaboration:
+  app:
+    insecure: true
+proxy:
+  insecure_backends: true
+frontend:
+  app_handler:
+    insecure: true
+  archiver:
+    insecure: true
+ocdav:
+  insecure: true
+thumbnails:
+  thumbnail:
+    webdav_allow_insecure: true
+    cs3_allow_insecure: true
+search:
+  events:
+    tls_insecure: true
+audit:
+  events:
+    tls_insecure: true
+sharing:
+  events:
+    tls_insecure: true
+storage_users:
+  events:
+    tls_insecure: true
+notifications:
+  notifications:
+    events:
+      tls_insecure: true
+nats:
+  nats:
+    tls_skip_verify_client_cert: true
