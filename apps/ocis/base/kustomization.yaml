@@ -15,9 +15,9 @@ commonLabels:
 configMapGenerator:
   - name: ocis-config
     files:
-      - proxy.yaml
-      - csp.yaml
-      - ocis.yaml
+      - ./config/proxy.yaml
+      - ./config/csp.yaml
+      - ./config/ocis.yaml
   - name: ocis-env
     literals:
       # General Configuration
