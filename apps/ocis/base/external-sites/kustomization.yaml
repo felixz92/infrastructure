@@ -1,5 +1,8 @@
 configMapGenerator:
   - name: external-sites
+    options:
+      labels:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
     files:
       - external-sites.js
       - manifest.json

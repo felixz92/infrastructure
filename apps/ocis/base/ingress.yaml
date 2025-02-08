@@ -9,7 +9,7 @@ spec:
     name: dns-clusterissuer
     kind: ClusterIssuer
   dnsNames:
-    - ocis.staging-fzx-infra.dev
+    - ocis.${BASE_DOMAIN}
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
@@ -21,7 +21,7 @@ spec:
     - name: websecure
       port: 8443
       protocol: HTTPS
-      hostname: ocis.staging-fzx-infra.dev
+      hostname: ocis.${BASE_DOMAIN}
       tls:
         certificateRefs:
           - name: tls-ocis-ingress  # <==== Use the name defined in Certificate resource.
@@ -34,7 +34,7 @@ spec:
   parentRefs:
     - name: ocis-gateway
   hostnames:
-    - ocis.staging-fzx-infra.dev
+    - ocis.${BASE_DOMAIN}
   rules:
     - matches:
         - path:

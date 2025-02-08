@@ -1,5 +1,8 @@
 configMapGenerator:
   - name: unzip
+    options:
+      labels:
+        kustomize.toolkit.fluxcd.io/substitute: disabled
     files:
       - unzip.js
       - manifest.json
