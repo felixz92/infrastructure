@@ -48,6 +48,8 @@ spec:
           envFrom:
             - secretRef:
                 name: ocis-secrets
+            - secretRef:
+                name: ocis-s3-creds
             - configMapRef:
                 name: ocis-env
           env:
@@ -65,6 +67,10 @@ spec:
               mountPath: /etc/ocis
             - name: ocis-data
               mountPath: /var/lib/ocis
+            - name: external-sites
+              mountPath: /var/lib/ocis/web/assets/apps/external-sites
+            - name: unzip
+              mountPath: /var/lib/ocis/web/assets/apps/unzip
       restartPolicy: Always
       volumes:
         - name: ldap-certs
@@ -77,4 +83,11 @@ spec:
           configMap:
             name: ocis-config
         - name: ocis-data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: ocis-data
+        - name: external-sites
+          configMap:
+            name: external-sites
+        - name: unzip
+          configMap:
+            name: unzip

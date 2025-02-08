@@ -1,0 +1,5 @@
+configMapGenerator:
+  - name: external-sites
+    files:
+      - external-sites.js
+      - manifest.json

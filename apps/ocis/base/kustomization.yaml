@@ -1,9 +1,12 @@
 resources:
   - deployment.yaml
+  - pvc.yaml
   - secrets.yaml
   - ldap.yaml
   - service.yaml
   - ingress.yaml
+  - external-sites
+  - unzip
 
 images:
   - name: ocis
@@ -18,6 +21,8 @@ configMapGenerator:
       - ./config/proxy.yaml
       - ./config/csp.yaml
       - ./config/ocis.yaml
+      - ./config/web.yaml
+      - ./config/apps.yaml
   - name: ocis-env
     literals:
       # General Configuration
@@ -55,3 +60,11 @@ configMapGenerator:
       - OCIS_OIDC_ISSUER=https://authentik.staging-fzx-infra.dev/application/o/ocis-application/
       - OCIS_OIDC_CLIENT_ID=ocis
       - WEB_OPTION_LOGOUT_URL="https://authentik.staging-fzx-infra.dev/if/user/#/settings;%7B%22page%22%3A%22page-sessions%22%7D"
+      # S3 Configuration
+      - STORAGE_USERS_DRIVER=s3ng
+      # keep system data on ocis storage since this are only small files atm
+      - STORAGE_SYSTEM_DRIVER=ocis
+      # s3ng specific settings
+      - STORAGE_USERS_S3NG_ENDPOINT=https://nbg1.your-objectstorage.com
+      - STORAGE_USERS_S3NG_REGION=default
+      - STORAGE_USERS_S3NG_BUCKET=fzx-staging-ocis

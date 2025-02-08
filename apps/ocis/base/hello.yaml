@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ocis-hello
+spec:
+  replicas: 1
+  template:
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: ocis-hello
+          image: owncloud/ocis-hello:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: web
+              containerPort: 9105
+              protocol: TCP
+          #livenessProbe:
+          #  httpGet:
+          #    path: /healthz
+          #    port: metrics
+          #  timeoutSeconds: 5
+          #  initialDelaySeconds: 10
+          #  periodSeconds: 10
+          #  failureThreshold: 3
+          env:
+            - name: HELLO_ADMIN_USER_ID
+              valueFrom:
+                secretKeyRef:
+                  key: OCIS_SERVICE_ACCOUNT_ID
+                  name: ocis-secrets
+            - name: HELLO_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: OCIS_JWT_SECRET
+                  name: ocis-secrets
+          resources:
+            limits:
+              memory: 100Mi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+      restartPolicy: Always

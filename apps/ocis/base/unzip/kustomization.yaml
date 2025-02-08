@@ -1,0 +1,6 @@
+configMapGenerator:
+  - name: unzip
+    files:
+      - unzip.js
+      - manifest.json
+      - z-worker-DeFJeLeg.js
