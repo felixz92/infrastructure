@@ -9,7 +9,7 @@ spec:
       targetPort: web
       name: web
     - protocol: TCP
-      port: 9200
+      port: 9205
       targetPort: metrics
       name: metrics
 
