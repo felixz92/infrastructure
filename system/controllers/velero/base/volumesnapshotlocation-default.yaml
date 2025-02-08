@@ -1,0 +1,13 @@
+---
+apiVersion: velero.io/v1
+kind: VolumeSnapshotLocation
+metadata:
+  creationTimestamp: null
+  labels:
+    component: velero
+  name: default
+  namespace: velero
+spec:
+  config:
+    region: default
+  provider: aws

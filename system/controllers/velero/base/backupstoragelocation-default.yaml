@@ -1,0 +1,16 @@
+---
+apiVersion: velero.io/v1
+kind: BackupStorageLocation
+metadata:
+  creationTimestamp: null
+  labels:
+    component: velero
+  name: default
+  namespace: velero
+spec:
+  config:
+    region: default
+  default: true
+  objectStorage:
+    bucket: fzx-staging-velero
+  provider: aws

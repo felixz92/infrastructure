@@ -19,7 +19,8 @@
     "minio-client@latest",
     "kcl@latest",
     "kcl-cli@latest",
-    "oras@latest"
+    "oras@latest",
+    "velero@latest"
   ],
   "shell": {
     "init_hook": [
