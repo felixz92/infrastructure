@@ -111,6 +111,9 @@ spec:
 
           oauth: provider.OAuth2 = {
               metadata.name = _claimName + "-provider"
+              metadata.labels = {
+                  "velero.io/include" = "true"
+              }
               spec = {
                   writeConnectionSecretToRef.name = _claimName + "-client-secret"
                   writeConnectionSecretToRef.namespace = _namespace
@@ -140,6 +143,9 @@ spec:
 
           application: authentik.Application = {
               metadata.name = _claimName + "-application"
+              metadata.labels = {
+                  "velero.io/include" = "true"
+              }
               spec = {
                   forProvider = {
                       name = _claimName
@@ -158,6 +164,9 @@ spec:
 
           binding: policy.Binding {
               metadata.name = oxr.metadata.name + "-binding"
+              metadata.labels = {
+                  "velero.io/include" = "true"
+              }
               spec.providerConfigRef.name = "authentik-provider"
               spec.forProvider = {
                   target = _appId
@@ -189,6 +198,9 @@ spec:
 
           certPair: authentik.CertificateKeyPair = {
               metadata.name = _claimName + "-cert-pair"
+              metadata.labels = {
+                  "velero.io/include" = "true"
+              }
               spec.providerConfigRef.name = "authentik-provider"
               spec.forProvider.name = _claimName
               spec.forProvider.certificateDataSecretRef = {

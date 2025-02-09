@@ -156,7 +156,15 @@ cert: object = {
     _manifest = {
         apiVersion: "cert-manager.io/v1"
         kind: "Certificate"
+        metadata.labels = {
+            "velero.io/include" = "true"
+        }
         spec.secretName = oxr.metadata.name + "-ingress-cert"
+        spec.secretTemplate = {
+            labels = {
+                "velero.io/include" = "true"
+            }
+        }
         spec.dnsNames = [oxr.spec.externalHost]
         spec.issuerRef = {
             name = "dns-clusterissuer"

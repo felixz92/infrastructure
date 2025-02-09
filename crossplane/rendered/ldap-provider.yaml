@@ -121,6 +121,9 @@ spec:
 
           user: directory.User = {
               metadata.name = _claimName + "-ldap-user"
+              metadata.labels = {
+                  "velero.io/include" = "true"
+              }
               spec.forProvider = {
                   username = "ldap-"+_claimName
                   $type = "service_account"
@@ -133,6 +136,9 @@ spec:
 
           token: directory.Token = {
               metadata.name = _claimName + "-ldap-token"
+              metadata.labels = {
+                  "velero.io/include" = "true"
+              }
               spec = {
                   writeConnectionSecretToRef.name = _claimName + "-ldap-token"
                   writeConnectionSecretToRef.namespace = _namespace
@@ -150,6 +156,9 @@ spec:
 
           permission:  rbac.UserPermission = {
               metadata.name = _claimName + "-ldap-permission"
+              metadata.labels = {
+                  "velero.io/include" = "true"
+              }
               spec.forProvider = {
                   userRef.name = _claimName + "-ldap-user"
                   permission = "search_full_directory"
@@ -163,6 +172,9 @@ spec:
 
           ldap: provider.LDAP = {
               metadata.name = _claimName + "-provider-ldap"
+              metadata.labels = {
+                  "velero.io/include" = "true"
+              }
               spec = {
                   writeConnectionSecretToRef.name = _claimName + "-ldap-secret"
                   writeConnectionSecretToRef.namespace = _namespace
@@ -184,6 +196,9 @@ spec:
 
           oauth: provider.OAuth2 = {
               metadata.name = _claimName + "-provider-oauth"
+              metadata.labels = {
+                  "velero.io/include" = "true"
+              }
               spec = {
                   writeConnectionSecretToRef.name = _claimName + "-client-secret"
                   writeConnectionSecretToRef.namespace = _namespace
@@ -214,6 +229,9 @@ spec:
 
           application: authentik.Application = {
               metadata.name = _claimName + "-application"
+              metadata.labels = {
+                  "velero.io/include" = "true"
+              }
               spec = {
                   forProvider = {
                       name = _claimName
@@ -234,6 +252,9 @@ spec:
 
           certPair: authentik.CertificateKeyPair = {
               metadata.name = _claimName + "-cert-pair"
+              metadata.labels = {
+                  "velero.io/include" = "true"
+              }
               spec.providerConfigRef.name = "authentik-provider"
               spec.forProvider.name = _claimName
               spec.forProvider.certificateDataSecretRef = {
@@ -250,6 +271,9 @@ spec:
 
           outpost: authentik.Outpost = {
               metadata.name = _claimName + "-outpost"
+              metadata.labels = {
+                  "velero.io/include" = "true"
+              }
               spec = {
                   forProvider = {
                       name = _claimName

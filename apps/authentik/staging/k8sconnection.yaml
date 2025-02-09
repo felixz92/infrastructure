@@ -2,6 +2,8 @@ apiVersion: authentik.crossplane.io/v1alpha1
 kind: ServiceConnectionKubernetes
 metadata:
   name: local
+  labels:
+    velero.io/include: "true"
   annotations:
     crossplane.io/external-name: 96895c1a-1d60-492f-8e7d-c5a7c32ce5a7
 spec:
