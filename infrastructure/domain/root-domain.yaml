@@ -80,8 +80,8 @@ spec:
       metadata:
         name: cluster-domain-ip-v4-cluster-1
       spec:
-        name: "@"
-        zone: cluster-1.${BASE_DOMAIN}
+        name: "cluster-1.${BASE_DOMAIN}"
+        zone: ${BASE_DOMAIN}
         type: A
   providerConfigRef:
     name: kubernetes-provider
