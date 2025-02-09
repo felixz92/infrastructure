@@ -9,4 +9,7 @@ configMapGenerator:
       - values.yaml
     name: velero-values
 
+configurations:
+  - kustomize-configurations.yaml
+
 namespace: velero
