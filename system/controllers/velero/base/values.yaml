@@ -72,6 +72,8 @@ configuration:
         region: default
         s3ForcePathStyle: false
         s3Url: https://nbg1.your-objectstorage.com
+        # x-amz-sdk-checksum-algorithm is not supported by hetzner object storage: https://github.com/vmware-tanzu/velero/issues/7534
+        checksumAlgorithm: ""
   volumeSnapshotLocation:
     - name: default
       provider: csi

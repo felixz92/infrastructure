@@ -24,7 +24,13 @@
   ],
   "shell": {
     "init_hook": [
-      "export PATH=\"${KREW_ROOT:-$HOME/.krew}/bin:$PATH\""
+      "export PATH=\"${KREW_ROOT:-$HOME/.krew}/bin:$PATH\"",
+      "source <(flux completion zsh)",
+      "source <(hcloud completion zsh)",
+      "source <(talosctl completion zsh)",
+      "source <(helm completion zsh)",
+      "source <(velero completion zsh)",
+      "source <(stern --completion zsh)"
     ],
     "scripts": {
       "test": [
