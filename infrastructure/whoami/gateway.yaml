@@ -13,6 +13,13 @@ spec:
       tls:
         certificateRefs:
           - name: tls-whoami-ingress  # <==== Use the name defined in Certificate resource.
+    - name: websecure
+      port: 8443
+      protocol: HTTPS
+      hostname: whoami.cluster-1.${BASE_DOMAIN}
+      tls:
+        certificateRefs:
+          - name: tls-whoami-ingress  # <==== Use the name defined in Certificate resource.
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -23,6 +30,7 @@ spec:
     - name: whoami-gateway
   hostnames:
     - whoami.${BASE_DOMAIN}
+    - whoami.cluster-1.${BASE_DOMAIN}
   rules:
     - matches:
         - path:
