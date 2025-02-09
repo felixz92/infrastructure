@@ -38,6 +38,9 @@ _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
 oauth: provider.OAuth2 = {
     metadata.name = _claimName + "-provider"
+    metadata.labels = {
+        "velero.io/include" = "true"
+    }
     spec = {
         writeConnectionSecretToRef.name = _claimName + "-client-secret"
         writeConnectionSecretToRef.namespace = _namespace
@@ -67,6 +70,9 @@ oauth: provider.OAuth2 = {
 
 application: authentik.Application = {
     metadata.name = _claimName + "-application"
+    metadata.labels = {
+        "velero.io/include" = "true"
+    }
     spec = {
         forProvider = {
             name = _claimName
@@ -85,6 +91,9 @@ application: authentik.Application = {
 
 binding: policy.Binding {
     metadata.name = oxr.metadata.name + "-binding"
+    metadata.labels = {
+        "velero.io/include" = "true"
+    }
     spec.providerConfigRef.name = "authentik-provider"
     spec.forProvider = {
         target = _appId
@@ -116,6 +125,9 @@ signingKey: object = {
 
 certPair: authentik.CertificateKeyPair = {
     metadata.name = _claimName + "-cert-pair"
+    metadata.labels = {
+        "velero.io/include" = "true"
+    }
     spec.providerConfigRef.name = "authentik-provider"
     spec.forProvider.name = _claimName
     spec.forProvider.certificateDataSecretRef = {

@@ -16,6 +16,9 @@ _groupId = option("params").ctx["apiextensions.crossplane.io/extra-resources"]?.
 
 proxy: provider.Proxy = {
     metadata.name = _claimName + "-proxy"
+    metadata.labels = {
+        "velero.io/include" = "true"
+    }
     spec = {
         forProvider = {
             name = _claimName
@@ -37,6 +40,9 @@ proxy: provider.Proxy = {
 
 application: authentik.Application = {
     metadata.name = _claimName + "-application"
+    metadata.labels = {
+        "velero.io/include" = "true"
+    }
     spec = {
         forProvider = {
             name = _claimName
@@ -55,6 +61,9 @@ application: authentik.Application = {
 
 outpost: authentik.Outpost = {
     metadata.name = _claimName + "-outpost"
+    metadata.labels = {
+        "velero.io/include" = "true"
+    }
     spec = {
         forProvider = {
             name = _claimName
@@ -82,6 +91,9 @@ outpost: authentik.Outpost = {
 
 binding: policy.Binding {
     metadata.name = _claimName + "-binding"
+    metadata.labels = {
+        "velero.io/include" = "true"
+    }
     spec.providerConfigRef.name = "authentik-provider"
     spec.forProvider = {
         target = _appId
