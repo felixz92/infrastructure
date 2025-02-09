@@ -9,4 +9,5 @@ resources:
 - external-secrets.yaml
 - grafana-operator.yaml
 - traefik.yaml
+- velero.yaml
 - victoria-metrics-operator.yaml

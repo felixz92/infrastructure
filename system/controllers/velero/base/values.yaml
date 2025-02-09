@@ -1,0 +1,85 @@
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    memory: 256Mi
+initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.11.1
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: [ "ALL" ]
+        add: [ ]
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 65532
+      runAsGroup: 65532
+      seccompProfile:
+        type: RuntimeDefault
+
+podSecurityContext:
+  fsGroup: 1337
+
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop: [ "ALL" ]
+    add: [ ]
+  readOnlyRootFilesystem: true
+
+metrics:
+  serviceMonitor:
+    enabled: true
+  nodeAgentPodMonitor:
+    enabled: true
+  prometheusRule:
+    enabled: true
+    spec:
+      - alert: VeleroBackupPartialFailures
+        annotations:
+          message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups.
+        expr: |-
+          velero_backup_partial_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+        for: 15m
+        labels:
+          severity: warning
+      - alert: VeleroBackupFailures
+        annotations:
+          message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
+        expr: |-
+          velero_backup_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+        for: 15m
+        labels:
+          severity: warning
+
+upgradeCRDs: false
+
+configuration:
+  backupStorageLocation:
+    - name: default
+      provider: aws
+      bucket: fzx-${CLUSTER_NAME}-velero
+      credential:
+        name: cloud-credentials
+        key: cloud
+      config:
+        region: default
+        s3ForcePathStyle: false
+        s3Url: https://nbg1.your-objectstorage.com
+  volumeSnapshotLocation:
+    - name: default
+      provider: csi
+
+# Info about the secret to be used by the Velero deployment, which
+# should contain credentials for the cloud provider IAM account you've
+# set up for Velero.
+credentials:
+  existingSecret: cloud-credentials
+
+snapshotsEnabled: false
