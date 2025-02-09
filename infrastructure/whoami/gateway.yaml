@@ -6,14 +6,14 @@ metadata:
 spec:
   gatewayClassName: traefik
   listeners:
-    - name: websecure
+    - name: websecure-base-domain
       port: 8443
       protocol: HTTPS
       hostname: whoami.${BASE_DOMAIN}
       tls:
         certificateRefs:
           - name: tls-whoami-ingress  # <==== Use the name defined in Certificate resource.
-    - name: websecure
+    - name: websecure-cluster-domain
       port: 8443
       protocol: HTTPS
       hostname: whoami.cluster-1.${BASE_DOMAIN}
