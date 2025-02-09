@@ -5,6 +5,9 @@ metadata:
   name: whoami-tls-certificate
 spec:
   secretName: tls-whoami-ingress
+  secretTemplate:
+    labels:
+      veleor.io/include: "true"
   issuerRef:
     name: dns-clusterissuer
     kind: ClusterIssuer
