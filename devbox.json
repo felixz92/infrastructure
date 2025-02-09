@@ -10,7 +10,7 @@
     "stern@latest",
     "crossplane-cli@latest",
     "upbound@latest",
-    "krew@latest",
+    "krew@0.4.4",
     "popeye@latest",
     "clusterctl@latest",
     "awscli@latest",
