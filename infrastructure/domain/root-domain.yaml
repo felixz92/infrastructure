@@ -78,7 +78,7 @@ spec:
       apiVersion: cloudflare.felixz92.github.com/v1alpha1
       kind: xDnsRecord
       metadata:
-        name: root-domain-ip-v4
+        name: cluster-domain-ip-v4-cluster-1
       spec:
         name: "@"
         zone: cluster-1.${BASE_DOMAIN}
