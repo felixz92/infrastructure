@@ -13,3 +13,5 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - whoami.${BASE_DOMAIN}
+    - whoami.cluster-1.${BASE_DOMAIN}
+    - whoami.cluster-2.${BASE_DOMAIN}
