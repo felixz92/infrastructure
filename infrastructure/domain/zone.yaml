@@ -1,0 +1,14 @@
+apiVersion: dns.cloudflare.crossplane.io/v1alpha1
+kind: Zone
+metadata:
+  name: root-domain
+  annotations:
+    crossplane.io/external-name: 8b6c21803273c4cc98c7c3ad0d26616b
+spec:
+  deletionPolicy: Orphan
+  managementPolicies:
+    - Observe
+  forProvider:
+    accountId: fd257f4d490259c1a4e5e98f52c53242
+    zone: fzx-staging-infra.dev
+    type: full

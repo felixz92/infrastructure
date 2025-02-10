@@ -72,16 +72,19 @@ spec:
         name: traefik
         namespace: traefik
         fieldPath: status.loadBalancer.ingress[0].ip
-      toFieldPath: spec.content
+      toFieldPath: spec.forProvider.content
   forProvider:
     manifest:
-      apiVersion: cloudflare.felixz92.github.com/v1alpha1
-      kind: xDnsRecord
+      apiVersion: dns.cloudflare.crossplane.io/v1alpha1
+      kind: Record
       metadata:
         name: cluster-domain-ip-v4-cluster-1
       spec:
-        name: "cluster-1.${BASE_DOMAIN}"
-        zone: ${BASE_DOMAIN}
-        type: A
+        forProvider:
+          name: "cluster-1.${BASE_DOMAIN}"
+          ttl: 3600
+          type: A
+          zoneIdRef:
+            name: root-domain
   providerConfigRef:
     name: kubernetes-provider
