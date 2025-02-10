@@ -1,26 +1,19 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
-  name: xhttpsingresses.custom.fzx.dev
+  name: forwardauths.applications.authentik.crossplane.io
 spec:
   claimNames:
-    kind: HTTPSIngressClaim
-    plural: httpsingressclaims
+    kind: ForwardAuthClaim
+    plural: forwardauthclaims
   defaultCompositeDeletePolicy: Foreground
   defaultCompositionUpdatePolicy: Automatic
   group: applications.authentik.crossplane.io
   names:
-    kind: xHTTPSIngress
-    plural: xhttpsingresses
+    kind: ForwardAuth
+    plural: forwardauths
   versions:
-  - additionalPrinterColumns:
-    - jsonPath: '.spec.externalHost'
-      name: host
-      type: string
-    - jsonPath: '.spec.backendService.name'
-      name: service
-      type: string
-    name: v1alpha1
+  - name: v1alpha1
     referenceable: true
     schema:
       openAPIV3Schema:
@@ -31,6 +24,12 @@ spec:
             properties:
               externalHost:
                 type: string
+              icon:
+                type: string
+              description:
+                type: string
+              publisher:
+                type: string
               backendService:
                 type: object
                 properties:
@@ -38,6 +37,8 @@ spec:
                     type: string
                   port:
                     type: integer
+              middleware:
+                type: object
             required:
             - externalHost
             - backendService
@@ -46,13 +47,27 @@ spec:
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
-  name: https-ingress
+  name: forward-auth-application
 spec:
   compositeTypeRef:
-    apiVersion: custom.fzx.dev/v1alpha1
-    kind: xHTTPSIngress
+    apiVersion: applications.authentik.crossplane.io/v1alpha1
+    kind: ForwardAuth
   mode: Pipeline
   pipeline:
+  - functionRef:
+      name: crossplane-contrib-function-extra-resources
+    input:
+      apiVersion: extra-resources.fn.crossplane.io/v1beta1
+      kind: Input
+      spec:
+        extraResources:
+        - apiVersion: directory.authentik.crossplane.io/v1alpha1
+          kind: Group
+          into: adminGroup
+          type: Reference
+          ref:
+            name: cluster-admins
+    step: pull-group
   - functionRef:
       name: crossplane-contrib-function-kcl
     input:
@@ -286,6 +301,7 @@ spec:
           }
 
           items = [proxy, application, outpost,binding, middleware, cert, gateway, route]
+        dependencies: crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.5.0", version = "0.5.0" }
     step: provider
   - functionRef:
       name: crossplane-contrib-function-auto-ready

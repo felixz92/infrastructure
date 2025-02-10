@@ -16,6 +16,7 @@ tasks:
       - kcl run ./crossplane/kcl/forward-auth/crossplane.k > ./crossplane/rendered/forward-auth.yaml
       - kcl run ./crossplane/kcl/oauth-app/crossplane.k > ./crossplane/rendered/oauth-app.yaml
       - kcl run ./crossplane/kcl/ldap-provider/crossplane.k > ./crossplane/rendered/ldap-provider.yaml
+      - kcl run ./crossplane/kcl/https-ingress/crossplane.k > ./crossplane/rendered/https-ingress.yaml
   destroy:
     cmds:
       - for ks in $(kubectl get kustomization --no-headers -o custom-columns=":metadata.name" -n flux-system); do flux suspend kustomization $ks ; done

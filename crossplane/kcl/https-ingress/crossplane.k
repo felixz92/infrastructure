@@ -3,32 +3,20 @@ import file
 import manifests
 
 forwardauthDefinition = xpv1.CompositeResourceDefinition {
-    metadata.name = "xhttpsingresses.custom.fzx.dev"
+    metadata.name = "forwardauths.applications.authentik.crossplane.io"
     spec = {
         group: "applications.authentik.crossplane.io"
         names = {
-            kind = "xHTTPSIngress"
-            plural = "xhttpsingresses"
+            kind = "ForwardAuth"
+            plural = "forwardauths"
         }
         claimNames = {
-            kind = "HTTPSIngressClaim"
-            plural = "httpsingressclaims"
+            kind = "ForwardAuthClaim"
+            plural = "forwardauthclaims"
         }
         defaultCompositeDeletePolicy = "Foreground"
         versions = [
             {
-                additionalPrinterColumns = [
-                    {
-                        name = "host"
-                        $type = "string"
-                        jsonPath = ".spec.externalHost"
-                    }
-                    {
-                        name = "service"
-                        $type = "string"
-                        jsonPath = ".spec.backendService.name"
-                    }
-                ]
                 name = "v1alpha1"
                 served = True
                 referenceable = True
@@ -40,12 +28,18 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
                                 $type = "object"
                                 properties = {
                                     externalHost = { $type = "string" }
+                                    icon = { $type = "string" }
+                                    description = { $type = "string" }
+                                    publisher = { $type = "string" }
                                     backendService = {
                                         $type = "object"
                                         properties = {
                                             name = { $type = "string" }
                                             port = { $type = "integer" }
                                         }
+                                    }
+                                    middleware = {
+                                        $type = "object"
                                     }
                                 }
                                 required = ["externalHost", "backendService"]
@@ -59,21 +53,43 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
 }
 
 forwardauthComposition = xpv1.Composition {
-    metadata.name = "https-ingress"
+    metadata.name = "forward-auth-application"
     spec = {
         compositeTypeRef: {
-            apiVersion = "custom.fzx.dev/v1alpha1"
-            kind = "xHTTPSIngress"
+            apiVersion = "applications.authentik.crossplane.io/v1alpha1"
+            kind = "ForwardAuth"
         }
         mode: "Pipeline"
         pipeline: [
+            {
+                step = "pull-group"
+                functionRef.name = "crossplane-contrib-function-extra-resources"
+                input = {
+                    apiVersion = "extra-resources.fn.crossplane.io/v1beta1"
+                    kind: "Input"
+                    spec = {
+                        extraResources = [
+                           {
+                               apiVersion = "directory.authentik.crossplane.io/v1alpha1"
+                               kind = "Group"
+                               into: "adminGroup"
+                               $type = "Reference"
+                               ref.name = "cluster-admins"
+                           }
+                        ]
+                    }
+                }
+            }
             {
                 step = "provider"
                 functionRef.name = "crossplane-contrib-function-kcl"
                 input = {
                     apiVersion = "krm.kcl.dev/v1alpha1"
                     kind: "KCLInput"
-                    spec.source = file.read("crossplane/kcl/https-ingress/resources.k")
+                    spec.source = file.read("crossplane/kcl/forward-auth/resources.k")
+                    spec.dependencies = "\n".join([
+                        'crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.5.0", version = "0.5.0" }'
+                    ])
                 }
             }
             {

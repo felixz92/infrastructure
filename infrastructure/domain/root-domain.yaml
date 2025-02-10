@@ -88,3 +88,35 @@ spec:
             name: root-domain
   providerConfigRef:
     name: kubernetes-provider
+---
+apiVersion: kubernetes.crossplane.io/v1alpha2
+kind: Object
+metadata:
+  name: cluster-root-domain-dns-record-ip-v6
+spec:
+  deletionPolicy: Delete
+  readiness:
+    policy: AllTrue
+  references:
+    - patchesFrom:
+        apiVersion: v1
+        kind: Service
+        name: traefik
+        namespace: traefik
+        fieldPath: status.loadBalancer.ingress[1].ip
+      toFieldPath: spec.forProvider.content
+  forProvider:
+    manifest:
+      apiVersion: dns.cloudflare.crossplane.io/v1alpha1
+      kind: Record
+      metadata:
+        name: cluster-domain-ip-v4-cluster-1
+      spec:
+        forProvider:
+          name: "cluster-1.${BASE_DOMAIN}"
+          ttl: 3600
+          type: AAAA
+          zoneIdRef:
+            name: root-domain
+  providerConfigRef:
+    name: kubernetes-provider
