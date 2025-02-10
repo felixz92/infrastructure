@@ -1,19 +1,26 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
-  name: forwardauths.applications.authentik.crossplane.io
+  name: xhttpsingresses.custom.fzx.dev
 spec:
   claimNames:
-    kind: ForwardAuthClaim
-    plural: forwardauthclaims
+    kind: HTTPSIngressClaim
+    plural: httpsingressclaims
   defaultCompositeDeletePolicy: Foreground
   defaultCompositionUpdatePolicy: Automatic
-  group: applications.authentik.crossplane.io
+  group: custom.fzx.dev
   names:
-    kind: ForwardAuth
-    plural: forwardauths
+    kind: xHTTPSIngress
+    plural: xhttpsingresses
   versions:
-  - name: v1alpha1
+  - additionalPrinterColumns:
+    - jsonPath: '.spec.externalHost'
+      name: host
+      type: string
+    - jsonPath: '.spec.backendService.name'
+      name: service
+      type: string
+    name: v1alpha1
     referenceable: true
     schema:
       openAPIV3Schema:
@@ -23,12 +30,6 @@ spec:
             type: object
             properties:
               externalHost:
-                type: string
-              icon:
-                type: string
-              description:
-                type: string
-              publisher:
                 type: string
               backendService:
                 type: object
@@ -47,27 +48,13 @@ spec:
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
-  name: forward-auth-application
+  name: https-ingress
 spec:
   compositeTypeRef:
-    apiVersion: applications.authentik.crossplane.io/v1alpha1
-    kind: ForwardAuth
+    apiVersion: custom.fzx.dev/v1alpha1
+    kind: xHTTPSIngress
   mode: Pipeline
   pipeline:
-  - functionRef:
-      name: crossplane-contrib-function-extra-resources
-    input:
-      apiVersion: extra-resources.fn.crossplane.io/v1beta1
-      kind: Input
-      spec:
-        extraResources:
-        - apiVersion: directory.authentik.crossplane.io/v1alpha1
-          kind: Group
-          into: adminGroup
-          type: Reference
-          ref:
-            name: cluster-admins
-    step: pull-group
   - functionRef:
       name: crossplane-contrib-function-kcl
     input:
