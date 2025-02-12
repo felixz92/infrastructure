@@ -110,7 +110,7 @@ spec:
       apiVersion: dns.cloudflare.crossplane.io/v1alpha1
       kind: Record
       metadata:
-        name: cluster-domain-ip-v4-cluster-1
+        name: cluster-domain-ip-v6-cluster-1
       spec:
         forProvider:
           name: "cluster-1.${BASE_DOMAIN}"
