@@ -18,3 +18,4 @@ spec:
   postBuild:
     substitute:
       CLUSTER_NAME: ${CLUSTER_NAME}
+      ACTUAL_CLUSTER: ${ACTUAL_CLUSTER}
