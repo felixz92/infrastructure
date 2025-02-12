@@ -5,6 +5,9 @@ ocds = option("params").ocds
 
 _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
 _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
+_prefix = oxr.spec.externalHost.split(".")[0]
+BASE_DOMAIN ="staging-infra-fzx.dev"
+ACTUAL_CLUSTER = "cluster-1"
 
 schema object:
     _name: str
@@ -39,9 +42,7 @@ cert: object = {
                 "velero.io/include" = "true"
             }
         }
-        spec.dnsNames = map i,host in oxr.spec.externalHosts {
-            host.name
-        }
+        spec.dnsNames = [oxr.spec.externalHost, "${_prefix}.cluster-1.${BASE_DOMAIN}", "${_prefix}.cluster-2.${BASE_DOMAIN}"]
         spec.issuerRef = {
             name = "dns-clusterissuer"
             kind = "ClusterIssuer"
@@ -56,15 +57,27 @@ gateway: object = {
         apiVersion = "gateway.networking.k8s.io/v1"
         kind = "Gateway"
         spec.gatewayClassName = "traefik"
-        spec.listeners = map i,host in oxr.spec.externalHosts {{
-            name = "websecure-" + str(i)
-            port = 8443
-            $protocol = "HTTPS"
-            hostname = host.name
-            tls.certificateRefs = [{
-                name = oxr.metadata.name + "-ingress-cert"
-            }]
-        }}
+        # "${_prefix}.${ACTUAL_CLUSTER}.${BASE_DOMAIN}"
+        spec.listeners =[
+           {
+                name = "websecure-0"
+                port = 8443
+                $protocol = "HTTPS"
+                hostname = oxr.spec.externalHost
+                tls.certificateRefs = [{
+                    name = oxr.metadata.name + "-ingress-cert"
+                }]
+           },
+           {
+                name = "websecure-1"
+                port = 8443
+                $protocol = "HTTPS"
+                hostname = "${_prefix}.${ACTUAL_CLUSTER}.${BASE_DOMAIN}"
+                tls.certificateRefs = [{
+                    name = oxr.metadata.name + "-ingress-cert"
+                }]
+           }
+        ]
     }
 }
 
@@ -75,10 +88,7 @@ route: object = {
         apiVersion = "gateway.networking.k8s.io/v1"
         kind = "HTTPRoute"
         spec.parentRefs = [{name = oxr.metadata.name + "-gateway"}]
-        spec.hostnames = oxr.spec.externalHosts
-        spec.hostnames = map i,host in oxr.spec.externalHosts {
-            host.name
-        }
+        spec.hostnames = [oxr.spec.externalHost, "${_prefix}.${ACTUAL_CLUSTER}.${BASE_DOMAIN}"]
         spec.rules = [{
             matches = [{
                 path = {"type" = "PathPrefix", value = "/"}
@@ -93,16 +103,33 @@ route: object = {
     }
 }
 
-dnsEntries: [dns.Record] = map i,host in oxr.spec.externalHosts {
+cname : dns.Record = {
+    metadata.name = oxr.metadata.name + "-dns"
+    metadata.labels = {
+        "velero.io/include" = "true"
+    }
+    spec.forProvider = {
+        zoneIdRef.name = "root-domain"
+        name = oxr.spec.externalHost
+        $type = "CNAME"
+        content = "${ACTUAL_CLUSTER}.${BASE_DOMAIN}"
+    }
+}
+
+
+dnsEntries: [dns.Record] = map i,n in ["cluster-1", "cluster-2"] {
      dns.Record {
-        metadata.name = oxr.metadata.name + "-dns-" + str(i)
+        metadata.name = oxr.metadata.name + "-dns-" + n
+        metadata.labels = {
+            "velero.io/include" = "true"
+        }
         spec.forProvider = {
             zoneIdRef.name = "root-domain"
-            name = host.name
+            name = "${_prefix}.${n}.${BASE_DOMAIN}"
             $type = "CNAME"
-            content = host.cname
+            content = "${n}-${BASE_DOMAIN}"
         }
     }
 }
 
-items = [cert, gateway, route] + dnsEntries
+items = [cert, gateway, route, cname] + dnsEntries

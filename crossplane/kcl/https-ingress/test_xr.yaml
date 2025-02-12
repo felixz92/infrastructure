@@ -4,14 +4,11 @@ apiVersion: custom.fzx.dev/v1alpha1
 metadata:
   name: httpsingressclaim-sample
 spec:
-  externalHosts:
-  - name: example.com
-    cname: example-cluster-1.com
-  - name: example2.com
-    cname: example-cluster-2.com
+  externalHost: whoami.${BASE_DOMAIN}
   backendService:
-    name: backend-service
-    port: 80
+    name: whoami
+    port: 9000
+
 #  middleware:
 #    - sadad: asdsd
 #      asdsd: dasd

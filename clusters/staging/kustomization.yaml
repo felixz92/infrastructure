@@ -14,7 +14,7 @@ patches:
         value:
           substitute:
             CLUSTER_NAME: staging
-            ACTUAL_CLUSTER: staging-1
+            ACTUAL_CLUSTER: cluster-1
   - target:
       kind: Deployment
     patch: |
