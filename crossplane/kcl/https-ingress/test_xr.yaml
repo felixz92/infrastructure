@@ -1,0 +1,16 @@
+---
+kind: xHTTPSIngress
+apiVersion: custom.fzx.dev/v1alpha1
+metadata:
+  name: httpsingressclaim-sample
+spec:
+  externalHosts:
+  - example.com
+  - example2.com
+  backendService:
+    name: backend-service
+    port: 80
+#  middleware:
+#    - sadad: asdsd
+#      asdsd: dasd
+#      sadasd: asd

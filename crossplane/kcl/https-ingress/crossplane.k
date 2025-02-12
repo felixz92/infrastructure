@@ -39,7 +39,7 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
                             spec = {
                                 $type = "object"
                                 properties = {
-                                    externalHost = { $type = "string" }
+                                    externalHosts = { $type = "array", items = { $type = "string" } }
                                     backendService = {
                                         $type = "object"
                                         properties = {
