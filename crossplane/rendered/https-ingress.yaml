@@ -130,7 +130,7 @@ spec:
                   spec.listeners = map i,host in oxr.spec.externalHosts {{
                       name = "websecure-" + str(i)
                       port = 8443
-                      $protocol = "HTTP"
+                      $protocol = "HTTPS"
                       hostname = host.name
                       tls.certificateRefs = [{
                           name = oxr.metadata.name + "-ingress-cert"
