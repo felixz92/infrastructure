@@ -48,7 +48,7 @@ spec:
               middleware:
                 type: object
             required:
-            - externalHost
+            - externalHosts
             - backendService
     served: true
 ---
