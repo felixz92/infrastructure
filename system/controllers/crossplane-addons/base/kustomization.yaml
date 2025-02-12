@@ -6,3 +6,4 @@ resources:
   - ./kubernetes.yaml
   - ./terraform.yaml
   - ./functions.yaml
+  - cloudflare.yaml
