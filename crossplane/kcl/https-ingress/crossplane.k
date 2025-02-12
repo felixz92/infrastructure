@@ -39,7 +39,15 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
                             spec = {
                                 $type = "object"
                                 properties = {
-                                    externalHosts = { $type = "array", items = { $type = "string" } }
+                                    externalHosts = {
+                                        $type = "array", items = {
+                                            $type = "object"
+                                            properties = {
+                                                name = {$type = "string"}
+                                                cname = {$type = "string"}
+                                            }
+                                        }
+                                    }
                                     backendService = {
                                         $type = "object"
                                         properties = {
@@ -79,6 +87,7 @@ forwardauthComposition = xpv1.Composition {
                     spec.source = file.read("crossplane/kcl/https-ingress/resources.k")
                     spec.dependencies = "\n".join([
                         'crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.5.0", version = "0.5.0" }'
+                        'crossplane_cloudflare = { oci = "oci://ghcr.io/felixz92/crossplane-provider-cloudflare/crossplane-cloudflare", tag = "0.1.0", version = "0.1.0" }'
                     ])
                 }
             }

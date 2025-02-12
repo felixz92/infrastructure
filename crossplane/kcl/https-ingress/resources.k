@@ -1,3 +1,4 @@
+import crossplane_cloudflare.dns.v1alpha1 as dns
 # Read the XR
 oxr = option("params").oxr
 ocds = option("params").ocds
@@ -38,7 +39,9 @@ cert: object = {
                 "velero.io/include" = "true"
             }
         }
-        spec.dnsNames = oxr.spec.externalHosts
+        spec.dnsNames = map i,host in oxr.spec.externalHosts {
+            host.name
+        }
         spec.issuerRef = {
             name = "dns-clusterissuer"
             kind = "ClusterIssuer"
@@ -57,7 +60,7 @@ gateway: object = {
             name = "websecure-" + str(i)
             port = 8443
             $protocol = "HTTP"
-            hostname = host
+            hostname = host.name
             tls.certificateRefs = [{
                 name = oxr.metadata.name + "-ingress-cert"
             }]
@@ -73,6 +76,9 @@ route: object = {
         kind = "HTTPRoute"
         spec.parentRefs = [{name = oxr.metadata.name + "-gateway"}]
         spec.hostnames = oxr.spec.externalHosts
+        spec.hostnames = map i,host in oxr.spec.externalHosts {
+            host.name
+        }
         spec.rules = [{
             matches = [{
                 path = {"type" = "PathPrefix", value = "/"}
@@ -87,4 +93,16 @@ route: object = {
     }
 }
 
-items = [cert, gateway, route]
+dnsEntries: [dns.Record] = map i,host in oxr.spec.externalHosts {
+     dns.Record {
+        metadata.name = oxr.metadata.name + "-dns-" + str(i)
+        spec.forProvider = {
+            zoneIdRef.name = "root-domain"
+            name = host.name
+            $type = "CNAME"
+            content = host.cname
+        }
+    }
+}
+
+items = [cert, gateway, route] + dnsEntries

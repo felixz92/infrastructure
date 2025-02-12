@@ -5,8 +5,10 @@ metadata:
   name: httpsingressclaim-sample
 spec:
   externalHosts:
-  - example.com
-  - example2.com
+  - name: example.com
+    cname: example-cluster-1.com
+  - name: example2.com
+    cname: example-cluster-2.com
   backendService:
     name: backend-service
     port: 80
