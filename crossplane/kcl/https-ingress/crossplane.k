@@ -51,7 +51,7 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
                                         $type = "object"
                                     }
                                 }
-                                required = ["externalHosts", "backendService"]
+                                required = ["externalHost", "backendService"]
                             }
                         }
                     }

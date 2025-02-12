@@ -6,8 +6,6 @@ ocds = option("params").ocds
 _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
 _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 _prefix = oxr.spec.externalHost.split(".")[0]
-BASE_DOMAIN ="staging-infra-fzx.dev"
-ACTUAL_CLUSTER = "cluster-1"
 
 schema object:
     _name: str
