@@ -48,7 +48,10 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
                                         }
                                     }
                                     middleware = {
-                                        $type = "object"
+                                        $type = "array"
+                                        items = {
+                                            $type = "object"
+                                        }
                                     }
                                 }
                                 required = ["externalHost", "backendService"]

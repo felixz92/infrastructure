@@ -39,7 +39,9 @@ spec:
                   port:
                     type: integer
               middleware:
-                type: object
+                type: array
+                items:
+                  type: object
             required:
             - externalHost
             - backendService
