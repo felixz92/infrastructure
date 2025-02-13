@@ -37,8 +37,6 @@ spec:
                     type: string
                   port:
                     type: integer
-              middleware:
-                type: object
             required:
             - externalHost
             - backendService

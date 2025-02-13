@@ -38,9 +38,6 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
                                             port = { $type = "integer" }
                                         }
                                     }
-                                    middleware = {
-                                        $type = "object"
-                                    }
                                 }
                                 required = ["externalHost", "backendService"]
                             }
