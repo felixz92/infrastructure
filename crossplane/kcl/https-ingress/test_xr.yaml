@@ -1,5 +1,5 @@
 ---
-kind: xHTTPSIngress
+kind: HTTPSIngressClaim
 apiVersion: custom.fzx.dev/v1alpha1
 metadata:
   name: httpsingressclaim-sample
@@ -8,7 +8,6 @@ spec:
   backendService:
     name: whoami
     port: 9000
-
 #  middleware:
 #    - sadad: asdsd
 #      asdsd: dasd
