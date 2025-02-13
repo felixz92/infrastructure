@@ -6,6 +6,7 @@ ocds = option("params").ocds
 _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
 _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 _prefix = oxr.spec.externalHost.split(".")[0]
+print("prefix: ${_prefix}")
 
 schema object:
     _name: str
