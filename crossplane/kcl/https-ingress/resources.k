@@ -124,9 +124,9 @@ dnsEntries: [dns.Record] = map i,n in ["cluster-1", "cluster-2"] {
         }
         spec.forProvider = {
             zoneIdRef.name = "root-domain"
-            name = _prefix + ".${n}.${BASE_DOMAIN}"
+            name = _prefix + "." + n + ".${BASE_DOMAIN}"
             $type = "CNAME"
-            content = "${n}-${BASE_DOMAIN}"
+            content = n + ".${BASE_DOMAIN}"
         }
     }
 }
