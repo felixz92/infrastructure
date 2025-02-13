@@ -16,9 +16,9 @@ spec:
               resources:
                 requests:
                   cpu: 20m
-                  memory: 300Mi
+                  memory: 500Mi
                 limits:
-                  memory: 300Mi
+                  memory: 500Mi
 ---
 apiVersion: pkg.crossplane.io/v1
 kind: Provider
