@@ -1,0 +1,8 @@
+apiVersion: provider.authentik.crossplane.io/v1alpha1
+kind: Proxy
+metadata:
+  name: alertmanager-proxy
+spec:
+status:
+  atProvider:
+    id: 3

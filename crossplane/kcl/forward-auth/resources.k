@@ -13,6 +13,7 @@ _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
 _providerId = ocds[_claimName + "-proxy"]?.Resource?.status?.atProvider?.id
 _appId = ocds[_claimName + "-application"]?.Resource?.status?.atProvider?.uuid
 _groupId = option("params").ctx["apiextensions.crossplane.io/extra-resources"]?.adminGroup[0]?.status?.atProvider?.id
+BASE_DOMAIN="staging-fzx-infra.dev"
 
 proxy: provider.Proxy = {
     metadata.name = _claimName + "-proxy"

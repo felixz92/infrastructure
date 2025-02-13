@@ -1,5 +1,5 @@
-apiVersion: provider.authentik.crossplane.io/v1alpha1
-kind: Proxy
+apiVersion: directory.authentik.crossplane.io/v1alpha1
+kind: Group
 metadata:
   name: cluster-admins
 spec:
