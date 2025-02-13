@@ -227,66 +227,19 @@ spec:
               }
           }
 
-          cert: object = {
-              _name = oxr.metadata.name + "-ingress-cert"
+          ingress: object {
+              _name = oxr.metadata.name + "-ingress"
               _readiness = "AllTrue"
               _manifest = {
-                  apiVersion: "cert-manager.io/v1"
-                  kind: "Certificate"
-                  metadata.labels = {
-                      "velero.io/include" = "true"
-                  }
-                  spec.secretName = oxr.metadata.name + "-ingress-cert"
-                  spec.secretTemplate = {
-                      labels = {
-                          "velero.io/include" = "true"
-                      }
-                  }
-                  spec.dnsNames = [oxr.spec.externalHost]
-                  spec.issuerRef = {
-                      name = "dns-clusterissuer"
-                      kind = "ClusterIssuer"
-                  }
-              }
-          }
-
-          gateway: object = {
-              _name = oxr.metadata.name + "-gateway"
-              _readiness = "AllTrue"
-              _manifest = {
-                  apiVersion = "gateway.networking.k8s.io/v1"
-                  kind = "Gateway"
-                  spec.gatewayClassName = "traefik"
-                  spec.listeners = [{
-                      name = "websecure"
-                      port = 8443
-                      "protocol" = "HTTPS"
-                      hostname = oxr.spec.externalHost
-                      tls.certificateRefs = [{
-                          name = oxr.metadata.name + "-ingress-cert"
-                      }]
-                  }]
-              }
-          }
-
-          route: object = {
-              _name = oxr.metadata.name + "-route"
-              _readiness = "SuccessfulCreate"
-              _manifest = {
-                  apiVersion = "gateway.networking.k8s.io/v1"
-                  kind = "HTTPRoute"
-                  spec.parentRefs = [{name = oxr.metadata.name + "-gateway"}]
-                  spec.hostnames = [oxr.spec.externalHost]
-                  spec.rules = [{
-                      matches = [{
-                          path = {"type" = "PathPrefix", value = "/"}
-                      }]
-                      backendRefs = [{
+                  apiVersion = "custom.fzx.dev/v1alpha1"
+                  kind = "HTTPSIngressClaim"
+                  spec = {
+                      externalHost = oxr.spec.externalHost
+                      backendService = {
                           name = oxr.spec.backendService.name
                           port = oxr.spec.backendService.port
-                          weight = 1
-                      }]
-                      filters = [
+                      }
+                      middleware = [
                           {
                               "type" = "ExtensionRef"
                               extensionRef = {
@@ -296,11 +249,11 @@ spec:
                               }
                           }
                       ]
-                  }]
+                  }
               }
           }
 
-          items = [proxy, application, outpost,binding, middleware, cert, gateway, route]
+          items = [proxy, application, outpost,binding, middleware, ingress]
         dependencies: crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.5.0", version = "0.5.0" }
     step: provider
   - functionRef:
