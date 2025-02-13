@@ -176,4 +176,6 @@ ingress: object {
     }
 }
 
+print("ingress: " + json.encode(ingress))
+
 items = [proxy, application, outpost,binding, middleware, ingress]

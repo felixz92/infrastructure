@@ -251,6 +251,8 @@ spec:
               }
           }
 
+          print("ingress: " + json.encode(ingress))
+
           items = [proxy, application, outpost,binding, middleware, ingress]
         dependencies: crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.5.0", version = "0.5.0" }
     step: provider
