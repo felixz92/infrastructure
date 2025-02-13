@@ -6,7 +6,7 @@ ocds = option("params").ocds
 _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
 _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 _prefix = oxr.spec.externalHost.split(".")[0]
-print("prefix: ${_prefix}")
+print("prefix:" + _prefix)
 
 schema object:
     _name: str
@@ -41,7 +41,7 @@ cert: object = {
                 "velero.io/include" = "true"
             }
         }
-        spec.dnsNames = [oxr.spec.externalHost, "${_prefix}.cluster-1.${BASE_DOMAIN}", "${_prefix}.cluster-2.${BASE_DOMAIN}"]
+        spec.dnsNames = [oxr.spec.externalHost, _prefix + ".cluster-1.${BASE_DOMAIN}", _prefix + ".cluster-2.${BASE_DOMAIN}"]
         spec.issuerRef = {
             name = "dns-clusterissuer"
             kind = "ClusterIssuer"
@@ -71,7 +71,7 @@ gateway: object = {
                 name = "websecure-1"
                 port = 8443
                 $protocol = "HTTPS"
-                hostname = "${_prefix}.${ACTUAL_CLUSTER}.${BASE_DOMAIN}"
+                hostname = _prefix+".${ACTUAL_CLUSTER}.${BASE_DOMAIN}"
                 tls.certificateRefs = [{
                     name = oxr.metadata.name + "-ingress-cert"
                 }]
@@ -87,7 +87,7 @@ route: object = {
         apiVersion = "gateway.networking.k8s.io/v1"
         kind = "HTTPRoute"
         spec.parentRefs = [{name = oxr.metadata.name + "-gateway"}]
-        spec.hostnames = [oxr.spec.externalHost, "${_prefix}.${ACTUAL_CLUSTER}.${BASE_DOMAIN}"]
+        spec.hostnames = [oxr.spec.externalHost, _prefix+".${ACTUAL_CLUSTER}.${BASE_DOMAIN}"]
         spec.rules = [{
             matches = [{
                 path = {"type" = "PathPrefix", value = "/"}
@@ -124,7 +124,7 @@ dnsEntries: [dns.Record] = map i,n in ["cluster-1", "cluster-2"] {
         }
         spec.forProvider = {
             zoneIdRef.name = "root-domain"
-            name = "${_prefix}.${n}.${BASE_DOMAIN}"
+            name = _prefix + ".${n}.${BASE_DOMAIN}"
             $type = "CNAME"
             content = "${n}-${BASE_DOMAIN}"
         }
