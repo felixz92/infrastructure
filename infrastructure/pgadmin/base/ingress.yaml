@@ -58,3 +58,9 @@ spec:
         - name: pgadmin
           port: 3004
           weight: 1
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            add:
+              - name: Content-Security-Policy
+                value: "default-src 'self'; img-src https: http: data:; object-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';"
