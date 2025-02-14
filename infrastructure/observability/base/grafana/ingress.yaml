@@ -63,4 +63,4 @@ spec:
           responseHeaderModifier:
             add:
               - name: Content-Security-Policy
-                value: "script-src 'self' 'unsafe-eval' 'unsafe-inline' 'strict-dynamic' ;object-src 'none';font-src 'self';style-src 'self' 'unsafe-inline' blob:;img-src * data:;base-uri 'self';connect-src 'self' grafana.com ws://grafana.${BASE_DOMAIN} wss://grafana.${BASE_DOMAIN};manifest-src 'self';media-src 'none';form-action 'self';"
+                value: "script-src 'self' 'unsafe-eval' 'unsafe-inline' ;object-src 'none';font-src 'self';style-src 'self' 'unsafe-inline' blob:;img-src * data:;base-uri 'self';connect-src 'self' grafana.com ws://grafana.${BASE_DOMAIN} wss://grafana.${BASE_DOMAIN};manifest-src 'self';media-src 'none';form-action 'self';"
