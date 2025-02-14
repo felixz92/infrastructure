@@ -142,6 +142,35 @@ certPair: authentik.CertificateKeyPair = {
     }
 }
 
+ingress: object {
+    _name = oxr.metadata.name + "-ingress"
+    _readiness = "AllTrue"
+    _manifest = {
+        apiVersion = "custom.fzx.dev/v1alpha1"
+        kind = "HTTPSIngressClaim"
+        spec = {
+            externalHost = oxr.spec.externalHost
+            backendService = {
+                name = oxr.spec.backendService.name
+                port = oxr.spec.backendService.port
+            }
+            if oxr.spec.headers.csp:
+                middleware = [
+                    {
+                        "type" = "ResponseHeaderModifier"
+                        responseHeaderModifier = {
+                            add = [
+                                {
+                                    name = "Content-Security-Policy"
+                                    value = oxr.spec.headers.csp
+                                }
+                            ]
+                        }
+                    }
+                ]
+        }
+    }
+}
 
 _adminBinding = oxr.spec.adminBinding
 

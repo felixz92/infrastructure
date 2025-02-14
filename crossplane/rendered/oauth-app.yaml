@@ -35,6 +35,18 @@ spec:
               adminBinding:
                 type: boolean
                 default: false
+              headers:
+                type: object
+                properties:
+                  csp:
+                    type: string
+              backendService:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  port:
+                    type: integer
             required:
             - externalHost
             - redirectURL
@@ -215,6 +227,35 @@ spec:
               }
           }
 
+          ingress: object {
+              _name = oxr.metadata.name + "-ingress"
+              _readiness = "AllTrue"
+              _manifest = {
+                  apiVersion = "custom.fzx.dev/v1alpha1"
+                  kind = "HTTPSIngressClaim"
+                  spec = {
+                      externalHost = oxr.spec.externalHost
+                      backendService = {
+                          name = oxr.spec.backendService.name
+                          port = oxr.spec.backendService.port
+                      }
+                      if oxr.spec.headers.csp:
+                          middleware = [
+                              {
+                                  "type" = "ResponseHeaderModifier"
+                                  responseHeaderModifier = {
+                                      add = [
+                                          {
+                                              name = "Content-Security-Policy"
+                                              value = oxr.spec.headers.csp
+                                          }
+                                      ]
+                                  }
+                              }
+                          ]
+                  }
+              }
+          }
 
           _adminBinding = oxr.spec.adminBinding
 
