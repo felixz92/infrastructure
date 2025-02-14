@@ -9,58 +9,8 @@ spec:
   description: "https://www.pgadmin.org/docs/pgadmin4/latest/index.html"
   redirectURL: /oauth2/authorize
   adminBinding: true
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: pgadmin-tls-certificate
-spec:
-  secretName: tls-pgadmin-ingress
-  secretTemplate:
-    labels:
-      veleor.io/include: "true"
-  issuerRef:
-    name: dns-clusterissuer
-    kind: ClusterIssuer
-  dnsNames:
-    - pgadmin.${BASE_DOMAIN}
----
-apiVersion: gateway.networking.k8s.io/v1
-kind: Gateway
-metadata:
-  name: pgadmin-gateway
-spec:
-  gatewayClassName: traefik
-  listeners:
-    - name: websecure
-      port: 8443
-      protocol: HTTPS
-      hostname: pgadmin.${BASE_DOMAIN}
-      tls:
-        certificateRefs:
-          - name: tls-pgadmin-ingress  # <==== Use the name defined in Certificate resource.
----
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
-metadata:
-  name: pgadmin-http
-spec:
-  parentRefs:
-    - name: pgadmin-gateway
-  hostnames:
-    - pgadmin.${BASE_DOMAIN}
-  rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /
-      backendRefs:
-        - name: pgadmin
-          port: 3004
-          weight: 1
-      filters:
-        - type: ResponseHeaderModifier
-          responseHeaderModifier:
-            add:
-              - name: Content-Security-Policy
-                value: "default-src 'self'; img-src 'self' https://www.gravatar.com data:; object-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:;"
+  backendService:
+    name: pgadmin
+    port: 3004
+  headers:
+    csp: "default-src 'self'; img-src 'self' https://www.gravatar.com data:; object-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:;"
