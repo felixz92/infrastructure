@@ -61,6 +61,21 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
                                                         kind = { $type = "string" }
                                                     }
                                                 }
+                                                responseHeaderModifier = {
+                                                    $type = "object"
+                                                    properties = {
+                                                        add = {
+                                                            $type = "array"
+                                                            items = {
+                                                                $type = "object"
+                                                                properties = {
+                                                                    name = { $type = "string" }
+                                                                    value = { $type = "string" }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
