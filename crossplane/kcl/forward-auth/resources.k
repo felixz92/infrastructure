@@ -166,7 +166,7 @@ ingress: object {
                 {
                     "type" = "ExtensionRef"
                     extensionRef = {
-                        name = oxr.metadata.name + "-middleware"
+                        name = _claimName + "-middleware"
                         group = "traefik.io"
                         kind = "Middleware"
                     }
