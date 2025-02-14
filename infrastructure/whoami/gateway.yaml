@@ -6,8 +6,9 @@ metadata:
   name: test-ratelimit
 spec:
   rateLimit:
-    average: 10
-    burst: 20
+    average: 1
+    burst: 2
+    period: 1s
 ---
 kind: HTTPSIngressClaim
 apiVersion: custom.fzx.dev/v1alpha1
