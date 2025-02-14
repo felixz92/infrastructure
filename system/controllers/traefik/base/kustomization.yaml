@@ -4,6 +4,7 @@ namespace: traefik
 resources:
   - traefik-release.yaml
   - dashboard.yaml
+  - ingress.yaml
 
 configMapGenerator:
   - name: traefik-values
