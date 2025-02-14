@@ -7,7 +7,7 @@ metadata:
 spec:
   rateLimit:
     average: 1
-    burst: 2
+    burst: 1
     period: 1s
 ---
 kind: HTTPSIngressClaim
