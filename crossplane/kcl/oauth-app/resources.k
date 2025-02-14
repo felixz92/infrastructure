@@ -179,6 +179,7 @@ items = [
     application,
     signingKey,
     certPair,
+    ingress,
     if _adminBinding:
         binding
 ]
