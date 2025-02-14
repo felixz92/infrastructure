@@ -19,12 +19,12 @@ spec:
   backendService:
     name: whoami
     port: 9000
-  middleware:
-    - extensionRef:
-        group: traefik.io
-        kind: Middleware
-        name: test-ratelimit
-      type: ExtensionRef
+#  middleware:
+#    - extensionRef:
+#        group: traefik.io
+#        kind: Middleware
+#        name: test-ratelimit
+#      type: ExtensionRef
 
 #---
 #apiVersion: gateway.networking.k8s.io/v1
