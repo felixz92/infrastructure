@@ -32,6 +32,7 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
                                     description = { $type = "string" }
                                     publisher = { $type = "string" }
                                     clusterName = { $type = "string" }
+                                    launchUrl = { $type = "string" }
                                     backendService = {
                                         $type = "object"
                                         properties = {

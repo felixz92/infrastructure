@@ -49,7 +49,7 @@ application: authentik.Application = {
                 protocolProvider = int(_providerId)
             metaIcon = oxr.spec.icon
             metaDescription = oxr.spec.description
-            metaLaunchUrl = "https://" + oxr.spec.externalHost
+            metaLaunchUrl = "https://${oxr.spec.externalHost}/${oxr.spec.launchUrl}"
             metaPublisher = oxr.spec.publisher
         }
     }

@@ -32,6 +32,8 @@ spec:
                 type: string
               clusterName:
                 type: string
+              launchUrl:
+                type: string
               backendService:
                 type: object
                 properties:
@@ -127,7 +129,7 @@ spec:
                           protocolProvider = int(_providerId)
                       metaIcon = oxr.spec.icon
                       metaDescription = oxr.spec.description
-                      metaLaunchUrl = "https://" + oxr.spec.externalHost
+                      metaLaunchUrl = "https://${oxr.spec.externalHost}/${oxr.spec.launchUrl}"
                       metaPublisher = oxr.spec.publisher
                   }
               }
