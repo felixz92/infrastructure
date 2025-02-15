@@ -41,8 +41,6 @@ spec:
           type: A
           zoneIdRef:
             name: root-domain
-  providerConfigRef:
-    name: kubernetes-provider
 ---
 apiVersion: kubernetes.crossplane.io/v1alpha2
 kind: Object
@@ -73,5 +71,3 @@ spec:
           type: AAAA
           zoneIdRef:
             name: root-domain
-  providerConfigRef:
-    name: kubernetes-provider
