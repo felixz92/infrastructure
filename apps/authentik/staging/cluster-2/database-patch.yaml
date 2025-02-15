@@ -1,0 +1,18 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: authentik-database
+  labels:
+    app.kubernetes.io/part-of: authentik
+    app.kubernetes.io/component: database
+  annotations:
+    terasky.backstage.io/component-type: resource
+spec:
+  backup:
+    barmanObjectStore:
+      destinationPath: "s3://fzx-staging-postgres/backup-authentik-v2"
+  externalClusters:
+    - name: clusterBackup
+      barmanObjectStore:
+        destinationPath: "s3://fzx-staging-postgres/backup-authentik-v1"

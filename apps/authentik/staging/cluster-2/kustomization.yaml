@@ -7,11 +7,4 @@ resources:
   - scopes.yaml
 
 patches:
-  - target:
-      kind: Group
-      name: cluster-admins
-    patch: |-
-      - op: add
-        path: /metadata/annotations
-        value:
-          crossplane.io/external-name: cabab51f-a3b7-46fc-bdad-9c3488492397
+  - path: database-patch.yaml

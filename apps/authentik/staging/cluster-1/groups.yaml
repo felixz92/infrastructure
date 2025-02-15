@@ -5,6 +5,8 @@ metadata:
   name: cluster-admins
   labels:
     velero.io/include: "true"
+  annotations:
+    crossplane.io/external-name: cabab51f-a3b7-46fc-bdad-9c3488492397
 spec:
   forProvider:
     name: cluster-admins
