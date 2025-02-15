@@ -146,9 +146,6 @@ spec:
                           }
                       ]
                   }
-                  providerConfigRef = {
-                      name = "authentik-provider"
-                  }
               }
           }
 
@@ -167,9 +164,6 @@ spec:
                       metaLaunchUrl = "https://" + oxr.spec.externalHost
                       metaPublisher = oxr.spec.publisher
                   }
-                  providerConfigRef = {
-                      name = "authentik-provider"
-                  }
               }
           }
 
@@ -178,7 +172,6 @@ spec:
               metadata.labels = {
                   "velero.io/include" = "true"
               }
-              spec.providerConfigRef.name = "authentik-provider"
               spec.forProvider = {
                   target = _appId
                   group = _groupId
@@ -212,7 +205,6 @@ spec:
               metadata.labels = {
                   "velero.io/include" = "true"
               }
-              spec.providerConfigRef.name = "authentik-provider"
               spec.forProvider.name = _claimName
               spec.forProvider.certificateDataSecretRef = {
                   name = _claimName + "-signing-cert"

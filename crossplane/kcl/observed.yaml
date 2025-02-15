@@ -11,8 +11,6 @@ spec:
   initProvider: { }
   managementPolicies:
     - '*'
-  providerConfigRef:
-    name: authentik-provider
 status:
   atProvider:
     attributes: '{}'

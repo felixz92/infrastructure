@@ -61,9 +61,6 @@ oauth: provider.OAuth2 = {
                 }
             ]
         }
-        providerConfigRef = {
-            name = "authentik-provider"
-        }
     }
 }
 
@@ -82,9 +79,6 @@ application: authentik.Application = {
             metaLaunchUrl = "https://" + oxr.spec.externalHost
             metaPublisher = oxr.spec.publisher
         }
-        providerConfigRef = {
-            name = "authentik-provider"
-        }
     }
 }
 
@@ -93,7 +87,6 @@ binding: policy.Binding {
     metadata.labels = {
         "velero.io/include" = "true"
     }
-    spec.providerConfigRef.name = "authentik-provider"
     spec.forProvider = {
         target = _appId
         group = _groupId
@@ -127,7 +120,6 @@ certPair: authentik.CertificateKeyPair = {
     metadata.labels = {
         "velero.io/include" = "true"
     }
-    spec.providerConfigRef.name = "authentik-provider"
     spec.forProvider.name = _claimName
     spec.forProvider.certificateDataSecretRef = {
         name = _claimName + "-signing-cert"

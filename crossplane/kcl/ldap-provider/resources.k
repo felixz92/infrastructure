@@ -72,9 +72,6 @@ user: directory.User = {
         $type = "service_account"
         path = "goauthentik.io/serviceaccounts"
     }
-    spec.providerConfigRef = {
-        name = "authentik-provider"
-    }
 }
 
 token: directory.Token = {
@@ -85,7 +82,6 @@ token: directory.Token = {
     spec = {
         writeConnectionSecretToRef.name = _claimName + "-ldap-token"
         writeConnectionSecretToRef.namespace = _namespace
-        providerConfigRef.name = "authentik-provider"
         forProvider = {
             identifier = _claimName + "-ldap-token"
             description = "token to access ldap outpost"
@@ -108,9 +104,6 @@ permission:  rbac.UserPermission = {
         model = "authentik_providers_ldap.ldapprovider"
         objectId = _providerIdLdap
     }
-    spec.providerConfigRef = {
-        name = "authentik-provider"
-    }
 }
 
 ldap: provider.LDAP = {
@@ -130,9 +123,6 @@ ldap: provider.LDAP = {
             bindMode = "direct"
             certificate = _certId
             tlsServerName = "ak-outpost-ldap-ocis.authentik.svc.cluster.local"
-        }
-        providerConfigRef = {
-            name = "authentik-provider"
         }
     }
 }
@@ -164,9 +154,6 @@ oauth: provider.OAuth2 = {
                 }
             ]
         }
-        providerConfigRef = {
-            name = "authentik-provider"
-        }
     }
 }
 
@@ -187,9 +174,6 @@ application: authentik.Application = {
             if _providerIdLdap:
                 backchannelProviders =[int(_providerIdLdap)]
         }
-        providerConfigRef = {
-            name = "authentik-provider"
-        }
     }
 }
 
@@ -198,7 +182,6 @@ certPair: authentik.CertificateKeyPair = {
     metadata.labels = {
         "velero.io/include" = "true"
     }
-    spec.providerConfigRef.name = "authentik-provider"
     spec.forProvider.name = _claimName
     spec.forProvider.certificateDataSecretRef = {
         name = _claimName + "-ldap-cert"
@@ -235,9 +218,6 @@ outpost: authentik.Outpost = {
                 "kubernetes_service_type": "ClusterIP"
                 "kubernetes_disabled_components": ["ingress", "middleware"]
             })
-        }
-        providerConfigRef = {
-            name = "authentik-provider"
         }
     }
 }

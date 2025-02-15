@@ -135,9 +135,6 @@ spec:
                   $type = "service_account"
                   path = "goauthentik.io/serviceaccounts"
               }
-              spec.providerConfigRef = {
-                  name = "authentik-provider"
-              }
           }
 
           token: directory.Token = {
@@ -148,7 +145,6 @@ spec:
               spec = {
                   writeConnectionSecretToRef.name = _claimName + "-ldap-token"
                   writeConnectionSecretToRef.namespace = _namespace
-                  providerConfigRef.name = "authentik-provider"
                   forProvider = {
                       identifier = _claimName + "-ldap-token"
                       description = "token to access ldap outpost"
@@ -171,9 +167,6 @@ spec:
                   model = "authentik_providers_ldap.ldapprovider"
                   objectId = _providerIdLdap
               }
-              spec.providerConfigRef = {
-                  name = "authentik-provider"
-              }
           }
 
           ldap: provider.LDAP = {
@@ -193,9 +186,6 @@ spec:
                       bindMode = "direct"
                       certificate = _certId
                       tlsServerName = "ak-outpost-ldap-ocis.authentik.svc.cluster.local"
-                  }
-                  providerConfigRef = {
-                      name = "authentik-provider"
                   }
               }
           }
@@ -227,9 +217,6 @@ spec:
                           }
                       ]
                   }
-                  providerConfigRef = {
-                      name = "authentik-provider"
-                  }
               }
           }
 
@@ -250,9 +237,6 @@ spec:
                       if _providerIdLdap:
                           backchannelProviders =[int(_providerIdLdap)]
                   }
-                  providerConfigRef = {
-                      name = "authentik-provider"
-                  }
               }
           }
 
@@ -261,7 +245,6 @@ spec:
               metadata.labels = {
                   "velero.io/include" = "true"
               }
-              spec.providerConfigRef.name = "authentik-provider"
               spec.forProvider.name = _claimName
               spec.forProvider.certificateDataSecretRef = {
                   name = _claimName + "-ldap-cert"
@@ -298,9 +281,6 @@ spec:
                           "kubernetes_service_type": "ClusterIP"
                           "kubernetes_disabled_components": ["ingress", "middleware"]
                       })
-                  }
-                  providerConfigRef = {
-                      name = "authentik-provider"
                   }
               }
           }

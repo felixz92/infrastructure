@@ -32,9 +32,6 @@ proxy: provider.Proxy = {
             }
             externalHost = "https://" + oxr.spec.externalHost
         }
-        providerConfigRef = {
-            name = "authentik-provider"
-        }
     }
 }
 
@@ -52,9 +49,6 @@ application: authentik.Application = {
             metaDescription = oxr.spec.description
             metaLaunchUrl = "https://" + oxr.spec.externalHost
             metaPublisher = oxr.spec.publisher
-        }
-        providerConfigRef = {
-            name = "authentik-provider"
         }
     }
 }
@@ -83,9 +77,6 @@ outpost: authentik.Outpost = {
                 "kubernetes_disabled_components": ["ingress", "middleware"]
             })
         }
-        providerConfigRef = {
-            name = "authentik-provider"
-        }
     }
 }
 
@@ -94,7 +85,6 @@ binding: policy.Binding {
     metadata.labels = {
         "velero.io/include" = "true"
     }
-    spec.providerConfigRef.name = "authentik-provider"
     spec.forProvider = {
         target = _appId
         group = _groupId
