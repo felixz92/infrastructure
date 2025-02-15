@@ -255,20 +255,6 @@ ingress: object {
                 name = oxr.spec.backendService.name
                 port = oxr.spec.backendService.port
             }
-            if oxr.spec.headers.csp:
-                middleware = [
-                    {
-                        "type" = "ResponseHeaderModifier"
-                        responseHeaderModifier = {
-                            add = [
-                                {
-                                    name = "Content-Security-Policy"
-                                    value = oxr.spec.headers.csp
-                                }
-                            ]
-                        }
-                    }
-                ]
         }
     }
 }

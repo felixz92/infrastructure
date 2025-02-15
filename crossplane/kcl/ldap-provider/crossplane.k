@@ -39,12 +39,6 @@ oauthDefinition = xpv1.CompositeResourceDefinition {
                                             port = { $type = "integer" }
                                         }
                                     }
-                                    headers = {
-                                        $type = "object"
-                                        properties = {
-                                            csp = { $type = "string" }
-                                        }
-                                    }
                                 }
                                 required = ["externalHost", "redirectURL"]
                             }
