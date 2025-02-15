@@ -10,8 +10,6 @@ spec:
     designation: authorization
     name: default-provider-authorization-implicit-consent
     title: Redirecting to %(app)s
-  providerConfigRef:
-    name: authentik-provider
 ---
 apiVersion: authentik.crossplane.io/v1alpha1
 kind: Flow
@@ -24,8 +22,6 @@ spec:
     designation: invalidation
     name: default-provider-invalidation-flow
     title: You've logged out of %(app)s.
-  providerConfigRef:
-    name: authentik-provider
 ---
 apiVersion: authentik.crossplane.io/v1alpha1
 kind: Flow
@@ -38,5 +34,3 @@ spec:
     designation: authentication
     name: default-authentication-flow
     title:   Welcome to authentik!
-  providerConfigRef:
-    name: authentik-provider
