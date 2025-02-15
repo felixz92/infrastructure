@@ -18,7 +18,6 @@ schema object:
         name = _name
     }
     spec = {
-        providerConfigRef.name = "kubernetes-provider"
         deletionPolicy = "Delete"
         readiness.policy = _readiness
         forProvider.manifest = _manifest
