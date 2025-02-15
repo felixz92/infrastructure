@@ -4,7 +4,6 @@ resources:
   - secrets.yaml
   - ldap.yaml
   - service.yaml
-  - ingress.yaml
   - external-sites
   - unzip
 

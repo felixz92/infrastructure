@@ -8,3 +8,8 @@ spec:
   icon: "https://avatars.githubusercontent.com/u/1645051?s=200&v=4"
   description: "https://owncloud.dev/"
   redirectURL: /oidc-callback.html
+  backendService:
+    name: ocis
+    port: 9200
+  #headers:
+  #  csp: "script-src 'self' 'unsafe-eval' 'unsafe-inline' ;object-src 'none';font-src 'self';style-src 'self' 'unsafe-inline' blob:;img-src * data:;base-uri 'self';connect-src 'self' grafana.com ws://grafana.${BASE_DOMAIN} wss://grafana.${BASE_DOMAIN};manifest-src 'self';media-src 'none';form-action 'self';"
