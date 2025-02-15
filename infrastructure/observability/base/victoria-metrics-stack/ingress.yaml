@@ -21,6 +21,7 @@ spec:
   clusterName: ${CLUSTER_NAME}
   icon: "https://avatars1.githubusercontent.com/u/3380462?s=200&v=4"
   description: "https://prometheus.io/docs"
+  launchUrl: vmui/
   backendService:
     name: vmsingle-vmks-victoria-metrics-k8s-stack
     port: 8429
