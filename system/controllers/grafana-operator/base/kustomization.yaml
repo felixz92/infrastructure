@@ -16,4 +16,4 @@ kind: Kustomization
 images:
 - name: ghcr.io/grafana/grafana-operator
   newName: ghcr.io/grafana/grafana-operator
-  newTag: v5.15.1
+  newTag: v5.16.0
