@@ -1,6 +1,6 @@
 image:
-  repository: xpkg.upbound.io/crossplane/crossplane
-  #repository: crossplane/crossplane
+  #repository: xpkg.upbound.io/crossplane/crossplane
+  repository: crossplane/crossplane
   pullPolicy: IfNotPresent
 
 imagePullSecrets:
