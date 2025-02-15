@@ -1,61 +1,16 @@
 ---
-apiVersion: kubernetes.crossplane.io/v1alpha2
-kind: Object
+apiVersion: dns.cloudflare.crossplane.io/v1alpha1
+kind: Record
 metadata:
-  name: root-domain-dns-record-ip-v4
+  name: cluster-domain-cname
 spec:
-  deletionPolicy: Delete
-  readiness:
-    policy: AllTrue
-  references:
-    - patchesFrom:
-        apiVersion: v1
-        kind: Service
-        name: traefik
-        namespace: traefik
-        fieldPath: status.loadBalancer.ingress[0].ip
-      toFieldPath: spec.content
   forProvider:
-    manifest:
-      apiVersion: cloudflare.felixz92.github.com/v1alpha1
-      kind: xDnsRecord
-      metadata:
-        name: root-domain-ip-v4
-      spec:
-        name: "@"
-        zone: ${BASE_DOMAIN}
-        type: A
-  providerConfigRef:
-    name: kubernetes-provider
----
-apiVersion: kubernetes.crossplane.io/v1alpha2
-kind: Object
-metadata:
-  name: root-domain-dns-record-ip-v6
-spec:
-  deletionPolicy: Delete
-  readiness:
-    policy: AllTrue
-  references:
-    - patchesFrom:
-        apiVersion: v1
-        kind: Service
-        name: traefik
-        namespace: traefik
-        fieldPath: status.loadBalancer.ingress[1].ip
-      toFieldPath: spec.content
-  forProvider:
-    manifest:
-      apiVersion: cloudflare.felixz92.github.com/v1alpha1
-      kind: xDnsRecord
-      metadata:
-        name: root-domain-ip-v6
-      spec:
-        name: "@"
-        zone: ${BASE_DOMAIN}
-        type: AAAA
-  providerConfigRef:
-    name: kubernetes-provider
+    name: "${BASE_DOMAIN}"
+    content: ${CLUSTER_NAME}.${BASE_DOMAIN}
+    ttl: 3600
+    type: CNAME
+    zoneIdRef:
+      name: root-domain
 ---
 apiVersion: kubernetes.crossplane.io/v1alpha2
 kind: Object
