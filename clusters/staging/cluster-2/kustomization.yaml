@@ -1,0 +1,48 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - flux-system
+
+patches:
+  - target:
+      kind: Kustomization
+      name: flux-system
+    patch: |
+      - op: add
+        path: /spec/postBuild
+        value:
+          substitute:
+            ENVIRONMENT: staging
+            CLUSTER_NAME: cluster-1
+            ACTUAL_CLUSTER: cluster-1
+  - target:
+      kind: Deployment
+    patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/resources
+        value:
+          limits:
+            memory: 128Mi
+          requests:
+            cpu: 10m
+            memory: 128Mi
+  - target:
+      kind: Deployment
+      name: kustomize-controller
+    patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: 350Mi
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: 350Mi
+  - target:
+      kind: Deployment
+      name: source-controller
+    patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/requests/memory
+        value: 192Mi
+      - op: replace
+        path: /spec/template/spec/containers/0/resources/limits/memory
+        value: 192Mi
