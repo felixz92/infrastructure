@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./apps/ocis/${CLUSTER_NAME}
+  path: ./apps/ocis/${ENVIRONMENT}
   prune: true
   dependsOn:
     - name: crds
@@ -17,6 +17,7 @@ spec:
     namespace: flux-system
   postBuild:
     substitute:
+      ENVIRONMENT: ${ENVIRONMENT}
       CLUSTER_NAME: ${CLUSTER_NAME}
       ACTUAL_CLUSTER: ${ACTUAL_CLUSTER}
     substituteFrom:

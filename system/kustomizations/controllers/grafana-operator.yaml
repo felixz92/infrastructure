@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./system/controllers/grafana-operator/${CLUSTER_NAME}
+  path: ./system/controllers/grafana-operator/${ENVIRONMENT}
   targetNamespace: grafana-operator
   prune: true
   dependsOn:
@@ -18,5 +18,6 @@ spec:
     namespace: flux-system
   postBuild:
     substitute:
+      ENVIRONMENT: ${ENVIRONMENT}
       CLUSTER_NAME: ${CLUSTER_NAME}
       ACTUAL_CLUSTER: ${ACTUAL_CLUSTER}

@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./system/controllers/crossplane-addons/${CLUSTER_NAME}
+  path: ./system/controllers/crossplane-addons/${ENVIRONMENT}
   targetNamespace: crossplane-system
   prune: true
   dependsOn:
@@ -19,5 +19,6 @@ spec:
     namespace: flux-system
   postBuild:
     substitute:
+      ENVIRONMENT: ${ENVIRONMENT}
       CLUSTER_NAME: ${CLUSTER_NAME}
       ACTUAL_CLUSTER: ${ACTUAL_CLUSTER}

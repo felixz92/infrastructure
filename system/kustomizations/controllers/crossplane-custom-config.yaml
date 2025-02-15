@@ -17,6 +17,7 @@ spec:
     namespace: flux-system
   postBuild:
     substitute:
+      ENVIRONMENT: ${ENVIRONMENT}
       CLUSTER_NAME: ${CLUSTER_NAME}
       ACTUAL_CLUSTER: ${ACTUAL_CLUSTER}
     substituteFrom:

@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./system/controllers/cloudnative-pg/${CLUSTER_NAME}
+  path: ./system/controllers/cloudnative-pg/${ENVIRONMENT}
   targetNamespace: cnpg-system
   prune: true
   dependsOn:
@@ -18,5 +18,6 @@ spec:
     namespace: flux-system
   postBuild:
     substitute:
+      ENVIRONMENT: ${ENVIRONMENT}
       CLUSTER_NAME: ${CLUSTER_NAME}
       ACTUAL_CLUSTER: ${ACTUAL_CLUSTER}

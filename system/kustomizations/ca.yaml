@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./system/certificate-authority/${CLUSTER_NAME}
+  path: ./system/certificate-authority/${ENVIRONMENT}
   prune: false
   sourceRef:
     kind: GitRepository
@@ -14,6 +14,7 @@ spec:
     namespace: flux-system
   postBuild:
     substitute:
+      ENVIRONMENT: ${ENVIRONMENT}
       CLUSTER_NAME: ${CLUSTER_NAME}
       ACTUAL_CLUSTER: ${ACTUAL_CLUSTER}
     substituteFrom:

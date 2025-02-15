@@ -1,7 +1,7 @@
 version: '3'
 
 vars:
-  CLUSTER_NAME:
+  ENVIRONMENT:
     sh: if [ -n "$ENVIRONMENT" ]; then echo "$ENVIRONMENT" ; else exit 1 ; fi
 
 tasks:
@@ -25,7 +25,7 @@ tasks:
         cmd: kubectl delete kustomization {{ .ITEM }} -n flux-system
   apply-infra:
     cmds:
-      - cd provision/{{ .CLUSTER_NAME }} && terraform apply
+      - cd provision/{{ .ENVIRONMENT }} && terraform apply
   destroy-infra:
     cmds:
       - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.worker'

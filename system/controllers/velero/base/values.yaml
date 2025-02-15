@@ -64,7 +64,7 @@ configuration:
   backupStorageLocation:
     - name: default
       provider: aws
-      bucket: fzx-${CLUSTER_NAME}-velero
+      bucket: fzx-${ENVIRONMENT}-velero
       credential:
         name: cloud-credentials
         key: cloud

@@ -13,6 +13,7 @@ patches:
         path: /spec/postBuild
         value:
           substitute:
+            ENVIRONMENT: staging
             CLUSTER_NAME: staging
             ACTUAL_CLUSTER: cluster-1
   - target:

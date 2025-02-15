@@ -66,4 +66,4 @@ configMapGenerator:
       # s3ng specific settings
       - STORAGE_USERS_S3NG_ENDPOINT=https://nbg1.your-objectstorage.com
       - STORAGE_USERS_S3NG_REGION=default
-      - STORAGE_USERS_S3NG_BUCKET=fzx-${CLUSTER_NAME}-ocis
+      - STORAGE_USERS_S3NG_BUCKET=fzx-${ENVIRONMENT}-ocis

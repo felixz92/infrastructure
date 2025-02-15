@@ -82,7 +82,7 @@ loki.source.kubernetes "pod_logs" {
 loki.process "pod_logs" {
   stage.static_labels {
       values = {
-        cluster = "${CLUSTER_NAME}",
+        cluster = "${ENVIRONMENT}",
       }
   }
 
@@ -106,7 +106,7 @@ loki.process "cluster_events" {
 
   stage.static_labels {
     values = {
-        cluster = "${CLUSTER_NAME}",
+        cluster = "${ENVIRONMENT}",
     }
   }
 
