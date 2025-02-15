@@ -1,0 +1,43 @@
+---
+apiVersion: directory.authentik.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  name: cluster-admins
+  labels:
+    velero.io/include: "true"
+spec:
+  forProvider:
+    name: cluster-admins
+    isSuperuser: false
+  providerConfigRef:
+    name: authentik-provider
+---
+apiVersion: directory.authentik.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  name: grafana-editors
+  labels:
+    velero.io/include: "true"
+  annotations:
+    crossplane.io/external-name: 7552a0a9-4444-4ee0-b783-45b9e1145993
+spec:
+  forProvider:
+    name: grafana-editors
+    isSuperuser: false
+  providerConfigRef:
+    name: authentik-provider
+---
+apiVersion: directory.authentik.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  name: grafana-viewers
+  labels:
+    velero.io/include: "true"
+  annotations:
+    crossplane.io/external-name: 1e2c917d-57fc-4daf-9e39-9629112e38a9
+spec:
+  forProvider:
+    name: grafana-viewers
+    isSuperuser: false
+  providerConfigRef:
+    name: authentik-provider

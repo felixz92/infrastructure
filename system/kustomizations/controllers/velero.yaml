@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./system/controllers/velero/${ENVIRONMENT}
+  path: ./system/controllers/velero/${ENVIRONMENT}/${ACTUAL_CLUSTER}
   targetNamespace: velero
   prune: true
   dependsOn:

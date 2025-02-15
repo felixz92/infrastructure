@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./system/controllers/cloudnative-pg/${ENVIRONMENT}
+  path: ./system/controllers/cloudnative-pg/${ENVIRONMENT}/${ACTUAL_CLUSTER}
   targetNamespace: cnpg-system
   prune: true
   dependsOn:
