@@ -15,4 +15,4 @@ spec:
   postBuild:
     substitute:
       ENVIRONMENT: staging
-      CLUSTER_NAME: cluster-1
+      CLUSTER_NAME: cluster-2
