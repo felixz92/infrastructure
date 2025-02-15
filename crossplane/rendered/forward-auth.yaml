@@ -91,8 +91,8 @@ spec:
           _providerId = ocds[_claimName + "-proxy"]?.Resource?.status?.atProvider?.id
           _appId = ocds[_claimName + "-application"]?.Resource?.status?.atProvider?.uuid
           _groupId = option("params").ctx["apiextensions.crossplane.io/extra-resources"]?.adminGroup[0]?.status?.atProvider?.id
-
-          _baseDomain = oxr.spec.externalHost.split(".")[1]
+          _split = oxr.spec.externalHost.split(".")
+          _baseDomain = "${_split[1]}.${_split[2]}"
 
           proxy: provider.Proxy = {
               metadata.name = _claimName + "-proxy"

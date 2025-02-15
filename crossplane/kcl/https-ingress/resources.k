@@ -5,8 +5,11 @@ ocds = option("params").ocds
 
 _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
 _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
-_prefix = oxr.spec.externalHost.split(".")[0]
-_baseDomain = oxr.spec.externalHost.split(".")[1]
+
+_split = oxr.spec.externalHost.split(".")
+_prefix = _split[0]
+_baseDomain = "${_split[1]}.${_split[2]}"
+
 _clusterName = oxr.spec.clusterName
 print("prefix:" + _prefix)
 

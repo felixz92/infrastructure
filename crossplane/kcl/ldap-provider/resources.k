@@ -33,7 +33,8 @@ _providerIdLdap = ocds[_claimName + "-provider-ldap"]?.Resource?.status?.atProvi
 _providerIdOauth = ocds[_claimName + "-provider-oauth"]?.Resource?.status?.atProvider?.id
 _certId = ocds[_claimName + "-cert-pair"]?.Resource?.status?.atProvider?.id
 
-_baseDomain = oxr.spec.externalHost.split(".")[1]
+_split = oxr.spec.externalHost.split(".")
+_baseDomain = "${_split[1]}.${_split[2]}"
 _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
 cert: object = {
