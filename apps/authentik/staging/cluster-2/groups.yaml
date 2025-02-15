@@ -9,8 +9,6 @@ spec:
   forProvider:
     name: cluster-admins
     isSuperuser: false
-  providerConfigRef:
-    name: authentik-provider
 ---
 apiVersion: directory.authentik.crossplane.io/v1alpha1
 kind: Group
@@ -24,8 +22,6 @@ spec:
   forProvider:
     name: grafana-editors
     isSuperuser: false
-  providerConfigRef:
-    name: authentik-provider
 ---
 apiVersion: directory.authentik.crossplane.io/v1alpha1
 kind: Group
@@ -39,5 +35,3 @@ spec:
   forProvider:
     name: grafana-viewers
     isSuperuser: false
-  providerConfigRef:
-    name: authentik-provider

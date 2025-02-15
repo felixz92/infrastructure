@@ -8,8 +8,6 @@ metadata:
   annotations:
     crossplane.io/external-name: f3c16977-d530-4ede-8513-554c4d2d24f8
 spec:
-  providerConfigRef:
-    name: authentik-provider
   forProvider:
     expression: |
       return {
@@ -29,8 +27,6 @@ metadata:
   annotations:
     crossplane.io/external-name: 82d8725b-fb0c-4847-a951-f4d5b092a6f1
 spec:
-  providerConfigRef:
-    name: authentik-provider
   forProvider:
     expression: |
       # This scope is required by the OpenID-spec, and must as such exist in authentik.
@@ -49,8 +45,6 @@ metadata:
   annotations:
     crossplane.io/external-name: 624a5550-0202-4afa-99ea-a1ae2048e665
 spec:
-  providerConfigRef:
-    name: authentik-provider
   forProvider:
     expression: |
       return {
