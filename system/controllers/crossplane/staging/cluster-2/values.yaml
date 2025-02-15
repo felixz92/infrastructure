@@ -1,6 +1,10 @@
 image:
-  repository: crossplane/crossplane
+  repository: xpkg.upbound.io/crossplane/crossplane
+  #repository: crossplane/crossplane
   pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - xpkg-upbound-io
 
 resourcesCrossplane:
   limits:
