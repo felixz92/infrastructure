@@ -47,6 +47,7 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
                                             port = { $type = "integer" }
                                         }
                                     }
+                                    clusterName = { $type = "string" }
                                     middleware = {
                                         $type = "array"
                                         items = {
@@ -80,7 +81,7 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
                                         }
                                     }
                                 }
-                                required = ["externalHost", "backendService"]
+                                required = ["externalHost", "backendService", "clusterName"]
                             }
                         }
                     }

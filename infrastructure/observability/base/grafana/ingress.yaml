@@ -5,6 +5,7 @@ metadata:
   name: grafana
 spec:
   externalHost: "grafana.${BASE_DOMAIN}"
+  clusterName: ${CLUSTER_NAME}
   icon: "https://cdn.worldvectorlogo.com/logos/grafana.svg"
   description: "https://grafana.com/docs/grafana/latest/"
   redirectURL: /login/generic_oauth

@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- forward-auth.yaml
+- https-ingress.yaml
+- ldap-provider.yaml
+- oauth-app.yaml
+
+labels:
+  - pairs:
+      kustomize.toolkit.fluxcd.io/substitute: disabled

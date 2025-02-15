@@ -6,6 +6,8 @@ ocds = option("params").ocds
 _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
 _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 _prefix = oxr.spec.externalHost.split(".")[0]
+_baseDomain = oxr.spec.externalHost.split(".")[1]
+_clusterName = oxr.spec.clusterName
 print("prefix:" + _prefix)
 
 schema object:
@@ -40,7 +42,7 @@ cert: object = {
                 "velero.io/include" = "true"
             }
         }
-        spec.dnsNames = [oxr.spec.externalHost, _prefix + ".cluster-1.${BASE_DOMAIN}", _prefix + ".cluster-2.${BASE_DOMAIN}"]
+        spec.dnsNames = [oxr.spec.externalHost, _prefix + ".cluster-1.${_baseDomain}", _prefix + ".cluster-2.${_baseDomain}"]
         spec.issuerRef = {
             name = "dns-clusterissuer"
             kind = "ClusterIssuer"
@@ -55,7 +57,7 @@ gateway: object = {
         apiVersion = "gateway.networking.k8s.io/v1"
         kind = "Gateway"
         spec.gatewayClassName = "traefik"
-        # "${_prefix}.${CLUSTER_NAME}.${BASE_DOMAIN}"
+        # "${_prefix}.${_clusterName}.${_baseDomain}"
         spec.listeners =[
            {
                 name = "websecure-0"
@@ -70,7 +72,7 @@ gateway: object = {
                 name = "websecure-1"
                 port = 8443
                 $protocol = "HTTPS"
-                hostname = _prefix+".${CLUSTER_NAME}.${BASE_DOMAIN}"
+                hostname = _prefix+".${_clusterName}.${_baseDomain}"
                 tls.certificateRefs = [{
                     name = oxr.metadata.name + "-ingress-cert"
                 }]
@@ -86,7 +88,7 @@ route: object = {
         apiVersion = "gateway.networking.k8s.io/v1"
         kind = "HTTPRoute"
         spec.parentRefs = [{name = oxr.metadata.name + "-gateway"}]
-        spec.hostnames = [oxr.spec.externalHost, _prefix+".${CLUSTER_NAME}.${BASE_DOMAIN}"]
+        spec.hostnames = [oxr.spec.externalHost, _prefix+".${_clusterName}.${_baseDomain}"]
         spec.rules = [{
             matches = [{
                 path = {"type" = "PathPrefix", value = "/"}
@@ -110,10 +112,9 @@ cname : dns.Record = {
         zoneIdRef.name = "root-domain"
         name = oxr.spec.externalHost
         $type = "CNAME"
-        content = "${CLUSTER_NAME}.${BASE_DOMAIN}"
+        content = "${_clusterName}.${_baseDomain}"
     }
 }
-
 
 dnsEntries: [dns.Record] = map i,n in ["cluster-1", "cluster-2"] {
      dns.Record {
@@ -123,9 +124,9 @@ dnsEntries: [dns.Record] = map i,n in ["cluster-1", "cluster-2"] {
         }
         spec.forProvider = {
             zoneIdRef.name = "root-domain"
-            name = _prefix + "." + n + ".${BASE_DOMAIN}"
+            name = _prefix + "." + n + ".${_baseDomain}"
             $type = "CNAME"
-            content = n + ".${BASE_DOMAIN}"
+            content = n + ".${_baseDomain}"
         }
     }
 }

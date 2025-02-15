@@ -32,6 +32,8 @@ spec:
                 type: string
               redirectURL:
                 type: string
+              clusterName:
+                type: string
               adminBinding:
                 type: boolean
                 default: false
@@ -50,6 +52,8 @@ spec:
             required:
             - externalHost
             - redirectURL
+            - backendService
+            - clusterName
     served: true
 ---
 apiVersion: apiextensions.crossplane.io/v1
@@ -225,6 +229,7 @@ spec:
                   apiVersion = "custom.fzx.dev/v1alpha1"
                   kind = "HTTPSIngressClaim"
                   spec = {
+                      clusterName = oxr.spec.clusterName
                       externalHost = oxr.spec.externalHost
                       backendService = {
                           name = oxr.spec.backendService.name

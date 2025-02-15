@@ -5,6 +5,7 @@ metadata:
   name: authentik
 spec:
   externalHost: authentik.${BASE_DOMAIN}
+  clusterName: ${CLUSTER_NAME}
   backendService:
     name: authentik-server
     port: 80

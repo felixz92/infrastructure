@@ -19,6 +19,7 @@ metadata:
   name: traefik
 spec:
   externalHost: "traefik.${BASE_DOMAIN}"
+  clusterName: ${CLUSTER_NAME}
   icon: "https://github.com/traefik/traefik/raw/master/docs/content/assets/img/traefik.logo.png"
   description: "https://doc.traefik.io/traefik/"
   backendService:

@@ -140,6 +140,7 @@ ingress: object {
         apiVersion = "custom.fzx.dev/v1alpha1"
         kind = "HTTPSIngressClaim"
         spec = {
+            clusterName = oxr.spec.clusterName
             externalHost = oxr.spec.externalHost
             backendService = {
                 name = oxr.spec.backendService.name

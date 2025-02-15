@@ -14,6 +14,8 @@ _providerId = ocds[_claimName + "-proxy"]?.Resource?.status?.atProvider?.id
 _appId = ocds[_claimName + "-application"]?.Resource?.status?.atProvider?.uuid
 _groupId = option("params").ctx["apiextensions.crossplane.io/extra-resources"]?.adminGroup[0]?.status?.atProvider?.id
 
+_baseDomain = oxr.spec.externalHost.split(".")[1]
+
 proxy: provider.Proxy = {
     metadata.name = _claimName + "-proxy"
     metadata.labels = {
@@ -68,7 +70,7 @@ outpost: authentik.Outpost = {
             config = json.encode({
                 "authentik_host": "http://authentik-server/"
                 "authentik_host_insecure": True
-                "authentik_host_browser": "https://authentik.${BASE_DOMAIN}/"
+                "authentik_host_browser": "https://authentik.${__baseDomain}/"
                 "log_level": "info"
                 "object_naming_template": "ak-outpost-%(name)s"
                 "kubernetes_replicas": 1
@@ -151,6 +153,7 @@ ingress: object {
                 name = oxr.spec.backendService.name
                 port = oxr.spec.backendService.port
             }
+            clusterName = oxr.spec.clusterName
             middleware = [
                 {
                     "type" = "ExtensionRef"

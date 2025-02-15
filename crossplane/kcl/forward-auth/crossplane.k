@@ -31,6 +31,7 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
                                     icon = { $type = "string" }
                                     description = { $type = "string" }
                                     publisher = { $type = "string" }
+                                    clusterName = { $type = "string" }
                                     backendService = {
                                         $type = "object"
                                         properties = {
@@ -39,7 +40,7 @@ forwardauthDefinition = xpv1.CompositeResourceDefinition {
                                         }
                                     }
                                 }
-                                required = ["externalHost", "backendService"]
+                                required = ["externalHost", "backendService", "clusterName"]
                             }
                         }
                     }

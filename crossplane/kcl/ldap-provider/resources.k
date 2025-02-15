@@ -33,6 +33,7 @@ _providerIdLdap = ocds[_claimName + "-provider-ldap"]?.Resource?.status?.atProvi
 _providerIdOauth = ocds[_claimName + "-provider-oauth"]?.Resource?.status?.atProvider?.id
 _certId = ocds[_claimName + "-cert-pair"]?.Resource?.status?.atProvider?.id
 
+_baseDomain = oxr.spec.externalHost.split(".")[1]
 _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
 cert: object = {
@@ -210,7 +211,7 @@ outpost: authentik.Outpost = {
             config = json.encode({
                 "authentik_host": "http://authentik-server/"
                 "authentik_host_insecure": True
-                "authentik_host_browser": "https://authentik.${BASE_DOMAIN}/"
+                "authentik_host_browser": "https://authentik.${__baseDomain}/"
                 "log_level": "debug"
                 "object_naming_template": "ak-outpost-%(name)s"
                 "kubernetes_replicas": 1
@@ -229,6 +230,7 @@ ingress: object {
         apiVersion = "custom.fzx.dev/v1alpha1"
         kind = "HTTPSIngressClaim"
         spec = {
+            clusterName = oxr.spec.clusterName
             externalHost = oxr.spec.externalHost
             backendService = {
                 name = oxr.spec.backendService.name

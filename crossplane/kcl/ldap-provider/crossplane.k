@@ -32,6 +32,7 @@ oauthDefinition = xpv1.CompositeResourceDefinition {
                                     description = { $type = "string" }
                                     publisher = { $type = "string" }
                                     redirectURL = { $type = "string" }
+                                    clusterName = { $type = "string" }
                                     backendService = {
                                         $type = "object"
                                         properties = {
@@ -40,7 +41,7 @@ oauthDefinition = xpv1.CompositeResourceDefinition {
                                         }
                                     }
                                 }
-                                required = ["externalHost", "redirectURL"]
+                                required = ["externalHost", "redirectURL", "backendService", "clusterName"]
                             }
                         }
                     }

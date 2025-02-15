@@ -5,6 +5,7 @@ metadata:
   name: httpsingressclaim-sample
 spec:
   externalHost: whoami.${BASE_DOMAIN}
+  clusterName: ${CLUSTER_NAME}
   backendService:
     name: whoami
     port: 9000
