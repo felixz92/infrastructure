@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./infrastructure/robusta/${ENVIRONMENT}/${ACTUAL_CLUSTER}
+  path: ./infrastructure/robusta/${ENVIRONMENT}/${CLUSTER_NAME}
   prune: true
   dependsOn:
     - name: crds
@@ -19,4 +19,3 @@ spec:
     substitute:
       ENVIRONMENT: ${ENVIRONMENT}
       CLUSTER_NAME: ${CLUSTER_NAME}
-      ACTUAL_CLUSTER: ${ACTUAL_CLUSTER}

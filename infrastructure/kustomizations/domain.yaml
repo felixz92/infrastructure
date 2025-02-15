@@ -19,7 +19,6 @@ spec:
     substitute:
       ENVIRONMENT: ${ENVIRONMENT}
       CLUSTER_NAME: ${CLUSTER_NAME}
-      ACTUAL_CLUSTER: ${ACTUAL_CLUSTER}
     substituteFrom:
       - kind: Secret
         name: base-domain

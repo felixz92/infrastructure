@@ -56,7 +56,7 @@ gateway: object = {
         apiVersion = "gateway.networking.k8s.io/v1"
         kind = "Gateway"
         spec.gatewayClassName = "traefik"
-        # "${_prefix}.${ACTUAL_CLUSTER}.${BASE_DOMAIN}"
+        # "${_prefix}.${CLUSTER_NAME}.${BASE_DOMAIN}"
         spec.listeners =[
            {
                 name = "websecure-0"
@@ -71,7 +71,7 @@ gateway: object = {
                 name = "websecure-1"
                 port = 8443
                 $protocol = "HTTPS"
-                hostname = _prefix+".${ACTUAL_CLUSTER}.${BASE_DOMAIN}"
+                hostname = _prefix+".${CLUSTER_NAME}.${BASE_DOMAIN}"
                 tls.certificateRefs = [{
                     name = oxr.metadata.name + "-ingress-cert"
                 }]
@@ -87,7 +87,7 @@ route: object = {
         apiVersion = "gateway.networking.k8s.io/v1"
         kind = "HTTPRoute"
         spec.parentRefs = [{name = oxr.metadata.name + "-gateway"}]
-        spec.hostnames = [oxr.spec.externalHost, _prefix+".${ACTUAL_CLUSTER}.${BASE_DOMAIN}"]
+        spec.hostnames = [oxr.spec.externalHost, _prefix+".${CLUSTER_NAME}.${BASE_DOMAIN}"]
         spec.rules = [{
             matches = [{
                 path = {"type" = "PathPrefix", value = "/"}
@@ -111,7 +111,7 @@ cname : dns.Record = {
         zoneIdRef.name = "root-domain"
         name = oxr.spec.externalHost
         $type = "CNAME"
-        content = "${ACTUAL_CLUSTER}.${BASE_DOMAIN}"
+        content = "${CLUSTER_NAME}.${BASE_DOMAIN}"
     }
 }
 

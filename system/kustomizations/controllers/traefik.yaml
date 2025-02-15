@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./system/controllers/traefik/${ENVIRONMENT}/${ACTUAL_CLUSTER}
+  path: ./system/controllers/traefik/${ENVIRONMENT}/${CLUSTER_NAME}
   targetNamespace: traefik
   prune: true
   dependsOn:
@@ -20,7 +20,6 @@ spec:
     substitute:
       ENVIRONMENT: ${ENVIRONMENT}
       CLUSTER_NAME: ${CLUSTER_NAME}
-      ACTUAL_CLUSTER: ${ACTUAL_CLUSTER}
     substituteFrom:
       - kind: Secret
         name: base-domain

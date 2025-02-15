@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./infrastructure/pgadmin/${ENVIRONMENT}/${ACTUAL_CLUSTER}
+  path: ./infrastructure/pgadmin/${ENVIRONMENT}/${CLUSTER_NAME}
   prune: true
   dependsOn:
     - name: crds
@@ -19,7 +19,6 @@ spec:
     substitute:
       ENVIRONMENT: ${ENVIRONMENT}
       CLUSTER_NAME: ${CLUSTER_NAME}
-      ACTUAL_CLUSTER: ${ACTUAL_CLUSTER}
     substituteFrom:
       - kind: Secret
         name: base-domain

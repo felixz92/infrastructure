@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./infrastructure/node-exporter/${ENVIRONMENT}/${ACTUAL_CLUSTER}
+  path: ./infrastructure/node-exporter/${ENVIRONMENT}/${CLUSTER_NAME}
   prune: true
   dependsOn:
     - name: crds
@@ -18,5 +18,4 @@ spec:
   postBuild:
     substitute:
       ENVIRONMENT: ${ENVIRONMENT}
-      ACTUAL_CLUSTER: ${ACTUAL_CLUSTER}
       CLUSTER_NAME: ${CLUSTER_NAME}
