@@ -28,6 +28,13 @@ tasks:
   apply-infra:
     cmds:
       - cd provision/{{ .ENVIRONMENT }}/{{ .CLUSTER_NAME }} && terraform apply
+
+  bootstrap:
+    cmds:
+      - kubectl apply -f clusters/{{ .ENVIRONMENT }}/{{ .CLUSTER_NAME }}/system.yaml
+      - flux reconcile kustomization crds --with-source
+      - flux reconcile kustomization crossplane --with-source
+      - flux reconcile kustomization flux-patch --with-source
   destroy-infra:
     cmds:
       - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.worker'
