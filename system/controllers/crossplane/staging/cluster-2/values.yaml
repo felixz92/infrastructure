@@ -1,0 +1,50 @@
+image:
+  repository: crossplane/crossplane
+  pullPolicy: IfNotPresent
+
+resourcesCrossplane:
+  limits:
+    cpu: null
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+securityContextCrossplane:
+  runAsUser: 65532
+  runAsGroup: 65532
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault
+
+resourcesRBACManager:
+  limits:
+    cpu: null
+    memory: 256Mi
+  requests:
+    cpu: 20m
+    memory: 256Mi
+
+securityContextRBACManager:
+  runAsUser: 65532
+  runAsGroup: 65532
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault
+
+metrics:
+  enabled: true
+podSecurityContextCrossplane:
+  runAsNonRoot: true
+
+# -- Add a custom `securityContext` to the RBAC Manager pod.
+podSecurityContextRBACManager:
+  runAsNonRoot: true

@@ -3,5 +3,11 @@ kind: Kustomization
 resources:
   - ../../base
 
+configMapGenerator:
+  - name: crossplane-values
+    behavior: replace
+    files:
+      - values.yaml=values.yaml
+
 patches:
   - path: release.yaml
