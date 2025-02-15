@@ -1,0 +1,8 @@
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: jacobcolvin-provider-authentik
+spec:
+  packagePullSecrets:
+    - name: xpkg-upbound-io
