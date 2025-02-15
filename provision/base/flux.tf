@@ -33,7 +33,7 @@ data "github_repository" "main" {
 }
 
 locals {
-  target_path = "clusters/${var.cluster_name}"
+  target_path = "clusters/${var.environment}/${var.cluster_name}"
 }
 
 resource "tls_private_key" "main" {
@@ -42,7 +42,7 @@ resource "tls_private_key" "main" {
 }
 
 resource "github_repository_deploy_key" "main" {
-  title      = "flux-${var.cluster_name}"
+  title      = "flux-${var.environment}-${var.cluster_name}"
   repository = data.github_repository.main.id
   key        = tls_private_key.main.public_key_openssh
   read_only  = false
