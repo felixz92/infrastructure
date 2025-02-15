@@ -3,8 +3,5 @@ kind: Kustomization
 namespace: crossplane-system
 resources:
   - authentik.yaml
-  - authentik-secret.yaml
-  - cloudflare-dns.yaml
-  - cloudflare-secret.yaml
+  - cloudflare.yaml
   - kubernetes.yaml
-  - terraform.yaml

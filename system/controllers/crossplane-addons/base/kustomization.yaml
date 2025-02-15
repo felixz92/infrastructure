@@ -4,6 +4,5 @@ namespace: crossplane-system
 resources:
   - ./authentik.yaml
   - ./kubernetes.yaml
-  - ./terraform.yaml
   - ./functions.yaml
   - cloudflare.yaml
