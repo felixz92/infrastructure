@@ -32,6 +32,18 @@ spec:
                 type: string
               redirectURL:
                 type: string
+              backendService:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  port:
+                    type: integer
+              headers:
+                type: object
+                properties:
+                  csp:
+                    type: string
             required:
             - externalHost
             - redirectURL
@@ -299,6 +311,36 @@ spec:
               }
           }
 
+          ingress: object {
+              _name = oxr.metadata.name + "-ingress"
+              _readiness = "AllTrue"
+              _manifest = {
+                  apiVersion = "custom.fzx.dev/v1alpha1"
+                  kind = "HTTPSIngressClaim"
+                  spec = {
+                      externalHost = oxr.spec.externalHost
+                      backendService = {
+                          name = oxr.spec.backendService.name
+                          port = oxr.spec.backendService.port
+                      }
+                      if oxr.spec.headers.csp:
+                          middleware = [
+                              {
+                                  "type" = "ResponseHeaderModifier"
+                                  responseHeaderModifier = {
+                                      add = [
+                                          {
+                                              name = "Content-Security-Policy"
+                                              value = oxr.spec.headers.csp
+                                          }
+                                      ]
+                                  }
+                              }
+                          ]
+                  }
+              }
+          }
+
           items = [
               cert,
               certPair,
@@ -307,8 +349,9 @@ spec:
               ldap,
               permission,
               application,
-              oauth
-              outpost
+              oauth,
+              outpost,
+              ingress
           ]
         dependencies: crossplane_authentik = { oci = "oci://ghcr.io/felixz92/crossplane-provider-authentik/crossplane-authetik", tag = "0.5.0", version = "0.5.0" }
     step: provider

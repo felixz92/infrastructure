@@ -1,0 +1,18 @@
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: resources
+spec:
+  schedule: '@every 6h'
+  skipImmediately: false
+  template:
+    csiSnapshotTimeout: 0s
+    hooks: {}
+    includedNamespaces:
+      - '*'
+    itemOperationTimeout: 0s
+    labelSelector:
+      matchLabels:
+        velero.io/include: "true"
+    ttl: 720h0m0s
+  useOwnerReferencesInBackup: false
