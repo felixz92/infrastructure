@@ -11,8 +11,8 @@ metadata:
 spec:
   backup:
     barmanObjectStore:
-      destinationPath: "s3://fzx-staging-postgres/backup-authentik-v2"
+      destinationPath: "s3://fzx-staging-postgres/backup-authentik-v3"
   externalClusters:
     - name: clusterBackup
       barmanObjectStore:
-        destinationPath: "s3://fzx-staging-postgres/backup-authentik-v1"
+        destinationPath: "s3://fzx-staging-postgres/backup-authentik-v2"
