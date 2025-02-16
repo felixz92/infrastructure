@@ -37,7 +37,7 @@ tasks:
       - flux reconcile kustomization flux-patch --with-source
   destroy-infra:
     cmds:
-      - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.worker'
-      - cd provision && terraform state rm 'module.kubernetes.talos_machine_configuration_apply.control_plane'
-      - cd provision && terraform state rm 'module.kubernetes.talos_machine_secrets.this'
-      - cd provision && terraform destroy
+#      - cd provision/{{ .ENVIRONMENT }}/{{ .CLUSTER_NAME }} && terraform state rm module.kubernetes.talos_machine_configuration_apply.worker
+#      - cd provision/{{ .ENVIRONMENT }}/{{ .CLUSTER_NAME }} && terraform state rm module.cluster.module.kubernetes.talos_machine_configuration_apply.control_plane
+#      - cd provision/{{ .ENVIRONMENT }}/{{ .CLUSTER_NAME }} && terraform state rm 'module.kubernetes.talos_machine_secrets.this'
+      - cd provision/{{ .ENVIRONMENT }}/{{ .CLUSTER_NAME }} && terraform destroy

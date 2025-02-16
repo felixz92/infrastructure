@@ -7,3 +7,4 @@ resources:
 - ca.yaml
 - flux-patch.yaml
 - controllers
+- registry.yaml

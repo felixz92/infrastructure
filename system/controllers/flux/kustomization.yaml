@@ -3,5 +3,6 @@ resources:
   - lets-encrypt-email.yaml
   - dashboard.yaml
   - base-domain.yaml
+  - registry-secret.yaml
 
 namespace: flux-system

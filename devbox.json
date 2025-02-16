@@ -20,7 +20,8 @@
     "kcl@latest",
     "kcl-cli@latest",
     "oras@latest",
-    "velero@latest"
+    "velero@latest",
+    "dive@latest"
   ],
   "shell": {
     "init_hook": [
