@@ -8,6 +8,7 @@ spec:
   interval: 10m0s
   path: ./system/registry/${ENVIRONMENT}/${CLUSTER_NAME}
   prune: false
+  targetNamespace: registry
   sourceRef:
     kind: GitRepository
     name: flux-system
