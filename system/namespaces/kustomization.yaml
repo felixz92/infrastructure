@@ -11,6 +11,7 @@ resources:
 - monitoring.yaml
 - observability.yaml
 - ocis.yaml
+- registry.yaml
 - robusta.yaml
 - traefik.yaml
 - trivy-system.yaml
