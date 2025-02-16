@@ -1,0 +1,11 @@
+---
+kind: HTTPSIngressClaim
+apiVersion: custom.fzx.dev/v1alpha1
+metadata:
+  name: authentik
+spec:
+  externalHost: registry.${BASE_DOMAIN}
+  clusterName: ${CLUSTER_NAME}
+  backendService:
+    name: zot
+    port: 5000

@@ -7,6 +7,7 @@ resources:
 - service.yaml
 - serviceaccount.yaml
 - servicemonitor.yaml
+- ingress.yaml
 
 configMapGenerator:
   - name: zot-config
