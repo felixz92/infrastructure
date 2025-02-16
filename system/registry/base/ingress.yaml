@@ -2,7 +2,7 @@
 kind: HTTPSIngressClaim
 apiVersion: custom.fzx.dev/v1alpha1
 metadata:
-  name: authentik
+  name: registry
 spec:
   externalHost: registry.${BASE_DOMAIN}
   clusterName: ${CLUSTER_NAME}
