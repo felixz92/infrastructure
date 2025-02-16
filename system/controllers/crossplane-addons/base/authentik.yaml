@@ -28,7 +28,7 @@ spec:
   package: felixz92/provider-authentik:v0.5.0
   packagePullPolicy: IfNotPresent
   packagePullSecrets:
-    - name: xpkg-upbound-io
+    - name: xpkg
   revisionActivationPolicy: Automatic
   revisionHistoryLimit: 1
   runtimeConfigRef:
