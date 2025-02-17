@@ -5,3 +5,4 @@ resources:
   - ../../base
 patches:
   - path: authentik.yaml
+  - path: functions.yaml
