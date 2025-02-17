@@ -15,7 +15,9 @@
   "http": {
     "address": "0.0.0.0",
     "port": "5000",
-    "compat": ["docker2s2"],
+    "compat": [
+      "docker2s2"
+    ],
     "realm": "zot",
     "auth": {
       "failDelay": 5,
@@ -26,24 +28,45 @@
     "accessControl": {
       "groups": {
         "pull": {
-          "users": ["read-only"]
+          "users": [
+            "read-only"
+          ]
         },
         "push": {
-          "users": ["push-user"]
+          "users": [
+            "push-user"
+          ]
         }
       },
       "repositories": {
         "**": {
-          "policies": [{
-            "groups": ["push"],
-            "actions": ["read", "create", "update"]
-          }],
-          "defaultPolicy": ["read"]
+          "policies": [
+            {
+              "groups": [
+                "push"
+              ],
+              "actions": [
+                "read",
+                "create",
+                "update"
+              ]
+            }
+          ],
+          "defaultPolicy": [
+            "read"
+          ]
         }
       },
       "adminPolicy": {
-        "users": ["admin"],
-        "actions": ["read", "create", "update", "delete"]
+        "users": [
+          "admin"
+        ],
+        "actions": [
+          "read",
+          "create",
+          "update",
+          "delete"
+        ]
       }
     },
     "ratelimit": {
@@ -74,7 +97,9 @@
       "enable": true,
       "registries": [
         {
-          "urls": ["https://k8s.gcr.io"],
+          "urls": [
+            "https://k8s.gcr.io"
+          ],
           "content": [
             {
               "prefix": "**",
@@ -85,7 +110,9 @@
           "tlsVerify": true
         },
         {
-          "urls": ["https://docker.io/library"],
+          "urls": [
+            "https://docker.io/library"
+          ],
           "content": [
             {
               "prefix": "**",
@@ -97,6 +124,5 @@
         }
       ]
     }
-  }
   }
 }
