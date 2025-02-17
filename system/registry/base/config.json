@@ -122,6 +122,19 @@
           ],
           "onDemand": true,
           "tlsVerify": true
+        },
+        {
+          "urls": [
+            "https://xpkg.upbound.io"
+          ],
+          "content": [
+            {
+              "prefix": "**",
+              "destination": "/xpkg-upbound"
+            }
+          ],
+          "onDemand": true,
+          "tlsVerify": true
         }
       ]
     }
