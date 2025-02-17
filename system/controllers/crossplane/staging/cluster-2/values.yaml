@@ -1,10 +1,10 @@
 image:
-  repository: xpkg.upbound.io/crossplane/crossplane
-  #repository: crossplane/crossplane
+  #repository: xpkg.upbound.io/crossplane/crossplane
+  repository: registry.staging-fzx-infra.dev/xpkg-upbound/crossplane/crossplane
   pullPolicy: IfNotPresent
 
-#imagePullSecrets:
-#  - xpkg-upbound-io
+imagePullSecrets:
+  - registry
 
 resourcesCrossplane:
   limits:
