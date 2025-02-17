@@ -69,6 +69,34 @@
     },
     "search": {
       "enable": true
+    },
+    "sync": {
+      "enable": true,
+      "registries": [
+        {
+          "urls": ["https://k8s.gcr.io"],
+          "content": [
+            {
+              "prefix": "**",
+              "destination": "/k8s-images"
+            }
+          ],
+          "onDemand": true,
+          "tlsVerify": true
+        },
+        {
+          "urls": ["https://docker.io/library"],
+          "content": [
+            {
+              "prefix": "**",
+              "destination": "/docker-images"
+            }
+          ],
+          "onDemand": true,
+          "tlsVerify": true
+        }
+      ]
     }
+  }
   }
 }
