@@ -95,6 +95,7 @@
     },
     "sync": {
       "enable": true,
+      "downloadDir": "/var/lib/registry/download",
       "registries": [
         {
           "urls": [
