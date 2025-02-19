@@ -49,6 +49,13 @@ module "kubernetes" {
         endpoints = [
           "https://registry.fzx-infra.dev/v2/xpkg-upbound"
         ]
+        overridePath= true
+      }
+      "docker.io" = {
+        endpoints = [
+          "https://registry.fzx-infra.dev/v2/docker-images"
+        ]
+        overridePath= true
       }
     }
     config = {
