@@ -1,0 +1,148 @@
+{
+  "storage": {
+    "rootDirectory": "/data/zot/",
+    "dedupe": true,
+    "remoteCache": false,
+    "storageDriver": {
+      "name": "s3",
+      "region": "default",
+      "bucket": "fzx-staging-registry",
+      "secure": true,
+      "skipverify": false,
+      "regionendpoint": "https://nbg1.your-objectstorage.com"
+    }
+  },
+  "http": {
+    "address": "0.0.0.0",
+    "port":"443",
+    "tls": {
+      "cert":"/etc/letsencrypt/live/registry.fzx-infra.dev/fullchain.pem",
+      "key":"/etc/letsencrypt/live/registry.fzx-infra.dev/privkey.pem"
+    },
+    "compat": [
+      "docker2s2"
+    ],
+    "realm": "zot",
+    "auth": {
+      "failDelay": 5,
+      "htpasswd": {
+        "path": "/etc/zot/htpasswd"
+      }
+    },
+    "accessControl": {
+      "groups": {
+        "pull": {
+          "users": [
+            "read-only"
+          ]
+        },
+        "push": {
+          "users": [
+            "push-user"
+          ]
+        }
+      },
+      "repositories": {
+        "**": {
+          "policies": [
+            {
+              "groups": [
+                "push"
+              ],
+              "actions": [
+                "read",
+                "create",
+                "update"
+              ]
+            }
+          ],
+          "defaultPolicy": [
+            "read"
+          ]
+        }
+      },
+      "adminPolicy": {
+        "users": [
+          "admin"
+        ],
+        "actions": [
+          "read",
+          "create",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "ratelimit": {
+      "rate": 10,
+      "methods": [
+        {
+          "method": "GET",
+          "rate": 5
+        }
+      ]
+    }
+  },
+  "log":{
+    "level":"info",
+    "output":"/var/log/zot/zot.log",
+    "audit":"/var/log/zot/zot-audit.log"
+  },
+  "extensions": {
+    "ui": {
+      "enable": true
+    },
+    "scrub": {
+      "enable": true,
+      "interval": "24h"
+    },
+    "search": {
+      "enable": true
+    },
+    "sync": {
+      "enable": true,
+      "downloadDir": "/data/zot/registry/download",
+      "registries": [
+        {
+          "urls": [
+            "https://k8s.gcr.io"
+          ],
+          "content": [
+            {
+              "prefix": "**",
+              "destination": "/k8s-images"
+            }
+          ],
+          "onDemand": true,
+          "tlsVerify": true
+        },
+        {
+          "urls": [
+            "https://docker.io/library"
+          ],
+          "content": [
+            {
+              "prefix": "**",
+              "destination": "/docker-images"
+            }
+          ],
+          "onDemand": true,
+          "tlsVerify": true
+        },
+        {
+          "urls": [
+            "https://xpkg.upbound.io"
+          ],
+          "content": [
+            {
+              "prefix": "**",
+              "destination": "/xpkg-upbound"
+            }
+          ],
+          "onDemand": true,
+          "tlsVerify": true
+        }
+      ]
+    }
+  }
+}
