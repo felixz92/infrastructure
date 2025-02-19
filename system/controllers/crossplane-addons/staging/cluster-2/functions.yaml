@@ -3,17 +3,14 @@ kind: Function
 metadata:
   name: crossplane-contrib-function-patch-and-transform
 spec:
-#  package: xpkg.upbound.io/crossplane-contrib/function-patch-and-transform:v0.8.0
-  package: registry.staging-fzx-infra.dev/xpkg-upbound/crossplane-contrib/function-patch-and-transform:v0.8.0
-  packagePullSecrets:
-    - name: registry
+  package: xpkg.upbound.io/crossplane-contrib/function-patch-and-transform:v0.8.0
 ---
 apiVersion: pkg.crossplane.io/v1
 kind: Function
 metadata:
   name: crossplane-contrib-function-auto-ready
 spec:
-  package: registry.staging-fzx-infra.dev/xpkg-upbound/crossplane-contrib/function-auto-ready:v0.4.0
+  package: xpkg.upbound.io/crossplane-contrib/function-auto-ready:v0.4.0
 ---
 apiVersion: pkg.crossplane.io/v1beta1
 kind: Function
