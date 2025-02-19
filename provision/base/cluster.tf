@@ -43,6 +43,23 @@ module "kubernetes" {
 
   talos_image_extensions = []
   //talos_registries = {} // TODO
+  talos_registries = {
+    mirrors = {
+      "xpkg.upbound.io" = {
+        endpoints = [
+          "https://registry.fzx-infra.dev/v2/xpkg-upbound"
+        ]
+      }
+    }
+    config = {
+      "registry.fzx-infra.dev" = {
+        auth = {
+          username = data.onepassword_item.zot_pull_user.username
+          password = data.onepassword_item.zot_pull_user.password
+        }
+      }
+    }
+  }
 
   //kube_api_hostname = "kube.${var.base_domain}"
 

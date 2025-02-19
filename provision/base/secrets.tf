@@ -25,3 +25,8 @@ data "onepassword_item" "op_connect_token" {
   vault = data.onepassword_vault.vault.uuid
   title = "op-connect-token"
 }
+
+data "onepassword_item" "zot_pull_user" {
+  vault = data.onepassword_vault.vault.uuid
+  title = "zot-pull-user"
+}
