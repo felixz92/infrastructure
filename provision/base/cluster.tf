@@ -42,18 +42,35 @@ module "kubernetes" {
   ]
 
   talos_image_extensions = []
-  //talos_registries = {} // TODO
   talos_registries = {
     mirrors = {
       "xpkg.upbound.io" = {
         endpoints = [
-          "https://registry.fzx-infra.dev/v2/xpkg-upbound"
+          "https://registry.fzx-infra.dev/v2/xpkg.upbound.io"
         ]
         overridePath= true
       }
       "docker.io" = {
         endpoints = [
-          "https://registry.fzx-infra.dev/v2/docker-images"
+          "https://registry.fzx-infra.dev/v2/docker.io"
+        ]
+        overridePath= true
+      }
+      "registry.k8s.io" = {
+        endpoints = [
+          "https://registry.fzx-infra.dev/v2/registry.k8s.io"
+        ]
+        overridePath= true
+      }
+      "ghcr.io" = {
+        endpoints = [
+          "https://registry.fzx-infra.dev/v2/ghcr.io"
+        ]
+        overridePath= true
+      }
+      "quay.io" = {
+        endpoints = [
+          "https://registry.fzx-infra.dev/v2/quay.io"
         ]
         overridePath= true
       }
