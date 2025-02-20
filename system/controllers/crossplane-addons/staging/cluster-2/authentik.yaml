@@ -1,0 +1,38 @@
+---
+apiVersion: pkg.crossplane.io/v1beta1
+kind: DeploymentRuntimeConfig
+metadata:
+  name: provider-authentik
+spec:
+  deploymentTemplate:
+    spec:
+      selector: {}
+      template:
+        spec:
+          containers:
+            - name: package-runtime
+              resources:
+                requests:
+                  cpu: 20m
+                  memory: 896Mi
+                limits:
+                  memory: 896Mi
+
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-authentik
+spec:
+  ignoreCrossplaneConstraints: false
+  package: registry.fzx-infra.dev/xpkg.upbound.io/felixz92/provider-authentik:v0.5.0
+  packagePullPolicy: IfNotPresent
+  packagePullSecrets:
+    - name: registry
+  revisionActivationPolicy: Automatic
+  revisionHistoryLimit: 1
+  runtimeConfigRef:
+    apiVersion: pkg.crossplane.io/v1beta1
+    kind: DeploymentRuntimeConfig
+    name: provider-authentik
+  skipDependencyResolution: false

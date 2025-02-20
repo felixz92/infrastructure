@@ -1,0 +1,18 @@
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-cloudflare
+spec:
+  package: registry.fzx-infra.dev/xpkg.upbound.io/felixz92/provider-cloudflare:v0.3.1
+  packagePullSecrets:
+    - name: registry
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-kubernetes
+spec:
+  package: registry.fzx-infra.dev/xpkg.upbound.io/upbound/provider-kubernetes:v0.16.2
+  packagePullSecrets:
+    - name: registry
