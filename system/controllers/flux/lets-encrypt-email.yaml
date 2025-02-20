@@ -4,6 +4,7 @@ metadata:
   name: lets-encrypt-email
   namespace: flux-system
 spec:
+  refreshInterval: 5m
   secretStoreRef:
     name: cluster-store
     kind: ClusterSecretStore

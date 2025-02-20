@@ -4,6 +4,7 @@ metadata:
   name: base-domain
   namespace: flux-system
 spec:
+  refreshInterval: 5m
   secretStoreRef:
     name: cluster-store
     kind: ClusterSecretStore
