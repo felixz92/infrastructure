@@ -8,3 +8,4 @@ patches:
   - path: functions.yaml
   - path: delete-provider.yaml
   - path: delete-providercfg.yaml
+  - path: provider.yaml
