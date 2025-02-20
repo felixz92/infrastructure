@@ -1,7 +1,6 @@
-
 ---
 $patch: delete
-apiVersion: pkg.crossplane.io/v1
-kind: Provider
+apiVersion: pkg.crossplane.io/v1beta1
+kind: DeploymentRuntimeConfig
 metadata:
   name: jacobcolvin-provider-authentik
