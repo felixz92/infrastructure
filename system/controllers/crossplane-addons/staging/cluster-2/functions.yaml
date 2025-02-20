@@ -3,25 +3,25 @@ kind: Function
 metadata:
   name: crossplane-contrib-function-patch-and-transform
 spec:
-  package: registry.fzx.dev/xpkg.upbound.io/crossplane-contrib/function-patch-and-transform:v0.8.0
+  package: registry.fzx-infra.dev/xpkg.upbound.io/crossplane-contrib/function-patch-and-transform:v0.8.0
 ---
 apiVersion: pkg.crossplane.io/v1
 kind: Function
 metadata:
   name: crossplane-contrib-function-auto-ready
 spec:
-  package: registry.fzx.dev/xpkg.upbound.io/crossplane-contrib/function-auto-ready:v0.4.0
+  package: registry.fzx-infra.dev/xpkg.upbound.io/crossplane-contrib/function-auto-ready:v0.4.0
 ---
 apiVersion: pkg.crossplane.io/v1beta1
 kind: Function
 metadata:
   name: crossplane-contrib-function-kcl
 spec:
-  package: registry.fzx.dev/xpkg.upbound.io/crossplane-contrib/function-kcl:v0.11.1
+  package: registry.fzx-infra.dev/xpkg.upbound.io/crossplane-contrib/function-kcl:v0.11.1
 ---
 apiVersion: pkg.crossplane.io/v1beta1
 kind: Function
 metadata:
   name: crossplane-contrib-function-extra-resources
 spec:
-  package: registry.fzx.dev/xpkg.upbound.io/crossplane-contrib/function-extra-resources:v0.0.3
+  package: registry.fzx-infra.dev/xpkg.upbound.io/crossplane-contrib/function-extra-resources:v0.0.3
