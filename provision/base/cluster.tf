@@ -99,6 +99,9 @@ module "kubernetes" {
   metrics_server_replicas = 1
 
   cert_manager_helm_values = yamldecode(file("${path.module}/values/cert-manager.yaml"))
+
+  longhorn_enabled = true
+  longhorn_helm_values = yamldecode(file("${path.module}/values/longhorn.yaml"))
 }
 
 data "http" "kube_api_health" {

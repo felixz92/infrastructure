@@ -22,7 +22,7 @@ tasks:
   destroy:
     cmds:
       - for ks in $(kubectl get kustomization --no-headers -o custom-columns=":metadata.name" -n flux-system); do flux suspend kustomization $ks ; done
-      - kubectl --namespace flux-system delete helmrelease traefik
+      - kubectl --namespace traefik delete helmrelease traefik
       - for: ["domain", "observability", "traefik" ]
         cmd: kubectl delete kustomization {{ .ITEM }} -n flux-system
   apply-infra:
