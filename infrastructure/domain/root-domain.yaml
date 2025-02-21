@@ -33,10 +33,10 @@ spec:
       apiVersion: dns.cloudflare.crossplane.io/v1alpha1
       kind: Record
       metadata:
-        name: cluster-domain-ip-v4-cluster-1
+        name: cluster-domain-ip-v4-${CLUSTER_NAME}
       spec:
         forProvider:
-          name: "cluster-1.${BASE_DOMAIN}"
+          name: "${CLUSTER_NAME}.${BASE_DOMAIN}"
           ttl: 3600
           type: A
           zoneIdRef:
@@ -63,10 +63,10 @@ spec:
       apiVersion: dns.cloudflare.crossplane.io/v1alpha1
       kind: Record
       metadata:
-        name: cluster-domain-ip-v6-cluster-1
+        name: cluster-domain-ip-v6-${CLUSTER_NAME}
       spec:
         forProvider:
-          name: "cluster-1.${BASE_DOMAIN}"
+          name: "${CLUSTER_NAME}.${BASE_DOMAIN}"
           ttl: 3600
           type: AAAA
           zoneIdRef:

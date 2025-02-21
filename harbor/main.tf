@@ -160,7 +160,7 @@ resource "hcloud_server" "registry" {
   name               = "registry"
   image              = "ubuntu-24.04"
   server_type        = "cax11"
-  location           = "hel1"
+  location           = "nbg1"
   ssh_keys           = [hcloud_ssh_key.registry_ssh_key.id]
   firewall_ids = [hcloud_firewall.registry.id]
   backups            = false
