@@ -18,7 +18,7 @@ spec:
   monitoring:
     enablePodMonitor: true
   storage:
-    size: 1Gi
+    size: 5Gi
   inheritedMetadata:
     labels:
       app.kubernetes.io/part-of: authentik
