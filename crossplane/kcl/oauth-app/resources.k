@@ -30,7 +30,7 @@ _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
 _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 _resourceName = _claimName + "-" + _namespace
 
-_providerId = ocds[_resourcename + "-provider"]?.Resource?.status?.atProvider?.id
+_providerId = ocds[_resourceName + "-provider"]?.Resource?.status?.atProvider?.id
 _appId = ocds[_resourceName + "-application"]?.Resource?.status?.atProvider?.uuid
 _groupId = option("params").ctx["apiextensions.crossplane.io/extra-resources"]?.adminGroup[0]?.status?.atProvider?.id
 _certId = ocds[_resourceName + "-cert-pair"]?.Resource?.status?.atProvider?.id
