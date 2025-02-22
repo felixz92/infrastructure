@@ -26,6 +26,7 @@ spec:
   backup:
     barmanObjectStore:
       endpointURL: https://nbg1.your-objectstorage.com
+      serverName: authentik-database
       wal:
         compression: gzip
       data:
