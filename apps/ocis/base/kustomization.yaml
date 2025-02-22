@@ -28,6 +28,7 @@ configMapGenerator:
       - OCIS_URL=https://ocis.${BASE_DOMAIN}
       - OCIS_LOG_LEVEL=debug
       - OCIS_EXCLUDE_RUN_SERVICES=idp,idm
+      - OCIS_BASE_DATA_PATH=/data/ocis
       # LDAP Configuration
       - OCIS_LDAP_URI=ldaps://ak-outpost-ocis.authentik.svc.cluster.local
       - OCIS_LDAP_CACERT=/ldap-certs/ca.crt
@@ -59,6 +60,9 @@ configMapGenerator:
       - OCIS_OIDC_ISSUER=https://authentik.${BASE_DOMAIN}/application/o/ocis-application/
       - OCIS_OIDC_CLIENT_ID=ocis
       - WEB_OPTION_LOGOUT_URL="https://authentik.${BASE_DOMAIN}/if/user/#/settings;%7B%22page%22%3A%22page-sessions%22%7D"
+      - WEB_ASSET_CORE_PATH=/var/lib/ocis/web/assets/core
+      - WEB_ASSET_APPS_PATH=/var/lib/ocis/web/assets/apps
+      - WEB_ASSET_THEMES_PATH=/var/lib/ocis/web/assets/themes
       # S3 Configuration
       - STORAGE_USERS_DRIVER=s3ng
       # keep system data on ocis storage since this are only small files atm
