@@ -10,6 +10,7 @@ resources:
   - ingress.yaml
   - database.yaml
   - traefik-app.yaml
+  - s3-creds.yaml
 
 configMapGenerator:
   - name: authentik-values
