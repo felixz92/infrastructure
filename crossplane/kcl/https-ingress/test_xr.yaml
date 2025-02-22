@@ -1,15 +1,18 @@
----
+apiVersion: custom.fzx.devo/v1alpha1
 kind: HTTPSIngressClaim
-apiVersion: custom.fzx.dev/v1alpha1
 metadata:
-  name: httpsingressclaim-sample
+  name: alertmanager
+  labels:
+    "crossplane.io/claim-name": "alertmanager"
+    "crossplane.io/claim-namespace": "observability"
 spec:
-  externalHost: whoami.${BASE_DOMAIN}
-  clusterName: ${CLUSTER_NAME}
+  externalHost: "grocy.example.com"
   backendService:
-    name: whoami
-    port: 9000
-#  middleware:
-#    - sadad: asdsd
-#      asdsd: dasd
-#      sadasd: asd
+    name: vmalertmanager-vmks-victoria-metrics-k8s-stack
+    port: 9093
+  middleware:
+    - extensionRef:
+        group: traefik.io
+        kind: Middleware
+        name: alertmanager-middleware
+      type: ExtensionRef

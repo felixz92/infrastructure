@@ -29,13 +29,15 @@ oxr = option("params").oxr
 ocds = option("params").ocds
 
 _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
+_namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
+_resourceName = _claimName + "-" + _namespace
+
 _providerIdLdap = ocds[_claimName + "-provider-ldap"]?.Resource?.status?.atProvider?.id
 _providerIdOauth = ocds[_claimName + "-provider-oauth"]?.Resource?.status?.atProvider?.id
 _certId = ocds[_claimName + "-cert-pair"]?.Resource?.status?.atProvider?.id
 
 _split = oxr.spec.externalHost.split(".")
 _baseDomain = "${_split[1]}.${_split[2]}"
-_namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
 cert: object = {
     _name = _claimName + "-ldap-cert"
@@ -225,7 +227,7 @@ outpost: authentik.Outpost = {
 }
 
 ingress: object {
-    _name = oxr.metadata.name + "-ingress"
+    _name = _resourceName + "-ingress"
     _readiness = "AllTrue"
     _manifest = {
         apiVersion = "custom.fzx.dev/v1alpha1"

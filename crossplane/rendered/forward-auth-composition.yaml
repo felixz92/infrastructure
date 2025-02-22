@@ -1,53 +1,4 @@
 apiVersion: apiextensions.crossplane.io/v1
-kind: CompositeResourceDefinition
-metadata:
-  name: forwardauths.applications.authentik.crossplane.io
-spec:
-  claimNames:
-    kind: ForwardAuthClaim
-    plural: forwardauthclaims
-  defaultCompositeDeletePolicy: Foreground
-  defaultCompositionUpdatePolicy: Automatic
-  group: applications.authentik.crossplane.io
-  names:
-    kind: ForwardAuth
-    plural: forwardauths
-  versions:
-  - name: v1alpha1
-    referenceable: true
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          spec:
-            type: object
-            properties:
-              externalHost:
-                type: string
-              icon:
-                type: string
-              description:
-                type: string
-              publisher:
-                type: string
-              clusterName:
-                type: string
-              launchUrl:
-                type: string
-              backendService:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  port:
-                    type: integer
-            required:
-            - externalHost
-            - backendService
-            - clusterName
-    served: true
----
-apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
   name: forward-auth-application
@@ -84,17 +35,38 @@ spec:
           import crossplane_authentik.v1alpha1 as authentik
           import json
 
+          schema object:
+              _name: str
+              _manifest: any
+              _readiness: str
+              apiVersion = "kubernetes.crossplane.io/v1alpha2"
+              kind = "Object"
+              metadata = {
+                  name = _name
+              }
+              spec = {
+                  deletionPolicy = "Delete"
+                  readiness.policy = _readiness
+                  forProvider.manifest = _manifest
+                  forProvider.manifest.metadata.name = _name
+                  forProvider.manifest.metadata.namespace = _namespace
+              }
+
           # Read the XR
           oxr = option("params").oxr
           ocds = option("params").ocds
 
           _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
+          _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
+
 
           _providerId = ocds[_claimName + "-proxy"]?.Resource?.status?.atProvider?.id
           _appId = ocds[_claimName + "-application"]?.Resource?.status?.atProvider?.uuid
           _groupId = option("params").ctx["apiextensions.crossplane.io/extra-resources"]?.adminGroup[0]?.status?.atProvider?.id
           _split = oxr.spec.externalHost.split(".")
           _baseDomain = "${_split[1]}.${_split[2]}"
+
+          _resourceName = _claimName + "-" + _namespace
 
           proxy: provider.Proxy = {
               metadata.name = _claimName + "-proxy"
@@ -103,7 +75,7 @@ spec:
               }
               spec = {
                   forProvider = {
-                      name = _claimName
+                      name = _resourceName
                       mode = "forward_single"
                       accessTokenValidity = "hours=24"
                       authorizationFlowRef = {
@@ -118,13 +90,13 @@ spec:
           }
 
           application: authentik.Application = {
-              metadata.name = _claimName + "-application"
+              metadata.name = _resourceName
               metadata.labels = {
                   "velero.io/include" = "true"
               }
               spec = {
                   forProvider = {
-                      name = _claimName
+                      name = _resourceName
                       if _providerId:
                           protocolProvider = int(_providerId)
                       metaIcon = oxr.spec.icon
@@ -136,13 +108,13 @@ spec:
           }
 
           outpost: authentik.Outpost = {
-              metadata.name = _claimName + "-outpost"
+              metadata.name = _resourceName
               metadata.labels = {
                   "velero.io/include" = "true"
               }
               spec = {
                   forProvider = {
-                      name = _claimName
+                      name = _resourceName
                       "type" = "proxy"
                       serviceConnectionRef.name = "local"
                       if _providerId:
@@ -163,7 +135,7 @@ spec:
           }
 
           binding: policy.Binding {
-              metadata.name = _claimName + "-binding"
+              metadata.name = _resourceName
               metadata.labels = {
                   "velero.io/include" = "true"
               }
@@ -175,27 +147,9 @@ spec:
               }
           }
 
-          schema object:
-              _name: str
-              _manifest: any
-              _readiness: str
-              apiVersion = "kubernetes.crossplane.io/v1alpha2"
-              kind = "Object"
-              metadata = {
-                  name = _name
-              }
-              spec = {
-                  deletionPolicy = "Delete"
-                  readiness.policy = _readiness
-                  forProvider.manifest = _manifest
-                  forProvider.manifest.metadata.name = _name
-                  forProvider.manifest.metadata.namespace = _namespace
-              }
-
-          _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
           middleware: object = {
-              _name = _claimName + "-middleware"
+              _name = _resourceName
               _readiness = "SuccessfulCreate"
               _manifest = {
                   apiVersion: "traefik.io/v1alpha1"
@@ -222,7 +176,7 @@ spec:
           }
 
           ingress: object {
-              _name = oxr.metadata.name + "-ingress"
+              _name = _resourceName
               _readiness = "AllTrue"
               _manifest = {
                   apiVersion = "custom.fzx.dev/v1alpha1"

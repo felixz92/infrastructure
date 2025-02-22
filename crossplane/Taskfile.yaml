@@ -1,0 +1,18 @@
+version: '3'
+tasks:
+  generate:
+    cmds:
+      - kcl run ./kcl/forward-auth/composition.k > ./rendered/forward-auth-composition.yaml
+      - kcl run ./kcl/forward-auth/definition.k > ./rendered/forward-auth-definition.yaml
+      - kcl run ./kcl/oauth-app/composition.k > ./rendered/oauth-app-composition.yaml
+      - kcl run ./kcl/oauth-app/definition.k > ./rendered/oauth-app-definition.yaml
+      - kcl run ./kcl/ldap-provider/composition.k > ./rendered/ldap-provider-composition.yaml
+      - kcl run ./kcl/ldap-provider/definition.k > ./rendered/ldap-provider-definition.yaml
+      - kcl run ./kcl/https-ingress/composition.k > ./rendered/https-ingress-composition.yaml
+      - kcl run ./kcl/https-ingress/definition.k > ./rendered/https-ingress-definition.yaml
+  test:
+    cmds:
+      - crossplane render kcl/forward-auth/test_xr.yaml rendered/forward-auth-composition.yaml ../system/controllers/crossplane-addons/base/functions.yaml --extra-resources kcl/forward-auth/extra-resources.yaml --observed-resources kcl/forward-auth/observed.yaml
+      - crossplane render kcl/https-ingress/test_xr.yaml rendered/https-ingress-composition.yaml ../system/controllers/crossplane-addons/base/functions.yaml
+      - crossplane render kcl/ldap-provider/test_xr.yaml rendered/ldap-provider-composition.yaml ../system/controllers/crossplane-addons/base/functions.yaml
+      - crossplane render kcl/oauth-app/test_xr.yaml rendered/oauth-app-composition.yaml ../system/controllers/crossplane-addons/base/functions.yaml --extra-resources kcl/oauth-app/extra-resources.yaml

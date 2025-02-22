@@ -1,62 +1,4 @@
 apiVersion: apiextensions.crossplane.io/v1
-kind: CompositeResourceDefinition
-metadata:
-  name: oauths.applications.authentik.crossplane.io
-spec:
-  claimNames:
-    kind: OAuthClaim
-    plural: oauthclaims
-  defaultCompositeDeletePolicy: Foreground
-  defaultCompositionUpdatePolicy: Automatic
-  group: applications.authentik.crossplane.io
-  names:
-    kind: OAuth
-    plural: oauths
-  versions:
-  - name: v1alpha1
-    referenceable: true
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          spec:
-            type: object
-            properties:
-              externalHost:
-                type: string
-              icon:
-                type: string
-              description:
-                type: string
-              publisher:
-                type: string
-              redirectURL:
-                type: string
-              clusterName:
-                type: string
-              adminBinding:
-                type: boolean
-                default: false
-              headers:
-                type: object
-                properties:
-                  csp:
-                    type: string
-              backendService:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  port:
-                    type: integer
-            required:
-            - externalHost
-            - redirectURL
-            - backendService
-            - clusterName
-    served: true
----
-apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
   name: oauth-application
@@ -117,12 +59,14 @@ spec:
           ocds = option("params").ocds
 
           _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
+          _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
+          _resourceName = _claimName + "-" + _namespace
+
           _providerId = ocds[_claimName + "-provider"]?.Resource?.status?.atProvider?.id
           _appId = ocds[_claimName + "-application"]?.Resource?.status?.atProvider?.uuid
           _groupId = option("params").ctx["apiextensions.crossplane.io/extra-resources"]?.adminGroup[0]?.status?.atProvider?.id
           _certId = ocds[_claimName + "-cert-pair"]?.Resource?.status?.atProvider?.id
 
-          _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
           oauth: provider.OAuth2 = {
               metadata.name = _claimName + "-provider"
@@ -172,7 +116,7 @@ spec:
           }
 
           binding: policy.Binding {
-              metadata.name = oxr.metadata.name + "-binding"
+              metadata.name = _resourceName + "-binding"
               metadata.labels = {
                   "velero.io/include" = "true"
               }
@@ -223,7 +167,7 @@ spec:
           }
 
           ingress: object {
-              _name = oxr.metadata.name + "-ingress"
+              _name = _resourceName + "-ingress"
               _readiness = "AllTrue"
               _manifest = {
                   apiVersion = "custom.fzx.dev/v1alpha1"

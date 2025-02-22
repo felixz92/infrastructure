@@ -6,6 +6,8 @@ ocds = option("params").ocds
 _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
 _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
+_resourceName = _claimName + "-" + _namespace
+
 _split = oxr.spec.externalHost.split(".")
 _prefix = _split[0]
 _baseDomain = "${_split[1]}.${_split[2]}"
@@ -31,7 +33,7 @@ schema object:
     }
 
 cert: object = {
-    _name = oxr.metadata.name + "-ingress-cert"
+    _name = _resourceName + "-ingress-cert"
     _readiness = "AllTrue"
     _manifest = {
         apiVersion: "cert-manager.io/v1"
@@ -39,7 +41,7 @@ cert: object = {
         metadata.labels = {
             "velero.io/include" = "true"
         }
-        spec.secretName = oxr.metadata.name + "-ingress-cert"
+        spec.secretName = _resourceName + "-ingress-cert"
         spec.secretTemplate = {
             labels = {
                 "velero.io/include" = "true"
@@ -54,7 +56,7 @@ cert: object = {
 }
 
 gateway: object = {
-    _name = oxr.metadata.name + "-gateway"
+    _name = _resourceName + "-gateway"
     _readiness = "AllTrue"
     _manifest = {
         apiVersion = "gateway.networking.k8s.io/v1"
@@ -68,7 +70,7 @@ gateway: object = {
                 $protocol = "HTTPS"
                 hostname = oxr.spec.externalHost
                 tls.certificateRefs = [{
-                    name = oxr.metadata.name + "-ingress-cert"
+                    name = _resourceName + "-ingress-cert"
                 }]
            },
            {
@@ -77,7 +79,7 @@ gateway: object = {
                 $protocol = "HTTPS"
                 hostname = _prefix+".${_clusterName}.${_baseDomain}"
                 tls.certificateRefs = [{
-                    name = oxr.metadata.name + "-ingress-cert"
+                    name = _resourceName + "-ingress-cert"
                 }]
            }
         ]
@@ -85,12 +87,12 @@ gateway: object = {
 }
 
 route: object = {
-    _name = oxr.metadata.name + "-route"
+    _name = _resourceName + "-route"
     _readiness = "SuccessfulCreate"
     _manifest = {
         apiVersion = "gateway.networking.k8s.io/v1"
         kind = "HTTPRoute"
-        spec.parentRefs = [{name = oxr.metadata.name + "-gateway"}]
+        spec.parentRefs = [{name = _resourceName + "-gateway"}]
         spec.hostnames = [oxr.spec.externalHost, _prefix+".${_clusterName}.${_baseDomain}"]
         spec.rules = [{
             matches = [{
@@ -107,7 +109,7 @@ route: object = {
 }
 
 cname : dns.Record = {
-    metadata.name = oxr.metadata.name + "-dns"
+    metadata.name = _resourceName + "-dns"
     metadata.labels = {
         "velero.io/include" = "true"
     }
@@ -121,7 +123,7 @@ cname : dns.Record = {
 
 dnsEntries: [dns.Record] = map i,n in ["cluster-1", "cluster-2"] {
      dns.Record {
-        metadata.name = oxr.metadata.name + "-dns-" + n
+        metadata.name = _resourceName + "-dns-" + n
         metadata.labels = {
             "velero.io/include" = "true"
         }

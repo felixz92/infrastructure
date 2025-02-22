@@ -1,54 +1,4 @@
 apiVersion: apiextensions.crossplane.io/v1
-kind: CompositeResourceDefinition
-metadata:
-  name: ldapproviders.applications.authentik.crossplane.io
-spec:
-  claimNames:
-    kind: LDAPProviderClaim
-    plural: ldapproviderclaims
-  defaultCompositeDeletePolicy: Foreground
-  defaultCompositionUpdatePolicy: Automatic
-  group: applications.authentik.crossplane.io
-  names:
-    kind: LDAPProvider
-    plural: ldapproviders
-  versions:
-  - name: v1alpha1
-    referenceable: true
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          spec:
-            type: object
-            properties:
-              externalHost:
-                type: string
-              icon:
-                type: string
-              description:
-                type: string
-              publisher:
-                type: string
-              redirectURL:
-                type: string
-              clusterName:
-                type: string
-              backendService:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  port:
-                    type: integer
-            required:
-            - externalHost
-            - redirectURL
-            - backendService
-            - clusterName
-    served: true
----
-apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
   name: ldap-provider
@@ -96,13 +46,15 @@ spec:
           ocds = option("params").ocds
 
           _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
+          _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
+          _resourceName = _claimName + "-" + _namespace
+
           _providerIdLdap = ocds[_claimName + "-provider-ldap"]?.Resource?.status?.atProvider?.id
           _providerIdOauth = ocds[_claimName + "-provider-oauth"]?.Resource?.status?.atProvider?.id
           _certId = ocds[_claimName + "-cert-pair"]?.Resource?.status?.atProvider?.id
 
           _split = oxr.spec.externalHost.split(".")
           _baseDomain = "${_split[1]}.${_split[2]}"
-          _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
           cert: object = {
               _name = _claimName + "-ldap-cert"
@@ -292,7 +244,7 @@ spec:
           }
 
           ingress: object {
-              _name = oxr.metadata.name + "-ingress"
+              _name = _resourceName + "-ingress"
               _readiness = "AllTrue"
               _manifest = {
                   apiVersion = "custom.fzx.dev/v1alpha1"

@@ -1,10 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- forward-auth.yaml
-- https-ingress.yaml
-- ldap-provider.yaml
-- oauth-app.yaml
+- forward-auth-composition.yaml
+- forward-auth-definition.yaml
+- https-ingress-composition.yaml
+- https-ingress-definition.yaml
+- ldap-provider-composition.yaml
+- ldap-provider-definition.yaml
+- oauth-app-composition.yaml
+- oauth-app-definition.yaml
 
 labels:
   - pairs:

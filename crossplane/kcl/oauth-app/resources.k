@@ -28,12 +28,14 @@ oxr = option("params").oxr
 ocds = option("params").ocds
 
 _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
+_namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
+_resourceName = _claimName + "-" + _namespace
+
 _providerId = ocds[_claimName + "-provider"]?.Resource?.status?.atProvider?.id
 _appId = ocds[_claimName + "-application"]?.Resource?.status?.atProvider?.uuid
 _groupId = option("params").ctx["apiextensions.crossplane.io/extra-resources"]?.adminGroup[0]?.status?.atProvider?.id
 _certId = ocds[_claimName + "-cert-pair"]?.Resource?.status?.atProvider?.id
 
-_namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
 oauth: provider.OAuth2 = {
     metadata.name = _claimName + "-provider"
@@ -83,7 +85,7 @@ application: authentik.Application = {
 }
 
 binding: policy.Binding {
-    metadata.name = oxr.metadata.name + "-binding"
+    metadata.name = _resourceName + "-binding"
     metadata.labels = {
         "velero.io/include" = "true"
     }
@@ -134,7 +136,7 @@ certPair: authentik.CertificateKeyPair = {
 }
 
 ingress: object {
-    _name = oxr.metadata.name + "-ingress"
+    _name = _resourceName + "-ingress"
     _readiness = "AllTrue"
     _manifest = {
         apiVersion = "custom.fzx.dev/v1alpha1"
