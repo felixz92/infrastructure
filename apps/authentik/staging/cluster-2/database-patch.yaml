@@ -16,7 +16,6 @@ spec:
     - name: clusterBackup
       barmanObjectStore:
         destinationPath: "s3://fzx-staging-postgres/backup-authentik-v2"
-        serverName: authentik
         endpointURL: https://nbg1.your-objectstorage.com
         s3Credentials:
           accessKeyId:

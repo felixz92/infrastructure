@@ -46,7 +46,6 @@ spec:
   externalClusters:
     - name: clusterBackup
       barmanObjectStore:
-        serverName: authentik
         endpointURL: https://nbg1.your-objectstorage.com
         s3Credentials:
           accessKeyId:
