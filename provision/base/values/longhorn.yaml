@@ -2,10 +2,10 @@ defaultSettings:
   allowCollectingLonghornUsageMetrics: false
   kubernetesClusterAutoscalerEnabled: false
   upgradeChecker: false
-  defaultClassReplicaCount: 1
-  defaultDataLocality: best-effort
 networkPolicies:
   enabled: true
   type: k3s
 persistence:
   defaultClass: true
+  defaultClassReplicaCount: 1
+  defaultDataLocality: best-effort

@@ -11,10 +11,12 @@ resources:
 - monitoring.yaml
 - observability.yaml
 - ocis.yaml
+- pgadmin.yaml
 - registry.yaml
 - robusta.yaml
 - traefik.yaml
 - trivy-system.yaml
 - velero.yaml
 - weaveworks.yaml
+- whoami.yaml
 - victoria-metrics.yaml
