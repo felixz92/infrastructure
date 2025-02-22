@@ -9,3 +9,4 @@ resources:
 - external-secrets-operator
 - cloudnative-pg
 - keycloak
+- volumesnapshotter

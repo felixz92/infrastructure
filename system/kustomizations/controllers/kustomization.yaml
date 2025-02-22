@@ -8,6 +8,7 @@ resources:
 - crossplane.yaml
 - external-secrets.yaml
 - grafana-operator.yaml
+- snapshot-controller.yaml
 - traefik.yaml
 - velero.yaml
 - victoria-metrics-operator.yaml
