@@ -1,6 +1,16 @@
-apiVersion: longhorn.io/v1beta1
+apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
-  name: longhorn-backup
+  name: ocis
   namespace: longhorn-system
 spec:
+  concurrency: 1
+  cron: "*/10 * * * *"
+  groups:
+  - ocis
+  labels: {}
+  name: ocis
+  parameters:
+    full-backup-interval: "24"
+  retain: 100
+  task: backup
