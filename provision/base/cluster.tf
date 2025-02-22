@@ -102,6 +102,7 @@ module "kubernetes" {
 
   longhorn_enabled = true
   longhorn_helm_values = yamldecode(file("${path.module}/values/longhorn.yaml"))
+  longhorn_helm_version = "v1.8.0"
 }
 
 data "http" "kube_api_health" {

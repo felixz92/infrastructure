@@ -1,0 +1,6 @@
+apiVersion: longhorn.io/v1beta1
+kind: RecurringJob
+metadata:
+  name: longhorn-backup
+  namespace: longhorn-system
+spec:

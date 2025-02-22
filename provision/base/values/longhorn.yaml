@@ -2,6 +2,9 @@ defaultSettings:
   allowCollectingLonghornUsageMetrics: false
   kubernetesClusterAutoscalerEnabled: false
   upgradeChecker: false
+defaultBackupStore:
+  backupTarget: s3://fzx-staging-longhorn@nbg1/v1
+  backupTargetCredentialSecret: hetzner-object-store
 networkPolicies:
   enabled: true
   type: k3s

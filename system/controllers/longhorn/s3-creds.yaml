@@ -1,0 +1,25 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: hetzner-object-store
+  namespace: longhorn-system
+spec:
+  secretStoreRef:
+    name: cluster-store
+    kind: ClusterSecretStore
+  target:
+    name: hetzner-object-store
+    template:
+      data:
+        AWS_ACCESS_KEY_ID: '{{ .AWS_ACCESS_KEY_ID }}'
+        AWS_SECRET_ACCESS_KEY: '{{ .AWS_SECRET_ACCESS_KEY }}'
+        AWS_ENDPOINTS: "https://nbg1.your-objectstorage.com"
+  data:
+    - remoteRef:
+        key: hetzner-object-store-staging
+        property: access_key
+      secretKey: AWS_ACCESS_KEY_ID
+    - remoteRef:
+        key: hetzner-object-store-staging
+        property: secret_key
+      secretKey: AWS_SECRET_ACCESS_KEY
