@@ -1,7 +1,7 @@
 apiVersion: applications.authentik.crossplane.io/v1alpha1
-kind: ForwardAuthClaim
+kind: ForwardAuth
 metadata:
-  name: alertmanager-xr
+  name: alertmanager
   labels:
     "crossplane.io/claim-name": "alertmanager"
     "crossplane.io/claim-namespace": "observability"

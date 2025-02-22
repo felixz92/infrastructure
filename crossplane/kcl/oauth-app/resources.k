@@ -2,7 +2,6 @@ import crossplane_authentik.provider.v1alpha1 as provider
 import crossplane_authentik.policy.v1alpha1 as policy
 import crossplane_authentik.v1alpha1 as authentik
 
-
 schema object:
     _name: str
     _manifest: any
@@ -38,7 +37,7 @@ _certId = ocds[_claimName + "-cert-pair"]?.Resource?.status?.atProvider?.id
 
 
 oauth: provider.OAuth2 = {
-    metadata.name = _claimName + "-provider"
+    metadata.name = _resourceName + "-provider"
     metadata.labels = {
         "velero.io/include" = "true"
     }
@@ -67,7 +66,7 @@ oauth: provider.OAuth2 = {
 }
 
 application: authentik.Application = {
-    metadata.name = _claimName + "-application"
+    metadata.name = _resourceName + "-application"
     metadata.labels = {
         "velero.io/include" = "true"
     }
@@ -98,7 +97,7 @@ binding: policy.Binding {
 }
 
 signingKey: object = {
-    _name = _claimName + "-signing-cert"
+    _name = _resourceName + "-signing-cert"
     _readiness = "AllTrue"
     _manifest = {
         apiVersion: "cert-manager.io/v1"
@@ -118,7 +117,7 @@ signingKey: object = {
 }
 
 certPair: authentik.CertificateKeyPair = {
-    metadata.name = _claimName + "-cert-pair"
+    metadata.name = _resourceName + "-cert-pair"
     metadata.labels = {
         "velero.io/include" = "true"
     }

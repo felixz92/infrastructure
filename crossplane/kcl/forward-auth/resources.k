@@ -1,4 +1,3 @@
-import k8s.apimachinery.pkg.apis.meta.v1
 import crossplane_authentik.provider.v1alpha1 as provider
 import crossplane_authentik.policy.v1alpha1 as policy
 import crossplane_authentik.v1alpha1 as authentik
@@ -28,17 +27,16 @@ ocds = option("params").ocds
 _claimName = oxr?.metadata?.labels?["crossplane.io/claim-name"]
 _namespace = oxr?.metadata?.labels?["crossplane.io/claim-namespace"]
 
+_resourceName = _claimName + "-" + _namespace
 
-_providerId = ocds[_claimName + "-proxy"]?.Resource?.status?.atProvider?.id
-_appId = ocds[_claimName + "-application"]?.Resource?.status?.atProvider?.uuid
+_providerId = ocds[_resourceName + "-proxy"]?.Resource?.status?.atProvider?.id
+_appId = ocds[_resourceName + "-application"]?.Resource?.status?.atProvider?.uuid
 _groupId = option("params").ctx["apiextensions.crossplane.io/extra-resources"]?.adminGroup[0]?.status?.atProvider?.id
 _split = oxr.spec.externalHost.split(".")
 _baseDomain = "${_split[1]}.${_split[2]}"
 
-_resourceName = _claimName + "-" + _namespace
-
 proxy: provider.Proxy = {
-    metadata.name = _claimName + "-proxy"
+    metadata.name = _resourceName + "-proxy"
     metadata.labels = {
         "velero.io/include" = "true"
     }
@@ -59,7 +57,7 @@ proxy: provider.Proxy = {
 }
 
 application: authentik.Application = {
-    metadata.name = _resourceName
+    metadata.name = _resourceName + "-application"
     metadata.labels = {
         "velero.io/include" = "true"
     }
@@ -77,7 +75,7 @@ application: authentik.Application = {
 }
 
 outpost: authentik.Outpost = {
-    metadata.name = _resourceName
+    metadata.name = _resourceName + "-outpost"
     metadata.labels = {
         "velero.io/include" = "true"
     }
@@ -104,7 +102,7 @@ outpost: authentik.Outpost = {
 }
 
 binding: policy.Binding {
-    metadata.name = _resourceName
+    metadata.name = _resourceName + "-admin-binding"
     metadata.labels = {
         "velero.io/include" = "true"
     }
@@ -116,9 +114,8 @@ binding: policy.Binding {
     }
 }
 
-
 middleware: object = {
-    _name = _resourceName
+    _name = _resourceName + "-middleware"
     _readiness = "SuccessfulCreate"
     _manifest = {
         apiVersion: "traefik.io/v1alpha1"
@@ -145,7 +142,7 @@ middleware: object = {
 }
 
 ingress: object {
-    _name = _resourceName
+    _name = _resourceName + "-https"
     _readiness = "AllTrue"
     _manifest = {
         apiVersion = "custom.fzx.dev/v1alpha1"
@@ -161,7 +158,7 @@ ingress: object {
                 {
                     "type" = "ExtensionRef"
                     extensionRef = {
-                        name = _claimName + "-middleware"
+                        name = _resourceName + "-middleware"
                         group = "traefik.io"
                         kind = "Middleware"
                     }

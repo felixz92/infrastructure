@@ -1,8 +1,18 @@
+---
 apiVersion: provider.authentik.crossplane.io/v1alpha1
 kind: Proxy
 metadata:
-  name: alertmanager-proxy
+  name: alertmanager-observability-proxy
 spec:
 status:
   atProvider:
     id: 3
+---
+apiVersion: authentik.crossplane.io/v1alpha1
+kind: Application
+metadata:
+  name: alertmanager-observability-application
+spec:
+status:
+  atProvider:
+    uuid: 4efc6b91-0b44-41d8-8211-846a3fc1e4f7

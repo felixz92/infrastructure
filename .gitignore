@@ -14,3 +14,4 @@ target*/
 .ssh
 .DS_Store
 vendor/
+out/
