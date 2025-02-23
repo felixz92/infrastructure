@@ -9,6 +9,8 @@ spec:
     metadata:
       annotations:
         backup.velero.io/backup-volumes: ocis-data
+        velero.io/volume-backup: "true"
+        backup.velero.io/volumes: enable
     spec:
       securityContext:
         fsGroup: 1000
