@@ -80,7 +80,6 @@ runcmd:
   - cd /tmp/zot && sha256sum -c SHASUM && chmod +x zot-linux-arm64 && mv zot-linux-arm64 /usr/bin/zot
   - chown zot:zot /etc/zot/config.json
   - mkdir -p /data/zot && chown zot:zot /data/zot
-  - mkdir -p /data/zot && chown zot:zot /data/zot
   - mkdir -p /var/log/zot && chown zot:zot /var/log/zot && chmod 755 /var/log/zot
   - chown zot:zot /var/log/zot
   - snap install --classic certbot
