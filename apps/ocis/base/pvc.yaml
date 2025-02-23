@@ -6,7 +6,6 @@ metadata:
     recurring-job.longhorn.io/source: enabled
     recurring-job-group.longhorn.io/ocis: enabled
     recurring-job.longhorn.io/ocis: enabled
-    velero.io/volume-backup: "true"
 spec:
   accessModes:
     - ReadWriteOnce
