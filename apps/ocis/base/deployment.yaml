@@ -6,6 +6,9 @@ metadata:
 spec:
   replicas: 1
   template:
+    metadata:
+      annotations:
+        backup.velero.io/backup-volumes: ocis-data
     spec:
       securityContext:
         fsGroup: 1000
@@ -91,3 +94,4 @@ spec:
         - name: unzip
           configMap:
             name: unzip
+# kubectl -n YOUR_POD_NAMESPACE annotate pod/YOUR_POD_NAME backup.velero.io/backup-volumes=YOUR_VOLUME_NAME_1,YOUR_VOLUME_NAME_2,...
