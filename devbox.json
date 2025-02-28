@@ -8,7 +8,7 @@
     "go-task@3.40.1",
     "talosctl@1.8.3",
     "stern@latest",
-    "crossplane-cli@latest",
+    "crossplane-cli@1.19.0",
     "upbound@latest",
     "krew@latest",
     "popeye@latest",
