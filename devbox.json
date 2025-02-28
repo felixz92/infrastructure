@@ -12,7 +12,7 @@
     "upbound@latest",
     "krew@latest",
     "popeye@latest",
-    "clusterctl@latest",
+    "clusterctl@1.9.5",
     "awscli@latest",
     "s3cmd@latest",
     "k9s@latest",
