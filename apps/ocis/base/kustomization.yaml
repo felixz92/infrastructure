@@ -10,7 +10,7 @@ resources:
 images:
   - name: ocis
     newName: owncloud/ocis
-    newTag: 7.0.0
+    newTag: 7.1.0
 
 commonLabels:
   app.kubernetes.io/name: ocis
