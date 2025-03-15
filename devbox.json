@@ -13,7 +13,7 @@
     "krew@latest",
     "popeye@latest",
     "clusterctl@latest",
-    "awscli@latest",
+    "awscli@1.37.21",
     "s3cmd@latest",
     "k9s@latest",
     "minio-client@latest",
