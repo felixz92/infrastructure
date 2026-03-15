@@ -91,6 +91,23 @@ data "http" "current_ipv4" {
   }
 }
 
+data "http" "current_ipv6" {
+  url   = "https://ipv6.icanhazip.com"
+
+  retry {
+    attempts     = 10
+    min_delay_ms = 1000
+    max_delay_ms = 1000
+  }
+
+  lifecycle {
+    postcondition {
+      condition     = contains([200], self.status_code)
+      error_message = "HTTP status code invalid"
+    }
+  }
+}
+
 resource "hcloud_firewall" "registry" {
   name = "registry"
   rule {
@@ -98,7 +115,7 @@ resource "hcloud_firewall" "registry" {
     protocol  = "icmp"
     source_ips = [
       "${chomp(data.http.current_ipv4.response_body)}/32",
-      "::/0"
+      cidrsubnet("${chomp(data.http.current_ipv6.response_body)}/64", 0, 0),
     ]
   }
 
@@ -108,7 +125,7 @@ resource "hcloud_firewall" "registry" {
     port = "22"
     source_ips = [
       "${chomp(data.http.current_ipv4.response_body)}/32",
-      "::/0"
+      cidrsubnet("${chomp(data.http.current_ipv6.response_body)}/64", 0, 0),
     ]
   }
 

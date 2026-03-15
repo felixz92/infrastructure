@@ -1,8 +1,8 @@
-# provider "github" {
-#   owner = data.onepassword_item.github_token.username
-#   token = data.onepassword_item.github_token.username
-# }
-#
+provider "github" {
+  owner = data.onepassword_item.github_token.username
+  token = data.onepassword_item.github_token.password
+}
+
 provider "kubernetes" {
   host = module.kubernetes.kubeconfig_data.server
   client_certificate = module.kubernetes.kubeconfig_data.cert
