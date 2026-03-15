@@ -1,0 +1,27 @@
+version: '3'
+
+vars:
+  SECRET_NAME: terraform-state-zot-registry
+  OP_VAULT: Personal
+
+tasks:
+  apply:
+    desc: Run terraform apply and store state in 1Password
+    deps:
+      - load-tfstate
+    cmds:
+      - terraform apply
+      - task: store-tfstate
+  store-tfstate:
+    desc: Store terraform.tfstate and terraform.tfstate.backup in 1Password
+    cmds:
+      - op item edit '{{ .SECRET_NAME }}' --vault='{{ .OP_VAULT }}' 'tfstate[file]=./terraform.tfstate' 'tfstate_backup[file]=./terraform.tfstate.backup'
+  load-tfstate:
+    desc: Load terraform.tfstate and terraform.tfstate.backup from 1Password
+    cmds:
+      - op read --out-file ./terraform.tfstate 'op://{{ .OP_VAULT }}/{{ .SECRET_NAME }}/tfstate'
+      - op read --out-file ./terraform.tfstate.backup 'op://{{ .OP_VAULT }}/{{ .SECRET_NAME }}/tfstate_backup'
+  create-tfstate-item:
+    desc: Create the 1Password item for terraform state (run once)
+    cmds:
+      - op item create --category='Secure Note' --title='{{ .SECRET_NAME }}' --vault='{{ .OP_VAULT }}' 'tfstate[file]=./terraform.tfstate' 'tfstate_backup[file]=./terraform.tfstate.backup'
