@@ -54,6 +54,7 @@ locals {
     "push-user:${htpasswd_password.zot_push_user.bcrypt}"],
   )
 }
+
 provider "hcloud" {
     token = data.onepassword_item.hcloud_token.password
 }
@@ -71,7 +72,7 @@ variable "ssh_key" {
 variable "zot_version" {
     type = string
     description = "The version of Zot to deploy"
-    default = "v2.1.2"
+    default = "v2.1.15"
 }
 
 data "http" "current_ipv4" {

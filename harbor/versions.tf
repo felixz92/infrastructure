@@ -2,19 +2,19 @@ terraform {
   required_providers {
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = "1.49.1"
+      version = "1.60.1"
     }
     cloudinit = {
       source = "hashicorp/cloudinit"
-      version = "2.3.5"
+      version = "2.3.7"
     }
     onepassword = {
       source = "1Password/onepassword"
-      version = "2.1.2"
+      version = "3.3.0"
     }
     cloudflare = {
       source = "cloudflare/cloudflare"
-      version = "5.0.0"
+      version = "5.18.0"
     }
     htpasswd = {
       source = "loafoe/htpasswd"
