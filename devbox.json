@@ -18,7 +18,7 @@
     "k9s@latest",
     "minio-client@latest",
     "kcl@latest",
-    "kcl-cli@latest",
+    "kcl-cli@0.8.9",
     "oras@latest",
     "velero@latest",
     "dive@latest"
