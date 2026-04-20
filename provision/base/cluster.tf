@@ -1,6 +1,6 @@
 module "kubernetes" {
   source  = "hcloud-k8s/kubernetes/hcloud"
-  version = "0.14.1"
+  version = "0.18.0"
 
   talos_version = "v1.8.3"
   talos_ccm_version = "v1.8.1"
